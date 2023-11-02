@@ -3,6 +3,9 @@ import styled from "styled-components"
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 
 const Index = () => {
+    function handleScrollToTop() {
+        window.scrollTo(0, 0);
+    }
     return (
         <Container>
             <Carousel />
@@ -34,9 +37,16 @@ const Index = () => {
 
             {/* text */}
             <h1>
-                With over 34 years of experience, our dedicated account managers, advanced technology, and luxury vehicle fleets ensure you’ll have peace of mind for all your transportation and event needs.
+                With over <span>34 years</span> of experience, our <span>dedicated</span> account managers, <span>advanced</span> technology, and <span>luxury</span> vehicle fleets ensure you’ll have peace of mind for all your transportation and event <span>needs</span>.
             </h1>
             {/* text */}
+
+            <section className="btn-wrap">
+                <button onClick={handleScrollToTop}>
+                    Get a Free Quote
+                </button>
+            </section>
+
         </Container>
     )
 }
@@ -45,8 +55,8 @@ export default Index
 
 const Container = styled.section`
 display: flex;
-align-items: flex-start;
-justify-content: flex-start;
+align-items: center;
+justify-content: center;
 flex-direction: column;
 background-color: #000000;
 
@@ -81,6 +91,7 @@ background-color: #000000;
         padding: 10px;
         border-radius: 5px;
         margin: 0;
+        cursor: pointer;
     }
 }
 
@@ -105,10 +116,37 @@ background-color: #000000;
         }
     }
 }
+
+
 h1 {
     color: #ffffff;
-    /* max-width: 900px; */
+    max-width: 1000px;
     width: 100%;
-    text-align: center;
+    text-align: left;
+    font-size: 30px;
+    line-height: 40px;
+
+    span {
+        color: #099982;
+    }
+}
+
+.btn-wrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 1000px;
+    width: 100%;
+    margin: 80px 0;
+
+    button {
+        background-color: #18272A;
+        color: #099982;
+        border: 1px solid #099982;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 800;
+    }
 }
 `
