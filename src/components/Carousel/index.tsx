@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { CCarousel, CCarouselItem, CImage } from "@coreui/react"
 import '@coreui/coreui/dist/css/coreui.min.css'
+import banner0 from "assets/banners/banner0.webp";
+import banner1 from "assets/banners/banner1.webp";
+import banner2 from "assets/banners/banner2.webp";
+import banner3 from "assets/banners/banner3.webp";
 
 const Carousel = () => {
 
@@ -8,13 +12,16 @@ const Carousel = () => {
         <Container>
             <CCarousel className="slider" transition="crossfade" interval={4000} controls indicators>
                 <CCarouselItem>
-                    <CImage className='image' src="https://myfitment.com/wp-content/uploads/2022/02/Where-To-Sell-Auto-Parts.jpg" alt="slide 3" />
+                    <CImage className='image' src={banner0} alt="slide 3" />asdfasdf
                 </CCarouselItem>
                 <CCarouselItem>
-                    <CImage className='image' src="https://d2hucwwplm5rxi.cloudfront.net/wp-content/uploads/2021/08/06125648/Where-to-Buy-Car-Spare-Parts-in-Dubai-Cover-20210806.jpg" alt="slide 4" />
+                    <CImage className='image' src={banner1} alt="slide 4" />
                 </CCarouselItem>
                 <CCarouselItem>
-                    <CImage className='image' src="https://d2hucwwplm5rxi.cloudfront.net/wp-content/uploads/2023/01/20100238/How-to-Choose-Quality-Spare-Parts-for-Your-Car-_-Cover-1-20-1-23.jpg" alt="slide 5" />
+                    <CImage className='image' src={banner2} alt="slide 5" />
+                </CCarouselItem>
+                <CCarouselItem>
+                    <CImage className='image' src={banner3} alt="slide 5" />
                 </CCarouselItem>
             </CCarousel>
         </Container>
@@ -28,7 +35,7 @@ const Container = styled.section`
   .slider {
     height: 100%;
     max-height: 650px;
-    opacity: 0.5;
+    opacity: 0.8;
     overflow: hidden;
     @media screen and (max-width: 728px) {
       height: 100%;

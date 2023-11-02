@@ -97,7 +97,7 @@ background-color: #000000;
 
 .list {
     width: 100%;
-    margin: 140px 0;
+    margin: 120px 0;
     ul {
         display: flex;
         align-items: center;
@@ -109,7 +109,7 @@ background-color: #000000;
             text-decoration: none;
             border-right: 1px solid #a3a3a3;
             padding: 10px 30px 10px 0;
-            color: #a3a3a3;
+            color: #ffffff;
         }
         li:last-child {
             border: none;
