@@ -41,12 +41,18 @@ const Index = () => {
             </h1>
             {/* text */}
 
+            {/* free quote btn */}
             <section className="btn-wrap">
                 <button onClick={handleScrollToTop}>
                     Get a Free Quote
                 </button>
             </section>
+            {/* free quote btn */}
 
+
+            {/* safety container */}
+
+            {/* safety container */}
         </Container>
     )
 }
