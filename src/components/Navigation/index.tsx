@@ -21,8 +21,12 @@ const Container = styled.section`
     align-items: center;
     justify-content: space-around;
     background-color: #000000;
-    height: 85px;
-
+    height: 105px;
+    z-index: 9;
+    width: 100%;
+    @media screen and (max-width: 728px) {
+        display: none;
+    }
     ul {
         display: flex;
         align-items: center;
@@ -37,11 +41,11 @@ const Container = styled.section`
             cursor: pointer;
         }
         li:last-child {
-            background-color: #41727c;
+            background-color: #18272A;
+            color: #099982;
+            border: 1px solid #099982;
             padding: 10px;
             border-radius: 5px;
-            border: 1px solid #4fb6cb;
-            color: #00d5ff;
         }
     }
 `
