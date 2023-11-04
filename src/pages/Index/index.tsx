@@ -51,8 +51,53 @@ const Index = () => {
 
 
             {/* safety container */}
-
+            <section className="safety-bar">
+                <h4>Safety</h4>
+                <h1>We take your safety seriously</h1>
+                <p>Getting to your destination safely and sound is our number one priority</p>
+                <div className="inner-wrap">
+                    <AutoAwesomeOutlinedIcon sx={{ fontSize: 30, color: '#a3a3a3' }} />
+                    <p>Periodically cleaned</p>
+                </div>
+            </section>
             {/* safety container */}
+
+            {/* image map */}
+            <section className="image-map">
+                {new Array(3).fill('*').map((_, i) => (
+                    <div key={i} className="wrap">
+                        <img loading="lazy" src={require(`assets/pic-section0-${i}.webp`)} alt={`cgi-${i}`} />
+                        <p>{['Airport  Transfers', 'Wine Country  Tours', 'Ski Trips'][i]}</p>
+                    </div>
+                ))}
+            </section>
+            {/* image map */}
+
+            {/* strip map */}
+            <section className="strip-map">
+                <div className="inner-content">
+                    <h3>SCHS will get you to any occasion</h3>
+                    <ul>
+                        <li>Corporate Services</li>
+                        <li>Charters</li>
+                        <li>Events & Entertainment</li>
+                        <li>Custom solutions</li>
+                    </ul>
+                </div>
+            </section>
+            {/* strip map */}
+
+            {/* image map */}
+            <section className="image-map">
+                {new Array(3).fill('*').map((_, i) => (
+                    <div key={i} className="wrap">
+                        <img loading="lazy" src={require(`assets/pic-section1-${i}.webp`)} alt={`cgi-${i}`} />
+                        <p>{['Airport  Transfers', 'Wine Country  Tours', 'Ski Trips'][i]}</p>
+                    </div>
+                ))}
+            </section>
+            {/* image map */}
+
         </Container>
     )
 }
@@ -109,6 +154,7 @@ background-color: #000000;
         align-items: center;
         justify-content: center;
         gap: 40px;
+        flex-wrap: wrap;
 
         li {
             list-style-type: none;
@@ -153,6 +199,92 @@ h1 {
         border-radius: 5px;
         cursor: pointer;
         font-weight: 800;
+    }
+}
+
+.safety-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 60px 0;
+    h4 {
+        text-align: left;
+        width: 100%;
+    }
+    .inner-wrap {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+        gap: 15px;
+        p {
+            padding: 0;
+            margin: 0;
+        }
+    }
+}
+
+.image-map {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: 120px 0;
+    flex-wrap: wrap;
+
+    .wrap {
+        p {
+            text-align: center;
+            color: #e0e0e0;
+            font-size: 21px;
+            margin: 10px 0;
+        }
+        img {
+            opacity: 0.5;
+            max-width: 580px;
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+    }
+    
+}
+
+.strip-map {
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.1) 48%, rgba(0,0,0,0.1) 100%);
+    width: 100%;
+
+    .inner-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: 10px;
+        gap: 15px;
+        h3 {
+            color: #ffffff;
+            font-size: 22px;
+        }
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            li {
+                list-style-type: none;
+                color: #ffffff;
+                font-size: 12px;
+                cursor: pointer;
+            }
+            li:hover {
+                color: #767676
+            }
+        }
     }
 }
 `
