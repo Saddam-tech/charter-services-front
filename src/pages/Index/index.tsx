@@ -2,6 +2,11 @@ import Carousel from "components/Carousel"
 import styled from "styled-components"
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 
+import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineExtra';
+import BathroomIcon from '@mui/icons-material/Bathroom';
+import PowerIcon from '@mui/icons-material/Power';
+import WifiIcon from '@mui/icons-material/Wifi';
+
 const Index = () => {
     function handleScrollToTop() {
         window.scrollTo(0, 0);
@@ -97,6 +102,32 @@ const Index = () => {
                 ))}
             </section>
             {/* image map */}
+
+            <section className="amenities">
+                <div className="wrap0">
+                    <h3>Amenities</h3>
+                    <h1>Equipped with the best</h1>
+                    <p>Vehicles are fitted with the stat-of-the-art technology to turn your commute into a relaxed one or a productive one</p>
+                </div>
+                <div className="wrap1-box">
+                    <div className="icon-wrap">
+                        <AirlineSeatReclineExtraIcon />
+                        <p>Leather seats</p>
+                    </div>
+                    <div className="icon-wrap">
+                        <PowerIcon />
+                        <p>Power outlets</p>
+                    </div>
+                    <div className="icon-wrap">
+                        <WifiIcon />
+                        <p>High speed Wifi</p>
+                    </div>
+                    <div className="icon-wrap">
+                        <BathroomIcon />
+                        <p>Washroom</p>
+                    </div>
+                </div>
+            </section>
 
         </Container>
     )
@@ -286,5 +317,11 @@ h1 {
             }
         }
     }
+}
+
+.amenities {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 `
