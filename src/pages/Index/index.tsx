@@ -1,11 +1,22 @@
 import Carousel from "components/Carousel"
 import styled from "styled-components"
+import footerImg from "assets/footer.webp";
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 
 import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineExtra';
 import BathroomIcon from '@mui/icons-material/Bathroom';
 import PowerIcon from '@mui/icons-material/Power';
 import WifiIcon from '@mui/icons-material/Wifi';
+
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import PinterestIcon from '@mui/icons-material/Pinterest';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+
+const socialsConf = { fontSize: 20, color: "#ffffff" };
+const utilitiesConf = { fontSize: 70, color: "#bdbdbd" };
 
 const Index = () => {
     function handleScrollToTop() {
@@ -113,19 +124,19 @@ const Index = () => {
                 </div>
                 <div className="wrap1-box">
                     <div className="icon-wrap">
-                        <AirlineSeatReclineExtraIcon sx={{ fontSize: 70, color: "#bdbdbd" }} />
+                        <AirlineSeatReclineExtraIcon sx={utilitiesConf} />
                         <p>Leather seats</p>
                     </div>
                     <div className="icon-wrap">
-                        <PowerIcon sx={{ fontSize: 70, color: "#bdbdbd" }} />
+                        <PowerIcon sx={utilitiesConf} />
                         <p>Power outlets</p>
                     </div>
                     <div className="icon-wrap">
-                        <WifiIcon sx={{ fontSize: 70, color: "#bdbdbd" }} />
+                        <WifiIcon sx={utilitiesConf} />
                         <p>High speed Wifi</p>
                     </div>
                     <div className="icon-wrap">
-                        <BathroomIcon sx={{ fontSize: 70, color: "#bdbdbd" }} />
+                        <BathroomIcon sx={utilitiesConf} />
                         <p>Washroom</p>
                     </div>
                 </div>
@@ -138,12 +149,58 @@ const Index = () => {
                 <p>Luxury Motor Coaches, Shuttles, Vans and Sedans</p>
                 <div className="vehicle-images">
                     {new Array(6).fill("*").map((_, i) => (
-                        <img src={require(`assets/vehicle-${i}.webp`)} alt={`vehicle-${i}`} />
+                        <img key={i} src={require(`assets/vehicle-${i}.webp`)} alt={`vehicle-${i}`} />
                     ))}
                 </div>
                 <button>View Fleet</button>
             </section>
             {/* fleet */}
+
+            {/* footer */}
+            <section className="footer-section">
+                <div className="backdrop"></div>
+                <div className="heading-wrap">
+                    <div className="inner-heading-holder-wrap">
+                        <h1 className="logo-footer">Summit Charter Services</h1>
+                        <p className="sub-heading-footer">Intelligent Transportation</p>
+                    </div>
+                    <img src={require('assets/schs-mainlog-white.png')} alt="schs-mainlog-white" />
+                </div>
+                <section className="global-wrap">
+                    <div className="block">
+                        <ul>
+                            <li>Services</li>
+                            <li>Corporate Services</li>
+                            <li>Charters & Tours</li>
+                            <li>Events and Logistics</li>
+                            <li>School Transportation</li>
+                            <li>Custom Solutions</li>
+                        </ul>
+                    </div>
+                    <div className="block">
+                        <ul>
+                            <li>Vehicles</li>
+                            <li>Luxury Sedans</li>
+                            <li>Luxury SUVs</li>
+                            <li>Luxury Shuttles</li>
+                            <li>Luxury Motorcoaches</li>
+                        </ul>
+                    </div>
+                    <div className="block">
+                        <p>info@schs.com(777) 777-7777</p>
+                        <div className="social-media-list">
+                            <FacebookIcon sx={socialsConf} />
+                            <TwitterIcon sx={socialsConf} />
+                            <InstagramIcon sx={socialsConf} />
+                            <LinkedInIcon sx={socialsConf} />
+                            <PinterestIcon sx={socialsConf} />
+                            <YouTubeIcon sx={socialsConf} />
+                        </div>
+                        <p className="copyright">© {new Date().getFullYear()} SCHS Intelligent Transportation</p>
+                    </div>
+                </section>
+            </section>
+            {/* footer */}
         </Container>
     )
 }
@@ -399,7 +456,6 @@ h1 {
     h2 {
         color: #ececec;
         font-size: 28px;
-     
     }
     p {
         color: #a1a1a1;
@@ -425,6 +481,100 @@ h1 {
         margin: 40px 0;
         border-radius: 5px;
         cursor: pointer;
+    }
+}
+
+.footer-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    background-image: url(${footerImg});
+    background-size: cover;
+    background-position: center; 
+    padding: 150px;
+    position: relative;
+
+
+    .backdrop {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.8);
+        z-index: 1;
+    }
+
+    .heading-wrap {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 15px;
+        z-index: 2;
+        img {
+            width: 90px;
+            height: 90px;
+        }
+        .inner-heading-holder-wrap {
+            .logo-footer {
+                color: #077260;
+            }
+            .sub-heading-footer {
+                color: #044f43;
+            }
+        }
+        
+        
+    }
+
+    .global-wrap {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 150px;
+        z-index: 2;
+
+        .block {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-direction: column;
+
+            ul {
+                margin: 0;
+                padding: 0;
+                li:first-child {
+                    font-size: 18px;
+                    font-weight: 600;
+                }
+                li {
+                    list-style-type: none;
+                    text-decoration: none;
+                    color: #ffffff;
+                    font-weight: 300;
+                }
+            }
+            p {
+                color: #ffffff;
+                padding: 0;
+                margin: 0;
+            }
+            .social-media-list {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 15px;
+                width: 100%;
+                margin: 8px 0 15px 0;
+            }
+            .copyright {
+                color: #a3a3a3;
+                font-size: 12px;
+                font-weight: 300;
+            }
+        }
     }
 }
 `
