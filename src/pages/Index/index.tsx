@@ -103,32 +103,47 @@ const Index = () => {
             </section>
             {/* image map */}
 
+
+            {/* amenities */}
             <section className="amenities">
                 <div className="wrap0">
-                    <h3>Amenities</h3>
+                    <h3>AMENITIES</h3>
                     <h1>Equipped with the best</h1>
-                    <p>Vehicles are fitted with the stat-of-the-art technology to turn your commute into a relaxed one or a productive one</p>
+                    <p>Vehicles are fitted with the state-of-the-art technology to turn your commute into a relaxed one or a productive one</p>
                 </div>
                 <div className="wrap1-box">
                     <div className="icon-wrap">
-                        <AirlineSeatReclineExtraIcon />
+                        <AirlineSeatReclineExtraIcon sx={{ fontSize: 70, color: "#bdbdbd" }} />
                         <p>Leather seats</p>
                     </div>
                     <div className="icon-wrap">
-                        <PowerIcon />
+                        <PowerIcon sx={{ fontSize: 70, color: "#bdbdbd" }} />
                         <p>Power outlets</p>
                     </div>
                     <div className="icon-wrap">
-                        <WifiIcon />
+                        <WifiIcon sx={{ fontSize: 70, color: "#bdbdbd" }} />
                         <p>High speed Wifi</p>
                     </div>
                     <div className="icon-wrap">
-                        <BathroomIcon />
+                        <BathroomIcon sx={{ fontSize: 70, color: "#bdbdbd" }} />
                         <p>Washroom</p>
                     </div>
                 </div>
             </section>
+            {/* amenities */}
 
+            {/* fleet */}
+            <section className="fleet">
+                <h2>Our Fleet</h2>
+                <p>Luxury Motor Coaches, Shuttles, Vans and Sedans</p>
+                <div className="vehicle-images">
+                    {new Array(6).fill("*").map((_, i) => (
+                        <img src={require(`assets/vehicle-${i}.webp`)} alt={`vehicle-${i}`} />
+                    ))}
+                </div>
+                <button>View Fleet</button>
+            </section>
+            {/* fleet */}
         </Container>
     )
 }
@@ -321,7 +336,95 @@ h1 {
 
 .amenities {
     display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: #ffffff;
+    max-width: 780px;
+    width: 100%;
+
+    .wrap0 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        max-width: 450px;
+        width: 100%;
+        padding: 20px;
+        h1  {
+            color: #000000;
+        }
+        
+        h3 {
+            width: 100%;
+            font-size: 14px;
+            font-weight: 700;
+            color: #3FD5BA;
+        }
+    }
+
+
+    .wrap1-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 50px;
+        max-width: 350px;
+        width: 100%;
+        padding: 20px;
+        background-color: #131313;
+        .icon-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            p {
+                font-size: 12px;
+                color: #ffffff;
+            }
+        }
+    }
+}
+.fleet {
+    display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin: 100px 0;
+    max-width: 800px;
+    width: 100%;
+
+    h2 {
+        color: #ececec;
+        font-size: 28px;
+     
+    }
+    p {
+        color: #a1a1a1;
+        margin: 0 0 45px 0;
+    }
+
+    .vehicle-images {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        img {
+            width: 100px;
+            object-fit: cover;
+        }
+    }
+
+    button {
+        background-color: #18272A;
+        color: #099982;
+        border: 1px solid #099982;
+        padding: 10px;
+        margin: 40px 0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 }
 `
