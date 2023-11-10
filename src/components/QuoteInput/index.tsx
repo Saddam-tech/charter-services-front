@@ -11,11 +11,12 @@ const dropdown_data2 = new Array(10).fill("passenger").map((el, i) => (i + 1) + 
 
 const QuoteInput = () => {
     const [dropdownValue1, setDropdownValue1] = useState<string[]>();
+    const [activeIndex, setActiveIndex] = useState<number>(0);
     return (
         <Container>
             <div className="quote-type-select">
-                <p>Instant Quote</p>
-                <p>Custom Quote</p>
+                <p onClick={() => setActiveIndex(0)} className={activeIndex === 0 ? "active" : ""}>Instant Quote</p>
+                <p onClick={() => setActiveIndex(1)} className={activeIndex === 1 ? "active" : ""}>Custom Quote</p>
             </div>
             <section className="input-tab-wrapper">
                 <UnstyledSelectIntroduction options={dropdown_data1} />
@@ -40,8 +41,29 @@ export default QuoteInput
 
 const Container = styled.section`
 position: absolute;
-left: 500px;
-top: 0;
+right: 200px;
+top: 50px;
+
+.quote-type-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        padding: 20px;
+        margin: 0;
+        text-align: center;
+        background-color: #ffffff;
+        color: #000000;
+        width: 100%;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .active {
+        background-color: #007FFF;
+        color: #ffffff;
+    }
+}
 
 .input-tab-wrapper {
     display: flex;
