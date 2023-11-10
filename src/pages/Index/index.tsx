@@ -14,6 +14,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import QuoteInput from "components/QuoteInput";
 
 const socialsConf = { fontSize: 20, color: "#ffffff" };
 const utilitiesConf = { fontSize: 70, color: "#bdbdbd" };
@@ -25,6 +26,11 @@ const Index = () => {
     return (
         <Container>
             <Carousel />
+
+            {/* input fields */}
+            <QuoteInput />
+            {/* input fields */}
+
             {/* covid measures belt start */}
             <section className="belt">
                 <div className="outer-wrap">
@@ -213,6 +219,7 @@ align-items: center;
 justify-content: center;
 flex-direction: column;
 background-color: #000000;
+position: relative;
 
 .belt {
     display: flex;
