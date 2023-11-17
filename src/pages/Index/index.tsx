@@ -259,6 +259,9 @@ position: relative;
 .list {
     width: 100%;
     margin: 120px 0;
+    @media screen and (max-width: 728px) {
+        display: none;
+    }
     ul {
         display: flex;
         align-items: center;
@@ -287,6 +290,7 @@ h1 {
     text-align: left;
     font-size: 30px;
     line-height: 40px;
+    padding: 60px 15px;
 
     span {
         color: #099982;
@@ -299,7 +303,7 @@ h1 {
     justify-content: flex-start;
     max-width: 1000px;
     width: 100%;
-    margin: 80px 0;
+    padding: 20px 15px;
 
     button {
         background-color: #18272A;
@@ -318,9 +322,12 @@ h1 {
     justify-content: center;
     flex-direction: column;
     margin: 60px 0;
+    padding: 0 15px;
     h4 {
-        text-align: left;
         width: 100%;
+    }
+    h1 {
+        padding: 20px 0;
     }
     .inner-wrap {
         display: flex;
@@ -505,7 +512,9 @@ h1 {
     padding: 150px;
     position: relative;
 
-
+    @media screen and (max-width: 728px) {
+        padding: 80px;
+    }
     .backdrop {
         position: absolute;
         bottom: 0;
@@ -525,10 +534,14 @@ h1 {
         img {
             width: 90px;
             height: 90px;
+            @media screen and (max-width: 728px) {
+                display: none;
+            }
         }
         .inner-heading-holder-wrap {
             .logo-footer {
                 color: #077260;
+                padding: 0;
             }
             .sub-heading-footer {
                 color: #044f43;
@@ -541,10 +554,14 @@ h1 {
     .global-wrap {
         display: flex;
         align-items: flex-start;
-        justify-content: center;
+        justify-content: flex-start;
         flex-wrap: wrap;
         gap: 150px;
         z-index: 2;
+
+        @media screen and (max-width: 728px) {
+            gap: 25px;
+        }
 
         .block {
             display: flex;
