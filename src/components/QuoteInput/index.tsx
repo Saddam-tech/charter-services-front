@@ -44,7 +44,7 @@ position: absolute;
 right: 200px;
 top: 50px;
 opacity: 0.8;
-z-index: 4;
+z-index: 1;
 
 @media screen and (max-width: 728px) {
     position: relative;

@@ -54,13 +54,13 @@ const Container = styled.section`
     overflow: hidden;
     @media screen and (max-width: 728px) {
       height: 100%;
-      max-height: 800px;
+      max-height: 700px;
     }
     .inner-wrap {
       position: relative;
       .text-wrap {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         flex-direction: column;
         height: 100%;
@@ -68,12 +68,22 @@ const Container = styled.section`
         padding: 20px;
         width: 100%;
         position: absolute;
+        @media screen and (min-width: 728px) {
+          padding: 0 200px 100px;
+        }
         h1 {
+          color: #ffffff;
           font-size: 30px;
+          text-align: left;
         }
         p {
+          text-align: left;
           color: #ffffff;
           font-size: 20px;
+
+          @media screen and (min-width: 728px) {
+            max-width: 728px;
+          }
         }
       }
       .image {
@@ -82,7 +92,7 @@ const Container = styled.section`
         object-fit: cover;
   
         @media screen and (max-width: 728px) {
-          height: 800px;
+          height: 700px;
         }
       }
     }

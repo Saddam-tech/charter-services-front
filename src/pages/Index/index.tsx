@@ -58,7 +58,7 @@ const Index = () => {
             {/* list */}
 
             {/* text */}
-            <h1>
+            <h1 className="quote">
                 With over <span>34 years</span> of experience, our <span>dedicated</span> account managers, <span>advanced</span> technology, and <span>luxury</span> vehicle fleets ensure you’ll have peace of mind for all your transportation and event <span>needs</span>.
             </h1>
             {/* text */}
@@ -283,7 +283,7 @@ position: relative;
 }
 
 
-h1 {
+.quote {
     color: #ffffff;
     max-width: 1000px;
     width: 100%;
@@ -318,16 +318,16 @@ h1 {
 
 .safety-bar {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     flex-direction: column;
     margin: 60px 0;
     padding: 0 15px;
-    h4 {
-        width: 100%;
-    }
     h1 {
         padding: 20px 0;
+    }
+    h4 {
+        color: #ffffff;
     }
     .inner-wrap {
         display: flex;

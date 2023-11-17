@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { navigation } from "../../data/index";
-
+import SwipeableTemporaryDrawer from "components/SwipeableTemporaryDrawer";
 const Navigation = () => {
     return (
         <Container>
@@ -16,6 +16,7 @@ const Navigation = () => {
                     <li key={i}>{el}</li>
                 ))}
             </ul>
+            <SwipeableTemporaryDrawer />
         </Container>
     )
 }
@@ -30,7 +31,16 @@ const Container = styled.section`
     height: 105px;
     z-index: 9;
     width: 100%;
-
+    padding: 10px;
+    @media screen and (max-width: 728px) {
+        height: 70px;
+        justify-content: space-between;
+    }
+    .burger-icon {
+        @media screen and (min-width: 728px) {
+            display: none;
+        }
+    }
     .logo-wrap {
         display: flex;
         align-items: center;
@@ -47,28 +57,35 @@ const Container = styled.section`
                 font-weight: 800;
                 margin: 0;
                 color: #7AA64A;
+                @media screen and (max-width: 728px) {
+                    font-size: 12px;
+                }
             }
             p {
                 margin: 0;
                 color: #7aa64a9a;
+                @media screen and (max-width: 728px) {
+                    font-size: 9px;
+                }
             }
         }
 
         img {
-            width: 70px;
+            max-width: 60px;
+            width: auto;
+            @media screen and (max-width: 728px) {
+                max-width: 30px;
+            }
         }
-    }
-
-
-    @media screen and (max-width: 728px) {
-        display: none;
     }
     ul {
         display: flex;
         align-items: center;
         justify-content: space-around;
         gap: 35px;
-
+        @media screen and (max-width: 728px) {
+            display: none;
+        }
         li {
             list-style-type: none;
             text-decoration: none;
