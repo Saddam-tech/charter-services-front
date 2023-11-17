@@ -472,7 +472,9 @@ h1 {
     .vehicle-images {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
         width: 100%;
         img {
             width: 100px;
@@ -540,6 +542,7 @@ h1 {
         display: flex;
         align-items: flex-start;
         justify-content: center;
+        flex-wrap: wrap;
         gap: 150px;
         z-index: 2;
 

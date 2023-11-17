@@ -43,7 +43,18 @@ const Container = styled.section`
 position: absolute;
 right: 200px;
 top: 50px;
+opacity: 0.8;
+z-index: 4;
 
+@media screen and (max-width: 728px) {
+    position: relative;
+    left: 0;
+    top: 10px;
+}
+
+&:hover {
+    opacity: 1;
+}
 .quote-type-select {
     display: flex;
     align-items: center;
