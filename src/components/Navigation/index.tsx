@@ -1,10 +1,12 @@
 import styled from "styled-components"
 import { navigation } from "../../data/index";
 import SwipeableTemporaryDrawer from "components/SwipeableTemporaryDrawer";
+import { useNavigate } from 'react-router-dom';
 const Navigation = () => {
+    const navigate = useNavigate();
     return (
         <Container>
-            <div className="logo-wrap">
+            <div onClick={() => navigate("/")} className="logo-wrap">
                 <img src={require('assets/schs-mainlogo.png')} alt="" className="main-logo" />
                 <div className="inner-holder">
                     <h1 className="service-name">Summit Charter Services</h1>
@@ -46,6 +48,7 @@ const Container = styled.section`
         align-items: center;
         justify-content: center;
         gap: 15px;
+        cursor: pointer;
         .inner-holder {
             display: flex;
             align-items: flex-start;

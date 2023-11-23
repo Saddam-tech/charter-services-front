@@ -5,11 +5,13 @@ import DatenTimePicker from 'components/DatenTimePicker';
 import UnstyledSelectIntroduction from 'components/UnstyledSelectIntroduction';
 import Button from '@mui/material/Button';
 import { styled } from 'styled-components';
+import { useNavigate } from "react-router-dom";
 
 const dropdown_data1 = ['Point-to-Point transportation', 'Hourly Ride', 'Airport pick-up/drop-off'];
 const dropdown_data2 = new Array(10).fill("passenger").map((el, i) => (i + 1) + " " + el + (i > 0 ? "s" : ""));
 
 const QuoteInput = () => {
+    const navigate = useNavigate();
     const [dropdownValue1, setDropdownValue1] = useState<string[]>();
     const [activeIndex, setActiveIndex] = useState<number>(0);
     return (
@@ -31,7 +33,7 @@ const QuoteInput = () => {
                     <TextField fullWidth id="pickup_location" label="Pick-up location" variant="filled" />
                     <TextField sx={{ margin: '10px 0 0 0' }} fullWidth id="dropoff_location" label="Drop-off location" variant="filled" />
                 </Box>
-                <Button sx={{ width: '100%' }} variant="contained">Continue</Button>
+                <Button onClick={() => navigate('reservation')} sx={{ width: '100%' }} variant="contained">Continue</Button>
             </section>
         </Container>
     )
