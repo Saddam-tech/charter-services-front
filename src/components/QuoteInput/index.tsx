@@ -14,6 +14,26 @@ const QuoteInput = () => {
     const navigate = useNavigate();
     const [dropdownValue1, setDropdownValue1] = useState<string[]>();
     const [activeIndex, setActiveIndex] = useState<number>(0);
+    const [pickup, setPickup] = useState<string>('');
+    const [dropoff, setDropoff] = useState<string>('');
+    const [errorState, setErrorState] = useState({ pickup_location_error: false, dropoff_location_error: false });
+
+    function submitHandler() {
+        try {
+            if (pickup === "") {
+                setErrorState(prev => ({ ...prev, pickup_location_error: true }))
+            }
+            if (dropoff === "") {
+                setErrorState(prev => ({ ...prev, dropoff_location_error: true }))
+            }
+            if (pickup !== "" && dropoff !== "") {
+                setErrorState({ pickup_location_error: false, dropoff_location_error: false })
+                navigate('reservation')
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return (
         <Container>
             <div className="quote-type-select">
@@ -30,10 +50,27 @@ const QuoteInput = () => {
                     noValidate
                     autoComplete="off"
                 >
-                    <TextField fullWidth id="pickup_location" label="Pick-up location" variant="filled" />
-                    <TextField sx={{ margin: '10px 0 0 0' }} fullWidth id="dropoff_location" label="Drop-off location" variant="filled" />
+                    <TextField
+                        onChange={(e) => setPickup(e.target.value)}
+                        helperText={errorState.pickup_location_error && "This field is required!"}
+                        error={errorState.pickup_location_error}
+                        fullWidth
+                        id="pickup_location"
+                        label="Pick-up location"
+                        variant="filled"
+                    />
+                    <TextField
+                        onChange={(e) => setDropoff(e.target.value)}
+                        helperText={errorState.dropoff_location_error && "This field is required!"}
+                        error={errorState.dropoff_location_error}
+                        sx={{ margin: '10px 0 0 0' }}
+                        fullWidth
+                        id="dropoff_location"
+                        label="Drop-off location"
+                        variant="filled"
+                    />
                 </Box>
-                <Button onClick={() => navigate('reservation')} sx={{ width: '100%' }} variant="contained">Continue</Button>
+                <Button onClick={submitHandler} sx={{ width: '100%' }} variant="contained">Continue</Button>
             </section>
         </Container>
     )
