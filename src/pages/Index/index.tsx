@@ -15,20 +15,21 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import QuoteInput from "components/QuoteInput";
+import { useNavigate } from "react-router-dom";
 
 const socialsConf = { fontSize: 20, color: "#ffffff" };
 const utilitiesConf = { fontSize: 70, color: "#bdbdbd" };
 
 const Index = () => {
-    function handleScrollToTop() {
-        window.scrollTo(0, 0);
-    }
+    const navigate = useNavigate();
+
+
     return (
         <Container>
             <Carousel />
 
             {/* input fields */}
-            <QuoteInput />
+            {/* <QuoteInput /> */}
             {/* input fields */}
 
             {/* covid measures belt start */}
@@ -65,7 +66,7 @@ const Index = () => {
 
             {/* free quote btn */}
             <section className="btn-wrap">
-                <button onClick={handleScrollToTop}>
+                <button onClick={() => navigate('reservation')}>
                     Get a Free Quote
                 </button>
             </section>
@@ -168,7 +169,7 @@ const Index = () => {
                 <div className="heading-wrap">
                     <div className="inner-heading-holder-wrap">
                         <h1 className="logo-footer">Summit Charter Services</h1>
-                        <p className="sub-heading-footer">Intelligent Transportation</p>
+                        <p className="sub-heading-footer">Charter and Executive Black Car Services</p>
                     </div>
                     <img src={require('assets/schs-mainlog-white.png')} alt="schs-mainlog-white" />
                 </div>
@@ -193,7 +194,8 @@ const Index = () => {
                         </ul>
                     </div>
                     <div className="block">
-                        <p>info@schs.com(777) 777-7777</p>
+                        <a target="blank" href="mailto:global.summitchs@gmail.com">global.summitchs@gmail.com</a>
+                        <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
                         <div className="social-media-list">
                             <FacebookIcon sx={socialsConf} />
                             <TwitterIcon sx={socialsConf} />
@@ -202,7 +204,7 @@ const Index = () => {
                             <PinterestIcon sx={socialsConf} />
                             <YouTubeIcon sx={socialsConf} />
                         </div>
-                        <p className="copyright">© {new Date().getFullYear()} SCHS Intelligent Transportation</p>
+                        <p className="copyright">© {new Date().getFullYear()} Charter and Executive Black Car Services</p>
                     </div>
                 </section>
             </section>
@@ -587,6 +589,10 @@ position: relative;
                 color: #ffffff;
                 padding: 0;
                 margin: 0;
+
+            }
+            a {
+                color: #ffffff;
             }
             .social-media-list {
                 display: flex;

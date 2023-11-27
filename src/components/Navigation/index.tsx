@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { navigation } from "../../data/index";
 import SwipeableTemporaryDrawer from "components/SwipeableTemporaryDrawer";
 import { useNavigate } from 'react-router-dom';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 const Navigation = () => {
     const navigate = useNavigate();
     return (
@@ -10,13 +11,13 @@ const Navigation = () => {
                 <img src={require('assets/schs-mainlogo.png')} alt="" className="main-logo" />
                 <div className="inner-holder">
                     <h1 className="service-name">Summit Charter Services</h1>
-                    <p>Intelligent Transportation</p>
+                    <p>Charter and Executive Black Car Services</p>
                 </div>
             </div>
             <ul>
-                {navigation.map((el, i) => (
-                    <li key={i}>{el}</li>
-                ))}
+                {navigation.map((el, i) => {
+                    return i === 5 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon /> {el.route}</a> : <li onClick={() => navigate(el.route)} key={i}>{el.page}</li>
+                })}
             </ul>
             <SwipeableTemporaryDrawer />
         </Container>
@@ -96,12 +97,13 @@ const Container = styled.section`
             font-size:  17px;
             cursor: pointer;
         }
-        li:last-child {
+        a, li:last-child {
             background-color: #18272A;
             color: #099982;
             border: 1px solid #099982;
             padding: 10px;
             border-radius: 5px;
+            text-decoration: none;
         }
     }
 `

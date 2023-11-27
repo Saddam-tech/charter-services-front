@@ -11,10 +11,13 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
+import { navigation } from 'data';
+import { useNavigate } from "react-router-dom";
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 export default function SwipeableTemporaryDrawer() {
+    const navigate = useNavigate();
     const [state, setState] = React.useState({
         top: false,
         left: false,
@@ -45,26 +48,26 @@ export default function SwipeableTemporaryDrawer() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Services', 'Fleet', 'Blog', 'Careers'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+                {navigation.slice(0, 3).map((text, index) => (
+                    <ListItem onClick={() => navigate(text.route)} key={text.page} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
                                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={text.page} />
                         </ListItemButton>
                     </ListItem>
                 ))}
             </List>
             <Divider />
             <List>
-                {['Contact', 'Get a Quote'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+                {navigation.slice(3).map((text, index) => (
+                    <ListItem onClick={() => navigate(text.route)} key={text.page} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
                                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={text.page} />
                         </ListItemButton>
                     </ListItem>
                 ))}
