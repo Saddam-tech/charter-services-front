@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Carousel from "components/Carousel"
 import styled from "styled-components"
 import footerImg from "assets/footer.webp";
@@ -15,7 +17,6 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import QuoteInput from "components/QuoteInput";
-import { useNavigate } from "react-router-dom";
 
 const socialsConf = { fontSize: 20, color: "#ffffff" };
 const utilitiesConf = { fontSize: 70, color: "#bdbdbd" };
@@ -23,7 +24,9 @@ const utilitiesConf = { fontSize: 70, color: "#bdbdbd" };
 const Index = () => {
     const navigate = useNavigate();
 
-
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
     return (
         <Container>
             <Carousel />
