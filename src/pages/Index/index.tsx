@@ -153,9 +153,9 @@ const Index = () => {
             {/* fleet */}
             <section className="fleet">
                 <h2>Our Fleet</h2>
-                <p>Luxury Motor Coaches, Shuttles, Vans and Sedans</p>
+                <p>Executive Sedans, Executive SUVs, Mercedes Executive Sprinter, Mercedes Limo Style Sprinter, Executive Shuttles, Executive Motorcoaches</p>
                 <div className="vehicle-images">
-                    {new Array(6).fill("*").map((_, i) => (
+                    {new Array(5).fill("*").map((_, i) => (
                         <img key={i} src={require(`assets/vehicle-${i}.webp`)} alt={`vehicle-${i}`} />
                     ))}
                 </div>
@@ -187,10 +187,12 @@ const Index = () => {
                     <div className="block">
                         <ul>
                             <li>Vehicles</li>
-                            <li>Luxury Sedans</li>
-                            <li>Luxury SUVs</li>
-                            <li>Luxury Shuttles</li>
-                            <li>Luxury Motorcoaches</li>
+                            <li>Executive Sedans</li>
+                            <li>Executive SUVs</li>
+                            <li>Mercedes Executive Sprinter</li>
+                            <li>Mercedes Limo Style Sprinter</li>
+                            <li>Executive Shuttles</li>
+                            <li>Executive Motorcoaches</li>
                         </ul>
                     </div>
                     <div className="block">
@@ -474,8 +476,11 @@ position: relative;
         font-size: 28px;
     }
     p {
+        text-align: center;
         color: #a1a1a1;
         margin: 0 0 45px 0;
+        max-width: 300px;
+        width: 100%;
     }
 
     .vehicle-images {

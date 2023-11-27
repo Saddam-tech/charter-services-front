@@ -61,7 +61,7 @@ export default function SwipeableTemporaryDrawer() {
             </List>
             <Divider />
             <List>
-                {navigation.slice(3).map((text, index) => (
+                {navigation.filter((_, index) => index !== 5).slice(3).map((text, index) => (
                     <ListItem onClick={() => navigate(text.route)} key={text.page} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>

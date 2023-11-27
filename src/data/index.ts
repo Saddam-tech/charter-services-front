@@ -4,6 +4,6 @@ export const navigation = [
   { page: "Blog", route: "" },
   { page: "Careers", route: "" },
   { page: "Contact", route: "" },
-  { page: "", route: "+1(628) 224 7797" },
+  { page: "+1(628) 224 7797", route: "+1(628) 224 7797" },
   { page: "Get and Book Now!", route: "reservation" },
 ];
