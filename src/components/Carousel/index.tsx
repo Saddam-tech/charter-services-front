@@ -4,23 +4,29 @@ import '@coreui/coreui/dist/css/coreui.min.css'
 import banner0 from "assets/banners/banner0.webp";
 import banner1 from "assets/banners/banner1.webp";
 
+import { Fade } from "react-awesome-reveal";
+
 const Carousel = () => {
 
   return (
     <Container>
       <CCarousel className="slider" transition="crossfade" interval={4000} controls indicators>
         <CCarouselItem className="inner-wrap">
-          <div className="text-wrap">
-            <h1>Executive solutions</h1>
-            <p>Our commitment to safety combined with superior service, truly sets us apart from the competition. We invite you to try us out. Come and get away with us.</p>
-          </div>
+          <Fade duration={2000}>
+            <div className="text-wrap">
+              <h1>Executive solutions</h1>
+              <p>Our commitment to safety combined with superior service, truly sets us apart from the competition. We invite you to try us out. Come and get away with us.</p>
+            </div>
+          </Fade>
           <CImage className='image' src={banner0} alt="slide 3" />
         </CCarouselItem>
         <CCarouselItem className="inner-wrap">
-          <div className="text-wrap">
-            <h1>Luxury Bus Charters For Any Event</h1>
-            <p>If you need to move a few 100 or several 1,000s, with shuttles and vans for airport transfers, sightseeing tours, field trips, or other exclusive events, we'll help you create an unforgettable experience.</p>
-          </div>
+          <Fade delay={400} duration={2000}>
+            <div className="text-wrap">
+              <h1>Luxury Bus Charters For Any Event</h1>
+              <p>If you need to move a few 100 or several 1,000s, with shuttles and vans for airport transfers, sightseeing tours, field trips, or other exclusive events, we'll help you create an unforgettable experience.</p>
+            </div>
+          </Fade>
           <CImage className='image' src={banner1} alt="slide 4" />
         </CCarouselItem>
       </CCarousel>

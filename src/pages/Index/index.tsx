@@ -18,6 +18,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import QuoteInput from "components/QuoteInput";
+import { Fade } from "react-awesome-reveal";
 
 const socialsConf = { fontSize: 20, color: "#ffffff" };
 const utilitiesConf = { fontSize: 70, color: "#bdbdbd" };
@@ -51,83 +52,84 @@ const Index = () => {
             </section>
             {/* covid measures belt end */}
 
-            {/* charters brag */}
-            <section className="charters">
-                <img src={charters} alt="charters" />
-                <section className="strip-map">
-                    <div className="inner-content">
-                        <p>Our World-Class Executive Black Cars ready to give you an unforgettable experience in the San Francisco Bay Area and other states of the US</p>
+            <Fade cascade damping={0.1}>
+                {/* charters brag */}
+                <section className="charters">
+                    <img src={charters} alt="charters" />
+                    <section className="strip-map">
+                        <div className="inner-content">
+                            <p>Our World-Class Executive Black Cars ready to give you an unforgettable experience in the San Francisco Bay Area and other states of the US</p>
+                        </div>
+                    </section>
+                </section>
+                {/* charters brag */}
+
+                {/* list */}
+                <section className="list">
+                    <ul>
+                        <li>Corporate Solutions</li>
+                        <li>Charters & Tours</li>
+                        <li>Event Logistics</li>
+                        <li>Custom Solutions</li>
+                    </ul>
+                </section>
+                {/* list */}
+
+                {/* text */}
+                <h1 className="quote">
+                    Our drivers are <span>professional</span>, <span>courteous</span>, <span>DOT certified</span>, and <span>well-trained</span> for local and long distance charters. Our company is equipped with  <span>all state and federal required licensing</span> and <span>insurance</span>.
+                    Contact us today for more information or to obtain our competitive pricing for your special events.
+                </h1>
+                {/* text */}
+
+                {/* free quote btn */}
+                <section className="btn-wrap">
+                    <button onClick={() => navigate('reservation')}>
+                        Get a Free Quote
+                    </button>
+                </section>
+                {/* free quote btn */}
+
+
+                {/* safety container */}
+                <section className="safety-bar">
+                    <h4>Safety</h4>
+                    <h1>We take your safety seriously</h1>
+                    <p>Getting to your destination safely and sound is our number one priority</p>
+                    <div className="inner-wrap">
+                        <AutoAwesomeOutlinedIcon sx={{ fontSize: 30, color: '#a3a3a3' }} />
+                        <p>Periodically cleaned</p>
                     </div>
                 </section>
-            </section>
-            {/* charters brag */}
+                {/* safety container */}
 
-            {/* list */}
-            <section className="list">
-                <ul>
-                    <li>Corporate Solutions</li>
-                    <li>Charters & Tours</li>
-                    <li>Event Logistics</li>
-                    <li>Custom Solutions</li>
-                </ul>
-            </section>
-            {/* list */}
+                {/* image map */}
+                <section className="image-map">
+                    {new Array(3).fill('*').map((_, i) => (
+                        <div key={i} className="wrap">
+                            <img loading="lazy" src={require(`assets/pic-section0-${i}.webp`)} alt={`cgi-${i}`} />
+                            <p>{['Airport  Transfers', 'Wine Country  Tours', 'Ski Trips'][i]}</p>
+                        </div>
+                    ))}
+                </section>
+                {/* image map */}
 
-            {/* text */}
-            <h1 className="quote">
-                Our drivers are <span>professional</span>, <span>courteous</span>, <span>DOT certified</span>, and <span>well-trained</span> for local and long distance charters. Our company is equipped with  <span>all state and federal required licensing</span> and <span>insurance</span>.
-                Contact us today for more information or to obtain our competitive pricing for your special events.
-            </h1>
-            {/* text */}
-
-            {/* free quote btn */}
-            <section className="btn-wrap">
-                <button onClick={() => navigate('reservation')}>
-                    Get a Free Quote
-                </button>
-            </section>
-            {/* free quote btn */}
-
-
-            {/* safety container */}
-            <section className="safety-bar">
-                <h4>Safety</h4>
-                <h1>We take your safety seriously</h1>
-                <p>Getting to your destination safely and sound is our number one priority</p>
-                <div className="inner-wrap">
-                    <AutoAwesomeOutlinedIcon sx={{ fontSize: 30, color: '#a3a3a3' }} />
-                    <p>Periodically cleaned</p>
-                </div>
-            </section>
-            {/* safety container */}
-
-            {/* image map */}
-            <section className="image-map">
-                {new Array(3).fill('*').map((_, i) => (
-                    <div key={i} className="wrap">
-                        <img loading="lazy" src={require(`assets/pic-section0-${i}.webp`)} alt={`cgi-${i}`} />
-                        <p>{['Airport  Transfers', 'Wine Country  Tours', 'Ski Trips'][i]}</p>
+                {/* strip map */}
+                <section className="strip-map">
+                    <div className="inner-content">
+                        <h3>SCHS will get you to any occasion</h3>
+                        <ul>
+                            <li>Corporate Services</li>
+                            <li>Charters</li>
+                            <li>Events & Entertainment</li>
+                            <li>Custom solutions</li>
+                        </ul>
                     </div>
-                ))}
-            </section>
-            {/* image map */}
+                </section>
+                {/* strip map */}
 
-            {/* strip map */}
-            <section className="strip-map">
-                <div className="inner-content">
-                    <h3>SCHS will get you to any occasion</h3>
-                    <ul>
-                        <li>Corporate Services</li>
-                        <li>Charters</li>
-                        <li>Events & Entertainment</li>
-                        <li>Custom solutions</li>
-                    </ul>
-                </div>
-            </section>
-            {/* strip map */}
-
-            {/* image map */}
-            {/* <section className="image-map">
+                {/* image map */}
+                {/* <section className="image-map">
                 {new Array(3).fill('*').map((_, i) => (
                     <div key={i} className="wrap">
                         <img loading="lazy" src={require(`assets/pic-section1-${i}.webp`)} alt={`cgi-${i}`} />
@@ -135,98 +137,99 @@ const Index = () => {
                     </div>
                 ))}
             </section> */}
-            {/* image map */}
+                {/* image map */}
 
 
-            {/* amenities */}
-            <section className="amenities">
-                <div className="wrap0">
-                    <h3>AMENITIES</h3>
-                    <h1>Equipped with the best</h1>
-                    <p>Vehicles are fitted with the state-of-the-art technology to turn your commute into a relaxed one or a productive one</p>
-                </div>
-                <div className="wrap1-box">
-                    <div className="icon-wrap">
-                        <AirlineSeatReclineExtraIcon sx={utilitiesConf} />
-                        <p>Leather seats</p>
+                {/* amenities */}
+                <section className="amenities">
+                    <div className="wrap0">
+                        <h3>AMENITIES</h3>
+                        <h1>Equipped with the best</h1>
+                        <p>Vehicles are fitted with the state-of-the-art technology to turn your commute into a relaxed one or a productive one</p>
                     </div>
-                    <div className="icon-wrap">
-                        <PowerIcon sx={utilitiesConf} />
-                        <p>Power outlets</p>
-                    </div>
-                    <div className="icon-wrap">
-                        <WifiIcon sx={utilitiesConf} />
-                        <p>High speed Wifi</p>
-                    </div>
-                    <div className="icon-wrap">
-                        <BathroomIcon sx={utilitiesConf} />
-                        <p>Washroom</p>
-                    </div>
-                </div>
-            </section>
-            {/* amenities */}
-
-            {/* fleet */}
-            <section className="fleet">
-                <h2>Our Fleet</h2>
-                <p>Executive Sedans, Executive SUVs, Mercedes Executive Sprinter, Mercedes Limo Style Sprinter, Executive Shuttles, Executive Motorcoaches</p>
-                <div className="vehicle-images">
-                    {new Array(5).fill("*").map((_, i) => (
-                        <img key={i} src={require(`assets/vehicle-${i}.webp`)} alt={`vehicle-${i}`} />
-                    ))}
-                </div>
-                <button>View Fleet</button>
-            </section>
-            {/* fleet */}
-
-            {/* footer */}
-            <section className="footer-section">
-                <div className="backdrop"></div>
-                <div className="heading-wrap">
-                    <div className="inner-heading-holder-wrap">
-                        <h1 className="logo-footer">Summit Charter Services</h1>
-                        <p className="sub-heading-footer">Charter and Executive Black Car Services</p>
-                    </div>
-                    <img src={require('assets/schs-mainlog-white.png')} alt="schs-mainlog-white" />
-                </div>
-                <section className="global-wrap">
-                    <div className="block">
-                        <ul>
-                            <li>Services</li>
-                            <li>Corporate Services</li>
-                            <li>Charters & Tours</li>
-                            <li>Events and Logistics</li>
-                            <li>School Transportation</li>
-                            <li>Custom Solutions</li>
-                        </ul>
-                    </div>
-                    <div className="block">
-                        <ul>
-                            <li>Vehicles</li>
-                            <li>Executive Sedans</li>
-                            <li>Executive SUVs</li>
-                            <li>Mercedes Executive Sprinter</li>
-                            <li>Mercedes Limo Style Sprinter</li>
-                            <li>Executive Shuttles</li>
-                            <li>Executive Motorcoaches</li>
-                        </ul>
-                    </div>
-                    <div className="block">
-                        <a target="blank" href="mailto:global.summitchs@gmail.com">global.summitchs@gmail.com</a>
-                        <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
-                        <div className="social-media-list">
-                            <FacebookIcon sx={socialsConf} />
-                            <TwitterIcon sx={socialsConf} />
-                            <InstagramIcon sx={socialsConf} />
-                            <LinkedInIcon sx={socialsConf} />
-                            <PinterestIcon sx={socialsConf} />
-                            <YouTubeIcon sx={socialsConf} />
+                    <div className="wrap1-box">
+                        <div className="icon-wrap">
+                            <AirlineSeatReclineExtraIcon sx={utilitiesConf} />
+                            <p>Leather seats</p>
                         </div>
-                        <p className="copyright">© {new Date().getFullYear()} Charter and Executive Black Car Services</p>
+                        <div className="icon-wrap">
+                            <PowerIcon sx={utilitiesConf} />
+                            <p>Power outlets</p>
+                        </div>
+                        <div className="icon-wrap">
+                            <WifiIcon sx={utilitiesConf} />
+                            <p>High speed Wifi</p>
+                        </div>
+                        <div className="icon-wrap">
+                            <BathroomIcon sx={utilitiesConf} />
+                            <p>Washroom</p>
+                        </div>
                     </div>
                 </section>
-            </section>
-            {/* footer */}
+                {/* amenities */}
+
+                {/* fleet */}
+                <section className="fleet">
+                    <h2>Our Fleet</h2>
+                    <p>Executive Sedans, Executive SUVs, Mercedes Executive Sprinter, Mercedes Limo Style Sprinter, Executive Shuttles, Executive Motorcoaches</p>
+                    <div className="vehicle-images">
+                        {new Array(5).fill("*").map((_, i) => (
+                            <img key={i} src={require(`assets/vehicle-${i}.webp`)} alt={`vehicle-${i}`} />
+                        ))}
+                    </div>
+                    <button>View Fleet</button>
+                </section>
+                {/* fleet */}
+
+                {/* footer */}
+                <section className="footer-section">
+                    <div className="backdrop"></div>
+                    <div className="heading-wrap">
+                        <div className="inner-heading-holder-wrap">
+                            <h1 className="logo-footer">Summit Charter Services</h1>
+                            <p className="sub-heading-footer">Charter and Executive Black Car Services</p>
+                        </div>
+                        <img src={require('assets/schs-mainlog-white.png')} alt="schs-mainlog-white" />
+                    </div>
+                    <section className="global-wrap">
+                        <div className="block">
+                            <ul>
+                                <li>Services</li>
+                                <li>Corporate Services</li>
+                                <li>Charters & Tours</li>
+                                <li>Events and Logistics</li>
+                                <li>School Transportation</li>
+                                <li>Custom Solutions</li>
+                            </ul>
+                        </div>
+                        <div className="block">
+                            <ul>
+                                <li>Vehicles</li>
+                                <li>Executive Sedans</li>
+                                <li>Executive SUVs</li>
+                                <li>Mercedes Executive Sprinter</li>
+                                <li>Mercedes Limo Style Sprinter</li>
+                                <li>Executive Shuttles</li>
+                                <li>Executive Motorcoaches</li>
+                            </ul>
+                        </div>
+                        <div className="block">
+                            <a target="blank" href="mailto:global.summitchs@gmail.com">global.summitchs@gmail.com</a>
+                            <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
+                            <div className="social-media-list">
+                                <FacebookIcon sx={socialsConf} />
+                                <TwitterIcon sx={socialsConf} />
+                                <InstagramIcon sx={socialsConf} />
+                                <LinkedInIcon sx={socialsConf} />
+                                <PinterestIcon sx={socialsConf} />
+                                <YouTubeIcon sx={socialsConf} />
+                            </div>
+                            <p className="copyright">© {new Date().getFullYear()} Charter and Executive Black Car Services</p>
+                        </div>
+                    </section>
+                </section>
+                {/* footer */}
+            </Fade>
         </Container>
     )
 }
