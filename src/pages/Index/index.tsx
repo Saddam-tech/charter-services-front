@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Carousel from "components/Carousel"
 import styled from "styled-components"
+import charters from "assets/charters.webp"
 import footerImg from "assets/footer.webp";
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 
@@ -50,6 +51,17 @@ const Index = () => {
             </section>
             {/* covid measures belt end */}
 
+            {/* charters brag */}
+            <section className="charters">
+                <img src={charters} alt="charters" />
+                <section className="strip-map">
+                    <div className="inner-content">
+                        <p>Our World-Class Executive Black Cars ready to give you an unforgettable experience in the San Francisco Bay Area and other states of the US</p>
+                    </div>
+                </section>
+            </section>
+            {/* charters brag */}
+
             {/* list */}
             <section className="list">
                 <ul>
@@ -63,7 +75,8 @@ const Index = () => {
 
             {/* text */}
             <h1 className="quote">
-                With over <span>34 years</span> of experience, our <span>dedicated</span> account managers, <span>advanced</span> technology, and <span>luxury</span> vehicle fleets ensure you’ll have peace of mind for all your transportation and event <span>needs</span>.
+                Our drivers are <span>professional</span>, <span>courteous</span>, <span>DOT certified</span>, and <span>well-trained</span> for local and long distance charters. Our company is equipped with  <span>all state and federal required licensing</span> and <span>insurance</span>.
+                Contact us today for more information or to obtain our competitive pricing for your special events.
             </h1>
             {/* text */}
 
@@ -114,14 +127,14 @@ const Index = () => {
             {/* strip map */}
 
             {/* image map */}
-            <section className="image-map">
+            {/* <section className="image-map">
                 {new Array(3).fill('*').map((_, i) => (
                     <div key={i} className="wrap">
                         <img loading="lazy" src={require(`assets/pic-section1-${i}.webp`)} alt={`cgi-${i}`} />
                         <p>{['Airport  Transfers', 'Wine Country  Tours', 'Ski Trips'][i]}</p>
                     </div>
                 ))}
-            </section>
+            </section> */}
             {/* image map */}
 
 
@@ -263,6 +276,20 @@ position: relative;
     }
 }
 
+.charters {
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+}
+
 .list {
     width: 100%;
     margin: 120px 0;
@@ -294,7 +321,7 @@ position: relative;
     color: #ffffff;
     max-width: 1000px;
     width: 100%;
-    text-align: left;
+    text-align: center;
     font-size: 30px;
     line-height: 40px;
     padding: 60px 15px;
@@ -409,6 +436,13 @@ position: relative;
                 color: #767676
             }
         }
+        p {
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+            color: #b8b8b8;
+            font-size: 1.2em;
+        }
     }
 }
 
@@ -419,6 +453,7 @@ position: relative;
     background-color: #ffffff;
     max-width: 780px;
     width: 100%;
+    margin: 120px 0;
 
     .wrap0 {
         display: flex;

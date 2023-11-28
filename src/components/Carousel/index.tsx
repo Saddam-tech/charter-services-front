@@ -11,8 +11,8 @@ const Carousel = () => {
       <CCarousel className="slider" transition="crossfade" interval={4000} controls indicators>
         <CCarouselItem className="inner-wrap">
           <div className="text-wrap">
-            <h1>End-to-End corporate solutions</h1>
-            <p>With over 30 years of experience our dedicated account managers, advanced technology and luxury vehicle fleets ensure you'll have peace of mind for all your company's transportation needs.</p>
+            <h1>Executive solutions</h1>
+            <p>Our commitment to safety combined with superior service, truly sets us apart from the competition. We invite you to try us out. Come and get away with us.</p>
           </div>
           <CImage className='image' src={banner0} alt="slide 3" />
         </CCarouselItem>
