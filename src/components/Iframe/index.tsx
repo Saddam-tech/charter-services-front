@@ -13,7 +13,7 @@ const Iframe = () => {
     return (
         <Container loader={loading}>
             <h2>Online Reservation</h2>
-            <CircularProgress className="loader" color="success" />
+            <CircularProgress className="loader" color="inherit" />
             <iframe
                 className="frame"
                 title="Online Reservations"
@@ -55,6 +55,6 @@ height: 100vh;
 }
 
 h2 {
-    color: #7AA64A;
+    color: #c69536;
 }
 `;

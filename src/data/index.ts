@@ -1,6 +1,7 @@
 export const navigation = [
   { page: "Services", route: "" },
   { page: "Fleet", route: "" },
+  { page: "About Us", route: "" },
   { page: "Blog", route: "" },
   { page: "Careers", route: "" },
   { page: "Contact", route: "" },

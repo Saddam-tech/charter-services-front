@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "scp -i ~/Downloads/summitchs.pem -r build/. ubuntu@3.143.214.124:/var/www/html/summitchs"
+    "deploy": "scp -i ~/Downloads/summitchs-latest.pem -r build/. ubuntu@34.212.30.212:/var/www/html/summitchs"
   },
   "eslintConfig": {
     "extends": [

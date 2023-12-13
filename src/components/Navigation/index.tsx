@@ -11,12 +11,12 @@ const Navigation = () => {
                 <img src={require('assets/schs-mainlogo.png')} alt="" className="main-logo" />
                 <div className="inner-holder">
                     <h1 className="service-name">Summit Charter Services</h1>
-                    <p>Charter and Executive Black Car Services</p>
+                    <p>Charter Bus and Executive Black Car Services</p>
                 </div>
             </div>
             <ul>
                 {navigation.map((el, i) => {
-                    return i === 5 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon /> {el.route}</a> : <li onClick={() => navigate(el.route)} key={i}>{el.page}</li>
+                    return i === 6 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon /> {el.route}</a> : <li onClick={() => navigate(el.route)} key={i}>{el.page}</li>
                 })}
             </ul>
             <SwipeableTemporaryDrawer />
@@ -60,14 +60,14 @@ const Container = styled.section`
                 font-size: 18px;
                 font-weight: 800;
                 margin: 0;
-                color: #7AA64A;
+                color: #c69536;
                 @media screen and (max-width: 728px) {
                     font-size: 12px;
                 }
             }
             p {
                 margin: 0;
-                color: #7aa64a9a;
+                color: #7c5e26;
                 @media screen and (max-width: 728px) {
                     font-size: 9px;
                 }
@@ -75,10 +75,10 @@ const Container = styled.section`
         }
 
         img {
-            max-width: 60px;
+            max-width: 110px;
             width: auto;
             @media screen and (max-width: 728px) {
-                max-width: 30px;
+                max-width: 80px;
             }
         }
     }
@@ -98,9 +98,9 @@ const Container = styled.section`
             cursor: pointer;
         }
         a, li:last-child {
-            background-color: #18272A;
-            color: #099982;
-            border: 1px solid #099982;
+            background-color: #c6963685;
+            color: #000000;
+            border: 1px solid #c6963685;
             padding: 10px;
             border-radius: 5px;
             text-decoration: none;

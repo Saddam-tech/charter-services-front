@@ -42,13 +42,13 @@ const Index = () => {
                 <div className="outer-wrap">
                     <AutoAwesomeOutlinedIcon sx={{ fontSize: 40, color: '#a3a3a3' }} />
                     <div className="textarea">
-                        <p>COVID - 19 MEASURES</p>
+                        {/* <p>COVID - 19 MEASURES</p> */}
                         <p>Profesionally cleaned each time for your safety</p>
                     </div>
                 </div>
-                <p className="watch-safety-video">
+                {/* <p className="watch-safety-video">
                     Watch our COVID-19 Safety Video
-                </p>
+                </p> */}
             </section>
             {/* covid measures belt end */}
 
@@ -141,7 +141,7 @@ const Index = () => {
 
 
                 {/* amenities */}
-                <section className="amenities">
+                {/* <section className="amenities">
                     <div className="wrap0">
                         <h3>AMENITIES</h3>
                         <h1>Equipped with the best</h1>
@@ -165,7 +165,7 @@ const Index = () => {
                             <p>Washroom</p>
                         </div>
                     </div>
-                </section>
+                </section> */}
                 {/* amenities */}
 
                 {/* fleet */}
@@ -187,9 +187,9 @@ const Index = () => {
                     <div className="heading-wrap">
                         <div className="inner-heading-holder-wrap">
                             <h1 className="logo-footer">Summit Charter Services</h1>
-                            <p className="sub-heading-footer">Charter and Executive Black Car Services</p>
+                            <p className="sub-heading-footer">Charter Bus and Executive Black Car Services</p>
                         </div>
-                        <img src={require('assets/schs-mainlog-white.png')} alt="schs-mainlog-white" />
+                        <img src={require('assets/schs-mainlogo.png')} alt="schs-mainlog-white" />
                     </div>
                     <section className="global-wrap">
                         <div className="block">
@@ -257,7 +257,7 @@ position: relative;
     }
     .outer-wrap {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: center;
         gap: 20px;
         .textarea {
@@ -330,7 +330,7 @@ position: relative;
     padding: 60px 15px;
 
     span {
-        color: #099982;
+        color: #c69536;
     }
 }
 
@@ -343,9 +343,9 @@ position: relative;
     padding: 20px 15px;
 
     button {
-        background-color: #18272A;
-        color: #099982;
-        border: 1px solid #099982;
+        background-color: #c6963685;
+        color: #000000;
+        border: 1px solid #c69536;
         padding: 10px;
         border-radius: 5px;
         cursor: pointer;
@@ -509,7 +509,7 @@ position: relative;
     flex-direction: column;
     gap: 10px;
     margin: 100px 0;
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
 
     h2 {
@@ -520,7 +520,7 @@ position: relative;
         text-align: center;
         color: #a1a1a1;
         margin: 0 0 45px 0;
-        max-width: 300px;
+        max-width: 200px;
         width: 100%;
     }
 
@@ -532,15 +532,15 @@ position: relative;
         flex-wrap: wrap;
         width: 100%;
         img {
-            width: 100px;
+            width: 200px;
             object-fit: cover;
         }
     }
 
     button {
-        background-color: #18272A;
-        color: #099982;
-        border: 1px solid #099982;
+        background-color: #c6963685;
+        color: #000000;
+        border: 1px solid #c69536;
         padding: 10px;
         margin: 40px 0;
         border-radius: 5px;
@@ -588,11 +588,11 @@ position: relative;
         }
         .inner-heading-holder-wrap {
             .logo-footer {
-                color: #077260;
+                color: #c69536;
                 padding: 0;
             }
             .sub-heading-footer {
-                color: #044f43;
+                color: #7c5e26;
             }
         }
         
