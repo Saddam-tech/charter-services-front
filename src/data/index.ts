@@ -6,5 +6,5 @@ export const navigation = [
   { page: "Careers", route: "" },
   { page: "Contact", route: "" },
   { page: "+1(628) 224 7797", route: "+1(628) 224 7797" },
-  { page: "Get and Book Now!", route: "reservation" },
+  { page: "Get and Book Now!", route: "" },
 ];

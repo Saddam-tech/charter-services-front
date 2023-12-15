@@ -20,15 +20,6 @@ const Carousel = () => {
           </div>
           <CImage className='image' src={banner0} alt="slide 3" />
         </CCarouselItem>
-        <CCarouselItem className="inner-wrap">
-          <div className="text-wrap">
-            <Fade duration={2000}>
-              <h1>Executive solutions</h1>
-              <p>Our commitment to safety combined with superior service, truly sets us apart from the competition. We invite you to try us out. Come and get away with us.</p>
-            </Fade>
-          </div>
-          <CImage className='image' src={banner0} alt="slide 3" />
-        </CCarouselItem>
         {/* <CCarouselItem className="inner-wrap">
           <div className="text-wrap">
             <Fade delay={400} duration={2000}>
@@ -71,13 +62,13 @@ const Container = styled.section`
           padding: 0 200px 100px;
         }
         h1 {
-          color: #ffffff;
+          color: #c69536;
           font-size: 30px;
           text-align: left;
         }
         p {
           text-align: left;
-          color: #ffffff;
+          color: #c69536;
           font-size: 20px;
 
           @media screen and (min-width: 728px) {

@@ -3,10 +3,15 @@ import { navigation } from "../../data/index";
 import SwipeableTemporaryDrawer from "components/SwipeableTemporaryDrawer";
 import { useNavigate } from 'react-router-dom';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import { useState } from "react";
+interface ContainerProps {
+    active: boolean;
+}
 const Navigation = () => {
     const navigate = useNavigate();
+    const [active, setActive] = useState<boolean>(false)
     return (
-        <Container>
+        <Container active={active}>
             <div onClick={() => navigate("/")} className="logo-wrap">
                 <img src={require('assets/schs-mainlogo.png')} alt="" className="main-logo" />
                 <div className="inner-holder">
@@ -16,8 +21,15 @@ const Navigation = () => {
             </div>
             <ul>
                 {navigation.map((el, i) => {
-                    return i === 6 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon /> {el.route}</a> : <li onClick={() => navigate(el.route)} key={i}>{el.page}</li>
+                    return i === 6 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon />{el.route}</a> : <li onMouseEnter={() => i === 7 && setActive(true)} onMouseLeave={() => setActive(false)} onClick={() => navigate(el.route)} key={i}>{el.page}</li>
                 })}
+                <ul onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)} className="hover-group">
+                    {
+                        [{ name: 'Instant Quote', path: 'i-quote' }, { name: "Custom Quote", path: 'c-quote' }].map((el, i) => {
+                            return (<li onClick={() => navigate(el.path)} key={i}>{el.name}</li>)
+                        })
+                    }
+                </ul>
             </ul>
             <SwipeableTemporaryDrawer />
         </Container>
@@ -26,7 +38,7 @@ const Navigation = () => {
 
 export default Navigation
 
-const Container = styled.section`
+const Container = styled.section<ContainerProps>`
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -87,6 +99,7 @@ const Container = styled.section`
         align-items: center;
         justify-content: space-around;
         gap: 35px;
+        position: relative;
         @media screen and (max-width: 728px) {
             display: none;
         }
@@ -97,13 +110,36 @@ const Container = styled.section`
             font-size:  17px;
             cursor: pointer;
         }
-        a, li:last-child {
+        a, li:nth-child(8) {
             background-color: #c6963685;
             color: #000000;
             border: 1px solid #c6963685;
             padding: 10px;
             border-radius: 5px;
             text-decoration: none;
+        }
+        .hover-group {
+            display: flex;
+            opacity: ${({ active }) => active ? 1 : 0};
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: absolute;
+            top: 37px;
+            right: 0;
+            padding-top: 20px;
+            gap: 10px;
+            transition: 0.3s ease-in-out;
+
+            li {
+                width: 150px;
+                background-color: #c6963685;
+                color: #000000;
+                border: 1px solid #c6963685;
+                padding: 10px;
+                border-radius: 5px;
+                text-decoration: none;
+            }
         }
     }
 `

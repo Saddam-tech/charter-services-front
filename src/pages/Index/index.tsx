@@ -5,23 +5,15 @@ import styled from "styled-components"
 import charters from "assets/charters.webp"
 import footerImg from "assets/footer.webp";
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
-
-import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineExtra';
-import BathroomIcon from '@mui/icons-material/Bathroom';
-import PowerIcon from '@mui/icons-material/Power';
-import WifiIcon from '@mui/icons-material/Wifi';
-
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import QuoteInput from "components/QuoteInput";
 import { Fade } from "react-awesome-reveal";
 
 const socialsConf = { fontSize: 20, color: "#ffffff" };
-const utilitiesConf = { fontSize: 70, color: "#bdbdbd" };
 
 const Index = () => {
     const navigate = useNavigate();
@@ -268,7 +260,7 @@ position: relative;
             }
         }
     }
-    .watch-safety-video     {
+    /* .watch-safety-video     {
         background-color: #18272A;
         color: #099982;
         border: 1px solid #099982;
@@ -276,7 +268,7 @@ position: relative;
         border-radius: 5px;
         margin: 0;
         cursor: pointer;
-    }
+    } */
 }
 
 .charters {
@@ -443,7 +435,7 @@ position: relative;
             width: 100%;
             max-width: 700px;
             text-align: center;
-            color: #b8b8b8;
+            color: #c69536;
             font-size: 1.2em;
         }
     }

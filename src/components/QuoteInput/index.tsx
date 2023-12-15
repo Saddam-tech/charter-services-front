@@ -6,9 +6,21 @@ import UnstyledSelectIntroduction from 'components/UnstyledSelectIntroduction';
 import Button from '@mui/material/Button';
 import { styled } from 'styled-components';
 import { useNavigate } from "react-router-dom";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const dropdown_data1 = ['Point-to-Point transportation', 'Hourly Ride', 'Airport pick-up/drop-off'];
 const dropdown_data2 = new Array(10).fill("passenger").map((el, i) => (i + 1) + " " + el + (i > 0 ? "s" : ""));
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#c69536'
+        },
+        secondary: {
+            main: '#c6963685'
+        }
+    },
+});
+
 
 const QuoteInput = () => {
     const navigate = useNavigate();
@@ -37,40 +49,42 @@ const QuoteInput = () => {
     return (
         <Container>
             <div className="quote-type-select">
-                <p onClick={() => setActiveIndex(0)} className={activeIndex === 0 ? "active" : ""}>Instant Quote</p>
-                <p onClick={() => setActiveIndex(1)} className={activeIndex === 1 ? "active" : ""}>Custom Quote</p>
+                <p className="active">Custom Quote</p>
             </div>
             <section className="input-tab-wrapper">
-                <UnstyledSelectIntroduction options={dropdown_data1} />
-                <DatenTimePicker />
-                <UnstyledSelectIntroduction options={dropdown_data2} />
-                <Box
-                    component="form"
-                    sx={{ width: '100%' }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <TextField
-                        onChange={(e) => setPickup(e.target.value)}
-                        helperText={errorState.pickup_location_error && "This field is required!"}
-                        error={errorState.pickup_location_error}
-                        fullWidth
-                        id="pickup_location"
-                        label="Pick-up location"
-                        variant="filled"
-                    />
-                    <TextField
-                        onChange={(e) => setDropoff(e.target.value)}
-                        helperText={errorState.dropoff_location_error && "This field is required!"}
-                        error={errorState.dropoff_location_error}
-                        sx={{ margin: '10px 0 0 0' }}
-                        fullWidth
-                        id="dropoff_location"
-                        label="Drop-off location"
-                        variant="filled"
-                    />
-                </Box>
-                <Button onClick={submitHandler} sx={{ width: '100%' }} variant="contained">Continue</Button>
+                <ThemeProvider theme={theme}>
+                    <UnstyledSelectIntroduction options={dropdown_data1} />
+                    <DatenTimePicker />
+                    <UnstyledSelectIntroduction options={dropdown_data2} />
+                    <Box
+                        component="form"
+                        sx={{ width: '100%' }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <TextField
+                            onChange={(e) => setPickup(e.target.value)}
+                            helperText={errorState.pickup_location_error && "This field is required!"}
+                            error={errorState.pickup_location_error}
+                            fullWidth
+                            id="pickup_location"
+                            label="Pick-up location"
+                            variant="filled"
+                        />
+                        <TextField
+                            onChange={(e) => setDropoff(e.target.value)}
+                            helperText={errorState.dropoff_location_error && "This field is required!"}
+                            error={errorState.dropoff_location_error}
+                            sx={{ margin: '10px 0 0 0' }}
+                            fullWidth
+                            id="dropoff_location"
+                            label="Drop-off location"
+                            variant="filled"
+                        />
+                    </Box>
+
+                    <Button onClick={submitHandler} sx={{ width: '100%', backgroundColor: '#c69536', color: '#ffffff' }} variant='contained'>Continue</Button>
+                </ThemeProvider>
             </section>
         </Container>
     )
@@ -79,26 +93,11 @@ const QuoteInput = () => {
 export default QuoteInput
 
 const Container = styled.section`
-position: absolute;
-right: 200px;
-top: 50px;
-opacity: 0.8;
-z-index: 1;
-
-@media screen and (max-width: 728px) {
-    position: relative;
-    left: 0;
-    top: 10px;
-}
-
-&:hover {
-    opacity: 1;
-}
+margin-top: 100px;
 .quote-type-select {
     display: flex;
     align-items: center;
     justify-content: center;
-
     p {
         padding: 20px;
         margin: 0;
@@ -107,10 +106,9 @@ z-index: 1;
         color: #000000;
         width: 100%;
         font-weight: 700;
-        cursor: pointer;
     }
     .active {
-        background-color: #007FFF;
+        background-color: #c6963685;
         color: #ffffff;
     }
 }
