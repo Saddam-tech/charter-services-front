@@ -93,7 +93,6 @@ const QuoteInput = () => {
 export default QuoteInput
 
 const Container = styled.section`
-margin-top: 100px;
 .quote-type-select {
     display: flex;
     align-items: center;

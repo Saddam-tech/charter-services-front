@@ -208,13 +208,26 @@ const Index = () => {
                         <div className="block">
                             <a target="blank" href="mailto:global.summitchs@gmail.com">global.summitchs@gmail.com</a>
                             <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
+                            <p>55 Chumasero Drive , San Francisco, CA 94132</p>
                             <div className="social-media-list">
-                                <FacebookIcon sx={socialsConf} />
-                                <TwitterIcon sx={socialsConf} />
-                                <InstagramIcon sx={socialsConf} />
-                                <LinkedInIcon sx={socialsConf} />
-                                <PinterestIcon sx={socialsConf} />
-                                <YouTubeIcon sx={socialsConf} />
+                                <a target="_blank" rel="noreferrer" href="https://www.facebook.com/summitchs?mibextid=LQQJ4d">
+                                    <FacebookIcon sx={socialsConf} />
+                                </a>
+                                <a target="_blank" rel="noreferrer" href="https://x.com/summitchs?s=21&t=OUzCNaAdoBfN9wkW-UmD_g">
+                                    <TwitterIcon sx={socialsConf} />
+                                </a>
+                                <a target="_blank" rel="noreferrer" href="https://instagram.com/_azicc_?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">
+                                    <InstagramIcon sx={socialsConf} />
+                                </a>
+                                <a target="_blank" rel="noreferrer" href="https://instagram.com/_azicc_?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">
+                                    <LinkedInIcon sx={socialsConf} />
+                                </a>
+                                <a target="_blank" rel="noreferrer" href="https://instagram.com/_azicc_?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">
+                                    <PinterestIcon sx={socialsConf} />
+                                </a>
+                                <a target="_blank" rel="noreferrer" href="https://instagram.com/_azicc_?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">
+                                    <YouTubeIcon sx={socialsConf} />
+                                </a>
                             </div>
                             <p className="copyright">© {new Date().getFullYear()} Charter and Executive Black Car Services</p>
                         </div>
@@ -378,7 +391,7 @@ position: relative;
     width: 100%;
     margin: 120px 0;
     flex-wrap: wrap;
-
+    gap: 15px;
     .wrap {
         p {
             text-align: center;

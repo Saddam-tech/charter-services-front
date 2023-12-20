@@ -21,4 +21,5 @@ align-items: flex-start;
 justify-content: center;
 background-color: #000000;
 height: 100vh;
+padding-top: 100px;
 `;
