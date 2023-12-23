@@ -206,7 +206,7 @@ const Index = () => {
                             </ul>
                         </div>
                         <div className="block">
-                            <a target="blank" href="mailto:global.summitchs@gmail.com">global.summitchs@gmail.com</a>
+                            <a target="blank" href="mailto:info@summitchs.com">info@summitchs.com</a>
                             <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
                             <p>55 Chumasero Drive , San Francisco, CA 94132</p>
                             <div className="social-media-list">

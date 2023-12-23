@@ -31,11 +31,14 @@ const AboutUs = () => {
                             Our commitment to excellence is rooted in the belief that every journey should be more than just a ride; it should be an experience marked by comfort, style, and a touch of indulgence. Whether it's a special event, corporate travel, or airport transfer, Summit Charter Services is designed to elevate your transportation moments.
                             We take pride in our meticulously maintained fleet of limousines and charter buses, paired with a team of professional and courteous drivers. At Summit, we don't just provide transportation; we craft unforgettable journeys that leave a lasting impression.
                             Thank you for choosing Summit Charter Services for your travel needs. We look forward to being a part of your remarkable journeys.
-
+                            <br />
+                            <br />
                             Sincerely,
-
+                            <br />
+                            <br />
                             Azizbek Abduganiev
-
+                            <br />
+                            <br />
                             Founder and CEO of
                             Summit Charter Services
                         </p>
@@ -90,7 +93,7 @@ const AboutUs = () => {
                             </ul>
                         </div>
                         <div className="block">
-                            <a target="blank" href="mailto:global.summitchs@gmail.com">global.summitchs@gmail.com</a>
+                            <a target="blank" href="mailto:info@summitchs.com">info@summitchs.com</a>
                             <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
                             <p>55 Chumasero Drive , San Francisco, CA 94132</p>
                             <div className="social-media-list">
@@ -176,6 +179,10 @@ height: 100vh;
             align-items: flex-start;
             justify-content: flex-start;
             gap: 7px;
+            @media screen and (max-width: 728px) {
+               justify-content: center;
+               font-size: 14px;
+            }
             h1 {
                 color: #c69536;
             }
