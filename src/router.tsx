@@ -4,6 +4,7 @@ import Layout from "pages/Layout";
 import { createBrowserRouter } from "react-router-dom";
 import CustomQuote from "pages/CustomQuote";
 import AboutUs from "pages/AboutUs";
+import Services from "pages/Services";
 
 const router = createBrowserRouter([{
     path: "/",
@@ -13,6 +14,7 @@ const router = createBrowserRouter([{
         { path: "c-quote", element: <CustomQuote /> },
         { path: "i-quote", element: <Iframe /> },
         { path: "aboutus", element: <AboutUs /> },
+        { path: "services", element: <Services /> },
     ],
 }])
 
