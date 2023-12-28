@@ -19,7 +19,7 @@ export const navigation = [
 export const socials = [
   {
     name: "instagram",
-    path: "https://instagram.com/_azicc_?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr",
+    path: "https://www.instagram.com/summitchs?igsh=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr",
     icon: InstagramIcon,
   },
   {

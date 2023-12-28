@@ -101,6 +101,7 @@ const AboutUs = () => {
                         <div className="block">
                             <a target="blank" href="mailto:info@summitchs.com">info@summitchs.com</a>
                             <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
+                            <a href="tel:+1(628) 800 4555">+1(628) 800 4555</a>
                             <p>55 Chumasero Drive , San Francisco, CA 94132</p>
                             <div className="social-media-list">
                                 {socials.map((el, i) => (

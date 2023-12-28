@@ -5,12 +5,6 @@ import styled from "styled-components"
 import charters from "assets/charters.webp"
 import footerImg from "assets/footer.webp";
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import PinterestIcon from '@mui/icons-material/Pinterest';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import { Fade } from "react-awesome-reveal";
 import { socials } from "data";
 
@@ -209,6 +203,7 @@ const Index = () => {
                         <div className="block">
                             <a target="blank" href="mailto:info@summitchs.com">info@summitchs.com</a>
                             <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
+                            <a href="tel:+1(628) 800 4555">+1(628) 800 4555</a>
                             <p>55 Chumasero Drive , San Francisco, CA 94132</p>
                             <div className="social-media-list">
                                 {socials.map((el, i) => (
