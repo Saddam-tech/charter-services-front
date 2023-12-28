@@ -31,14 +31,20 @@ const AboutUs = () => {
                             Our commitment to excellence is rooted in the belief that every journey should be more than just a ride; it should be an experience marked by comfort, style, and a touch of indulgence. Whether it's a special event, corporate travel, or airport transfer, Summit Charter Services is designed to elevate your transportation moments.
                             We take pride in our meticulously maintained fleet of limousines and charter buses, paired with a team of professional and courteous drivers. At Summit, we don't just provide transportation; we craft unforgettable journeys that leave a lasting impression.
                             Thank you for choosing Summit Charter Services for your travel needs. We look forward to being a part of your remarkable journeys.
+
                             <br />
                             <br />
+
                             Sincerely,
+
                             <br />
                             <br />
+
                             Azizbek Abduganiev
+
                             <br />
                             <br />
+
                             Founder and CEO of
                             Summit Charter Services
                         </p>
@@ -192,7 +198,7 @@ height: 100vh;
             font-size: 20px;
 
             @media screen and (max-width: 728px) {
-               font-size: 14px;
+               font-size: 18px;
             }
         }
     }
