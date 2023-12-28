@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import profileBackdrop from 'assets/pic-section0-0.webp';
-import footerImg from "assets/footer.webp";
+import profileBackground from 'assets/pic-section0-0.webp';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -9,6 +8,7 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import { Fade } from "react-awesome-reveal";
 import QuoteInput from "components/QuoteInput";
+import { socials } from "data";
 const socialsConf = { fontSize: 20, color: "#ffffff" };
 const AboutUs = () => {
     return (
@@ -103,24 +103,11 @@ const AboutUs = () => {
                             <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
                             <p>55 Chumasero Drive , San Francisco, CA 94132</p>
                             <div className="social-media-list">
-                                <a target="_blank" rel="noreferrer" href="https://www.facebook.com/summitchs?mibextid=LQQJ4d">
-                                    <FacebookIcon sx={socialsConf} />
-                                </a>
-                                <a target="_blank" rel="noreferrer" href="https://x.com/summitchs?s=21&t=OUzCNaAdoBfN9wkW-UmD_g">
-                                    <TwitterIcon sx={socialsConf} />
-                                </a>
-                                <a target="_blank" rel="noreferrer" href="https://instagram.com/_azicc_?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">
-                                    <InstagramIcon sx={socialsConf} />
-                                </a>
-                                <a target="_blank" rel="noreferrer" href="https://instagram.com/_azicc_?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">
-                                    <LinkedInIcon sx={socialsConf} />
-                                </a>
-                                <a target="_blank" rel="noreferrer" href="https://instagram.com/_azicc_?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">
-                                    <PinterestIcon sx={socialsConf} />
-                                </a>
-                                <a target="_blank" rel="noreferrer" href="https://instagram.com/_azicc_?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">
-                                    <YouTubeIcon sx={socialsConf} />
-                                </a>
+                                {socials.map((el, i) => (
+                                    <a key={i} target="_blank" rel="noreferrer" href={el.path}>
+                                        <el.icon sx={socialsConf} />
+                                    </a>
+                                ))}
                             </div>
                             <p className="copyright">© {new Date().getFullYear()} Charter and Executive Black Car Services</p>
                         </div>
@@ -144,7 +131,7 @@ height: 100vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-image: url(${profileBackdrop});
+    background-image: url(${profileBackground});
     background-size: cover;
     padding: 150px 20px;
     position: relative;

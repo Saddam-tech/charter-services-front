@@ -10,9 +10,15 @@ interface ContainerProps {
 const Navigation = () => {
     const navigate = useNavigate();
     const [active, setActive] = useState<boolean>(false)
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+    function handleNavigationClick(path: string, index: number | null) {
+        navigate(path);
+        setActiveIndex(index);
+    }
     return (
         <Container active={active}>
-            <div onClick={() => navigate("/")} className="logo-wrap">
+            <div onClick={() => handleNavigationClick("/", null)} className="logo-wrap">
                 <img src={require('assets/schs-mainlogo.png')} alt="" className="main-logo" />
                 <div className="inner-holder">
                     <h1 className="service-name">Summit Charter Services</h1>
@@ -21,7 +27,7 @@ const Navigation = () => {
             </div>
             <ul>
                 {navigation.map((el, i) => {
-                    return i === 6 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon />{el.route}</a> : <li onMouseEnter={() => i === 7 && setActive(true)} onMouseLeave={() => setActive(false)} onClick={() => navigate(el.route)} key={i}>{el.page}</li>
+                    return i === 6 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon />{el.route}</a> : <li className={activeIndex === i ? 'active' : ''} onMouseEnter={() => i === 7 && setActive(true)} onMouseLeave={() => setActive(false)} onClick={() => handleNavigationClick(el.route, i)} key={i}>{el.page}</li>
                 })}
                 <ul onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)} className="hover-group">
                     {
@@ -109,6 +115,12 @@ const Container = styled.section<ContainerProps>`
             color: #ffffff;
             font-size:  17px;
             cursor: pointer;
+        }
+        li:hover {
+            color: #767676
+        }
+        .active {
+            color: #767676;
         }
         a, li:nth-child(8) {
             background-color: #c6963685;
