@@ -6,7 +6,7 @@ import ServicesBlog from 'components/ServicesBlog';
 import QuoteInput from 'components/QuoteInput';
 import { Fade } from "react-awesome-reveal";
 const socialsConf = { fontSize: 40, color: "#ffffff" };
-const blogs = [{ h1: 'Exquisite Fleet of Luxury Buses', text: 'Our fleet boasts a collection of meticulously maintained luxury buses designed for comfort, elegance, and maximum enjoyment. From plush seating to cutting-edge amenities, we redefine the standards of luxury travel.', img: "services-0.webp" },
+export const blogs = [{ h1: 'Exquisite Fleet of Luxury Buses', text: 'Our fleet boasts a collection of meticulously maintained luxury buses designed for comfort, elegance, and maximum enjoyment. From plush seating to cutting-edge amenities, we redefine the standards of luxury travel.', img: "services-0.webp" },
 { h1: 'Spacious Interiors for Group Comfort', text: 'With ample seating capacity, our buses provide a spacious and comfortable environment for your entire group. Enjoy the journey together in style, whether you`re planning a corporate outing or a family celebration.', img: "services-1.webp" },
 { h1: 'Professional Chauffeurs, Seamless Service', text: 'Our experienced and professional chauffeurs are dedicated to ensuring a smooth and enjoyable journey. Sit back, relax, and let our skilled drivers navigate the roads while you focus on creating memories.', img: "services-1.webp" },
 

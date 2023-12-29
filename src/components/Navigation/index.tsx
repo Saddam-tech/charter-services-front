@@ -4,17 +4,40 @@ import SwipeableTemporaryDrawer from "components/SwipeableTemporaryDrawer";
 import { useNavigate } from 'react-router-dom';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import { useState } from "react";
+import ServicesDropdown from "components/ServicesDropdown";
 interface ContainerProps {
-    active: boolean;
+    services: boolean;
+    quote: boolean;
 }
+interface active {
+    active: ContainerProps;
+}
+const services = [
+    { h1: "Corporate Solutions", img: 'services-0.webp', paths: ['First-Mile & Last-Mile', 'On-Demand', 'Reservations', 'Commuter Shuttles'] },
+    { h1: "Charters", img: 'services-1.webp', paths: ['Airport Transfers', 'Corporate Tours', 'Ski Trips', 'Wine Country Tours'] },
+    { h1: "Custom Solutions", img: 'services-2.webp', paths: ['Airport Transfers', 'Corporate Tours', 'Ski Trips', 'Wine Country Tours'] },
+    { h1: "Corporate Solutions", img: 'services-3.webp', paths: ['First-Mile & Last-Mile', 'On-Demand', 'Reservations', 'Commuter Shuttles'] }
+];
 const Navigation = () => {
     const navigate = useNavigate();
-    const [active, setActive] = useState<boolean>(false)
+    const [active, setActive] = useState<ContainerProps>({ services: false, quote: false })
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     function handleNavigationClick(path: string, index: number | null) {
         navigate(path);
         setActiveIndex(index);
+    }
+    function handleNavigationHover(index: number, status: boolean) {
+        switch (index) {
+            case 0:
+                setActive((prev) => ({ ...prev, services: status }));
+                break;
+            case 7:
+                setActive((prev) => ({ ...prev, quote: status }));
+                break;
+            default:
+                return;
+        }
     }
     return (
         <Container active={active}>
@@ -27,9 +50,16 @@ const Navigation = () => {
             </div>
             <ul>
                 {navigation.map((el, i) => {
-                    return i === 6 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon />{el.route}</a> : <li className={activeIndex === i ? 'active' : ''} onMouseEnter={() => i === 7 && setActive(true)} onMouseLeave={() => setActive(false)} onClick={() => handleNavigationClick(el.route, i)} key={i}>{el.page}</li>
+                    return i === 6 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon />{el.route}</a> : <li className={activeIndex === i ? 'active' : ''} onMouseEnter={() => handleNavigationHover(i, true)} onMouseLeave={() => handleNavigationHover(i, false)} onClick={() => handleNavigationClick(el.route, i)} key={i}>{el.page}</li>
                 })}
-                <ul onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)} className="hover-group">
+                {active.services && (
+                    <div onMouseEnter={() => handleNavigationHover(0, true)} onMouseLeave={() => handleNavigationHover(0, false)} className="dropdown">
+                        {services.map((el, i) => (
+                            <ServicesDropdown key={i} h1={el.h1} img={el.img} arr={el.paths} />
+                        ))}
+                    </div>
+                )}
+                <ul onMouseEnter={() => handleNavigationHover(7, true)} onMouseLeave={() => handleNavigationHover(7, false)} className="hover-group">
                     {
                         [{ name: 'Instant Quote', path: 'i-quote' }, { name: "Custom Quote", path: 'c-quote' }].map((el, i) => {
                             return (<li onClick={() => navigate(el.path)} key={i}>{el.name}</li>)
@@ -44,7 +74,7 @@ const Navigation = () => {
 
 export default Navigation
 
-const Container = styled.section<ContainerProps>`
+const Container = styled.section<active>`
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -109,15 +139,35 @@ const Container = styled.section<ContainerProps>`
         @media screen and (max-width: 728px) {
             display: none;
         }
+        .dropdown {
+            position: absolute;
+            left: -150px;
+            top: 60px;
+            background-color: #0000008e;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
         li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             list-style-type: none;
             text-decoration: none;
             color: #ffffff;
             font-size:  17px;
             cursor: pointer;
+            height: 60px;
         }
         li:hover {
             color: #767676
+        }
+        li:nth-of-type(7) {
+            height: unset;
         }
         .active {
             color: #767676;
@@ -132,12 +182,12 @@ const Container = styled.section<ContainerProps>`
         }
         .hover-group {
             display: flex;
-            opacity: ${({ active }) => active ? 1 : 0};
+            opacity: ${({ active }) => active.quote ? 1 : 0};
             align-items: center;
             justify-content: center;
             flex-direction: column;
             position: absolute;
-            top: 37px;
+            top: 45px;
             right: 0;
             padding-top: 20px;
             gap: 10px;
@@ -151,6 +201,7 @@ const Container = styled.section<ContainerProps>`
                 padding: 10px;
                 border-radius: 5px;
                 text-decoration: none;
+                height: unset;
             }
         }
     }

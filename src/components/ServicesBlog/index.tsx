@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-interface IBlogs {
+export interface IBlogs {
     h1: string;
-    text: string;
+    text?: string;
     img: string;
+    arr?: string[];
 }
 
 const ServicesBlog = ({ h1, text, img }: IBlogs) => {
