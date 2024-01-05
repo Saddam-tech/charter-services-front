@@ -17,7 +17,8 @@ import {
     MuiTelInputInfo,
     MuiTelInputContinent,
 } from 'mui-tel-input'
-import { c_quote_default, dropdown_data } from 'data';
+import { _errorState, c_quote_default, dropdown_data } from 'data';
+import { EPS, provider } from 'configs/axios';
 
 const theme = createTheme({
     palette: {
@@ -29,59 +30,69 @@ const theme = createTheme({
         }
     },
 });
+
+
 export interface iState {
     type: string;
     date: Dayjs | null;
     time: Dayjs | null;
-    p_num: string;
+    car_type: string;
+    n_ppl: string;
     pickup_location: string;
     dropoff_location: string;
     firstname: string;
     lastname: string;
     email: string;
     phonenumber: string;
-    spec_req: string;
+    special_req: string;
 }
 
+interface errorState {
+    pickup_location_error: boolean;
+    dropoff_location_error: boolean;
+}
 
 const QuoteInput = () => {
     const navigate = useNavigate();
     const [process, setProcess] = useState<number>(0);
-    const [pickup, setPickup] = useState<string>('');
-    const [dropoff, setDropoff] = useState<string>('');
-    const [errorState, setErrorState] = useState({ pickup_location_error: false, dropoff_location_error: false });
+    const [errorState, setErrorState] = useState<errorState>(_errorState);
     const [state, setState] = useState<iState>(c_quote_default);
     const continents: MuiTelInputContinent[] = ['NA', 'SA', 'EU']
     const excludedCountries: MuiTelInputCountry[] = []
 
-    function submitHandler() {
-        switch (process) {
-            case 0:
-                if (pickup === "") {
-                    setErrorState(prev => ({ ...prev, pickup_location_error: true }))
-                }
-                if (dropoff === "") {
-                    setErrorState(prev => ({ ...prev, dropoff_location_error: true }))
-                }
-                if (pickup !== "" && dropoff !== "") {
-                    setErrorState({ pickup_location_error: false, dropoff_location_error: false })
-                    setProcess(1);
-                }
-                break;
-            case 1:
-                break;
-            default:
-                setProcess(0);
-                break;
+    async function submitHandler() {
+        try {
+            switch (process) {
+                case 0:
+                    if (state?.pickup_location === "") {
+                        setErrorState(prev => ({ ...prev, pickup_location_error: true }))
+                    }
+                    if (state?.dropoff_location === "") {
+                        setErrorState(prev => ({ ...prev, dropoff_location_error: true }))
+                    }
+                    if (state?.pickup_location !== "" && state?.dropoff_location !== "") {
+                        setErrorState({ pickup_location_error: false, dropoff_location_error: false })
+                        setProcess(1);
+                    }
+                    break;
+                case 1:
+                    console.log({ state })
+                    await provider.post(EPS.ORDERS, state);
+                    break;
+                default:
+                    setProcess(0);
+                    break;
 
+            }
+        } catch (err) {
+            console.log(err)
         }
-
     }
 
     const process0 = <ThemeProvider theme={theme}>
         <UnstyledSelectIntroduction type='type' setState={setState} options={dropdown_data[0]} />
         <DatenTimePicker state={state} setState={setState} />
-        <UnstyledSelectIntroduction type='p_num' setState={setState} options={dropdown_data[1]} />
+        <UnstyledSelectIntroduction type='n_ppl' setState={setState} options={dropdown_data[1]} />
         <UnstyledSelectIntroduction type="car_type" setState={setState} options={dropdown_data[2]} />
         <Box
             component="form"
@@ -157,7 +168,7 @@ const QuoteInput = () => {
                 sx={{ width: '100%', padding: '10px 0' }}
             />
             <TextareaAutosize
-                onChange={(e) => setState((prev) => ({ ...prev, spec_req: e.target.value }))}
+                onChange={(e) => setState((prev) => ({ ...prev, special_req: e.target.value }))}
                 aria-label="empty textarea"
                 placeholder="Special Request"
             />

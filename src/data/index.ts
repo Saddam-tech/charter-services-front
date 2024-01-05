@@ -55,7 +55,7 @@ export const c_quote_default = {
   type: "",
   date: dayjs("2023-12-01"),
   time: dayjs("0000-00-00"),
-  p_num: "",
+  n_ppl: "",
   car_type: "",
   pickup_location: "",
   dropoff_location: "",
@@ -63,7 +63,12 @@ export const c_quote_default = {
   lastname: "",
   email: "",
   phonenumber: "",
-  spec_req: "",
+  special_req: "",
+};
+
+export const _errorState = {
+  pickup_location_error: false,
+  dropoff_location_error: false,
 };
 
 export const dropdown_data = {
