@@ -9,16 +9,19 @@ import { Option as BaseOption, optionClasses } from '@mui/base/Option';
 import { Popper as BasePopper } from '@mui/base/Popper';
 import { styled } from '@mui/system';
 import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded';
+import { iState } from 'components/QuoteInput';
 
 interface Iprops {
+  type: string;
   options: string[];
+  setState: React.Dispatch<React.SetStateAction<iState>>;
 }
 
-export default function UnstyledSelectIntroduction({ options }: Iprops) {
+export default function UnstyledSelectIntroduction({ type, options, setState }: Iprops) {
   return (
     <Select defaultValue={0}>
       {options.map((el, i) => (
-        <Option key={i} value={i}>{el}</Option>
+        <Option key={i} onClick={() => setState((prev) => ({ ...prev, [type]: el }))} value={i}>{el}</Option>
       ))}
     </Select>
   );

@@ -10,16 +10,15 @@ import { styled as mui_styled } from '@mui/system';
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Dayjs } from 'dayjs';
 import {
     MuiTelInput,
     MuiTelInputCountry,
     MuiTelInputInfo,
     MuiTelInputContinent,
 } from 'mui-tel-input'
+import { c_quote_default, dropdown_data } from 'data';
 
-const dropdown_data1 = ['Point-to-Point transportation', 'Hourly Ride', 'Airport pick-up/drop-off'];
-const dropdown_data2 = new Array(10).fill("passenger").map((el, i) => (i + 1) + " " + el + (i > 0 ? "s" : ""));
-const dropdown_data3 = ['Tesla Model 3 (5 seats)', 'Cadillac Escalade (8 seats)', 'BMW i7 (5 seats)', 'Mercedes Vito (11 seats)', 'Charter Bus (24 seats)'];
 const theme = createTheme({
     palette: {
         primary: {
@@ -30,26 +29,30 @@ const theme = createTheme({
         }
     },
 });
-interface iState {
+export interface iState {
+    type: string;
+    date: Dayjs | null;
+    time: Dayjs | null;
+    p_num: string;
+    pickup_location: string;
+    dropoff_location: string;
+    firstname: string;
+    lastname: string;
+    email: string;
     phonenumber: string;
+    spec_req: string;
 }
 
 
 const QuoteInput = () => {
     const navigate = useNavigate();
     const [process, setProcess] = useState<number>(0);
-    const [dropdownValue1, setDropdownValue1] = useState<string[]>();
-    const [activeIndex, setActiveIndex] = useState<number>(0);
     const [pickup, setPickup] = useState<string>('');
     const [dropoff, setDropoff] = useState<string>('');
     const [errorState, setErrorState] = useState({ pickup_location_error: false, dropoff_location_error: false });
-    const [state, setState] = useState<iState>({ phonenumber: '' });
+    const [state, setState] = useState<iState>(c_quote_default);
     const continents: MuiTelInputContinent[] = ['NA', 'SA', 'EU']
     const excludedCountries: MuiTelInputCountry[] = []
-
-    function handlePhoneInput(newValue: string, info: MuiTelInputInfo) {
-        setState(() => ({ phonenumber: newValue }));
-    }
 
     function submitHandler() {
         switch (process) {
@@ -76,10 +79,10 @@ const QuoteInput = () => {
     }
 
     const process0 = <ThemeProvider theme={theme}>
-        <UnstyledSelectIntroduction options={dropdown_data1} />
-        <DatenTimePicker />
-        <UnstyledSelectIntroduction options={dropdown_data2} />
-        <UnstyledSelectIntroduction options={dropdown_data3} />
+        <UnstyledSelectIntroduction type='type' setState={setState} options={dropdown_data[0]} />
+        <DatenTimePicker state={state} setState={setState} />
+        <UnstyledSelectIntroduction type='p_num' setState={setState} options={dropdown_data[1]} />
+        <UnstyledSelectIntroduction type="car_type" setState={setState} options={dropdown_data[2]} />
         <Box
             component="form"
             sx={{ width: '100%' }}
@@ -87,7 +90,7 @@ const QuoteInput = () => {
             autoComplete="off"
         >
             <TextField
-                onChange={(e) => setPickup(e.target.value)}
+                onChange={(e) => setState((prev) => ({ ...prev, pickup_location: e.target.value }))}
                 helperText={errorState.pickup_location_error && "This field is required!"}
                 error={errorState.pickup_location_error}
                 fullWidth
@@ -96,7 +99,7 @@ const QuoteInput = () => {
                 variant="filled"
             />
             <TextField
-                onChange={(e) => setDropoff(e.target.value)}
+                onChange={(e) => setState((prev) => ({ ...prev, dropoff_location: e.target.value }))}
                 helperText={errorState.dropoff_location_error && "This field is required!"}
                 error={errorState.dropoff_location_error}
                 sx={{ margin: '10px 0 0 0' }}
@@ -117,7 +120,7 @@ const QuoteInput = () => {
             autoComplete="off"
         >
             <TextField
-                onChange={(e) => setPickup(e.target.value)}
+                onChange={(e) => setState((prev) => ({ ...prev, firstname: e.target.value }))}
                 helperText={errorState.pickup_location_error && "This field is required!"}
                 error={errorState.pickup_location_error}
                 fullWidth
@@ -126,7 +129,7 @@ const QuoteInput = () => {
                 variant="filled"
             />
             <TextField
-                onChange={(e) => setDropoff(e.target.value)}
+                onChange={(e) => setState((prev) => ({ ...prev, lastname: e.target.value }))}
                 helperText={errorState.dropoff_location_error && "This field is required!"}
                 error={errorState.dropoff_location_error}
                 sx={{ margin: '10px 0 0 0' }}
@@ -136,7 +139,7 @@ const QuoteInput = () => {
                 variant="filled"
             />
             <TextField
-                onChange={(e) => setDropoff(e.target.value)}
+                onChange={(e) => setState((prev) => ({ ...prev, email: e.target.value }))}
                 helperText={errorState.dropoff_location_error && "This field is required!"}
                 error={errorState.dropoff_location_error}
                 sx={{ margin: '10px 0 0 0' }}
@@ -147,14 +150,14 @@ const QuoteInput = () => {
             />
             <MuiTelInput
                 value={state?.phonenumber}
-                onChange={handlePhoneInput}
+                onChange={(value) => setState((prev) => ({ ...prev, phonenumber: value }))}
                 continents={continents}
                 excludedCountries={excludedCountries}
                 defaultCountry='US'
                 sx={{ width: '100%', padding: '10px 0' }}
             />
             <TextareaAutosize
-                onChange={(e) => setDropoff(e.target.value)}
+                onChange={(e) => setState((prev) => ({ ...prev, spec_req: e.target.value }))}
                 aria-label="empty textarea"
                 placeholder="Special Request"
             />
