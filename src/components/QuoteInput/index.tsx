@@ -213,7 +213,7 @@ const Container = styled.section`
     flex-direction: column;
     background-color: #ffffff;
     padding: 10px;
-    max-width: 550px;
+    max-width: 450px;
     width: 100%;
 }
 `;
