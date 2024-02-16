@@ -7,6 +7,7 @@ import AboutUs from "pages/AboutUs";
 import Services from "pages/Services";
 import Admin from "pages/Admin";
 import Main from "pages/Admin/Main";
+import Orders from "pages/Admin/Orders";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
         element: <Admin />,
         children: [
             { path: "", element: <Main /> },
+            { path: "orders", element: <Orders /> },
         ],
     },
 ])

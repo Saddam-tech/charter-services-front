@@ -14,24 +14,26 @@ import WorkIcon from '@mui/icons-material/Work';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 
 const navigation = [
-    { name: "Home", icon: <AccountCircleIcon /> },
-    { name: "Orders", icon: <StickyNote2Icon /> },
-    { name: "Blogs", icon: <BookIcon /> },
-    { name: "Services", icon: <HomeRepairServiceIcon /> },
-    { name: "Fleet", icon: <DirectionsCarIcon /> },
-    { name: "Careers", icon: <WorkIcon /> },
-    { name: "Contact Info", icon: <ContactSupportIcon /> },
+    { name: "Home", icon: <AccountCircleIcon />, path: '/admin' },
+    { name: "Orders", icon: <StickyNote2Icon />, path: '/admin/orders' },
+    { name: "Blogs", icon: <BookIcon />, path: '/admin/blogs' },
+    { name: "Services", icon: <HomeRepairServiceIcon />, path: '/admin/services' },
+    { name: "Fleet", icon: <DirectionsCarIcon />, path: '/admin/fleet' },
+    { name: "Careers", icon: <WorkIcon />, path: '/admin/careers' },
+    { name: "Contact Info", icon: <ContactSupportIcon />, path: '/admin/contact-info' },
 ]
 
 export default function BasicList() {
+    const navigate = useNavigate();
     return (
         <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             <nav aria-label="main mailbox folders">
                 <List>
                     {navigation.map((el, i) => (
-                        <ListItem key={i} disablePadding>
+                        <ListItem onClick={() => navigate(el.path)} key={i} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
                                     {el.icon}
