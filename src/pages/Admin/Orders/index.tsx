@@ -38,4 +38,5 @@ const TableWrap = styled.section`
     justify-content: center;
     max-width: 80em;
     width: 100%;
+    padding: 0 30px 0 0;
 `
