@@ -1,11 +1,13 @@
 import CustomTable from 'components/CustomTable'
 import styled from 'styled-components'
+import { useParams } from "react-router-dom";
 
 const Orders = () => {
+    const { path } = useParams();
     return (
         <Container>
             <HeaderWrap>
-                <h2>Incoming Orders</h2>
+                <h2>{path && path[0].toUpperCase() + path?.slice(1)} Orders</h2>
                 <p>Orders are fetched each 5 seconds</p>
                 <TableWrap>
                     <CustomTable />

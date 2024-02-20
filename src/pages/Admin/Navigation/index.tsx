@@ -39,12 +39,12 @@ const navigation = [
 const sub_orders = [
     { name: "Incoming", icon: <MoveToInboxIcon />, path: '/admin/orders/incoming' },
     { name: "Accepted", icon: <PlaylistAddCheckIcon />, path: '/admin/orders/accepted' },
-    { name: "Rejected", icon: <HighlightOffIcon />, path: '/admin/rejected' },
+    { name: "Rejected", icon: <HighlightOffIcon />, path: '/admin/orders/rejected' },
 ]
 
 export default function BasicList() {
     const navigate = useNavigate();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
         setOpen(!open);
@@ -66,7 +66,7 @@ export default function BasicList() {
                                 <Collapse in={open} timeout="auto" unmountOnExit>
                                     <List component="div" disablePadding>
                                         {sub_orders.map((el, i) => (
-                                            <ListItemButton key={i} sx={{ pl: 4 }}>
+                                            <ListItemButton onClick={() => navigate(el.path)} key={i} sx={{ pl: 4 }}>
                                                 <ListItemIcon>
                                                     {el.icon}
                                                 </ListItemIcon>

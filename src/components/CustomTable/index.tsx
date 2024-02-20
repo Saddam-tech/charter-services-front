@@ -9,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 interface Column {
-    id: 'name' | 'code' | 'population' | 'size' | 'density';
+    id: 'id' | 'type' | 'date' | 'p_location' | 'd_location' | 'email' | 'phone';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -17,25 +17,39 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+    { id: 'id', label: 'Id', minWidth: 30 },
+    { id: 'type', label: 'Type', minWidth: 100 },
     {
-        id: 'population',
-        label: 'Population',
+        id: 'date',
+        label: 'Service Date',
         minWidth: 170,
         align: 'right',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'size',
-        label: 'Size\u00a0(km\u00b2)',
+        id: 'p_location',
+        label: 'Pick-up Location',
         minWidth: 170,
         align: 'right',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'density',
-        label: 'Density',
+        id: 'd_location',
+        label: 'Drop-off Location',
+        minWidth: 170,
+        align: 'right',
+        format: (value: number) => value.toFixed(2),
+    },
+    {
+        id: 'email',
+        label: 'Email',
+        minWidth: 170,
+        align: 'right',
+        format: (value: number) => value.toFixed(2),
+    },
+    {
+        id: 'phone',
+        label: 'Phone Number',
         minWidth: 170,
         align: 'right',
         format: (value: number) => value.toFixed(2),
@@ -43,39 +57,41 @@ const columns: readonly Column[] = [
 ];
 
 interface Data {
-    name: string;
-    code: string;
-    population: number;
-    size: number;
-    density: number;
+    id: number;
+    type: string;
+    date: string;
+    p_location: string;
+    d_location: string;
+    email: string;
+    phone: string;
 }
 
 function createData(
-    name: string,
-    code: string,
-    population: number,
-    size: number,
+    id: number,
+    type: string,
+    date: string,
+    p_location: string,
+    d_location: string,
+    email: string,
+    phone: string
 ): Data {
-    const density = population / size;
-    return { name, code, population, size, density };
+    return { id, type, date, p_location, d_location, email, phone };
 }
 
 const rows = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767),
+    createData(1, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(2, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(3, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(4, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(5, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(6, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(7, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(8, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(9, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(11, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(12, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(13, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
+    createData(14, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
 ];
 
 export default function CustomTable() {
@@ -101,7 +117,7 @@ export default function CustomTable() {
                                 <TableCell
                                     key={column.id}
                                     align={column.align}
-                                    style={{ minWidth: column.minWidth }}
+                                    style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
                                 >
                                     {column.label}
                                 </TableCell>
@@ -113,7 +129,7 @@ export default function CustomTable() {
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
