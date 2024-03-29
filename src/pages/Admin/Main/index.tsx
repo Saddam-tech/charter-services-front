@@ -92,6 +92,7 @@ const Content = styled.section`
         justify-content: flex-start;
         flex-direction: column;
         border: 1px solid #dbdbdb;
+        background-color: #ffffff75;
         padding: 15px;
         border-radius: 15px;
         max-width: 400px;
