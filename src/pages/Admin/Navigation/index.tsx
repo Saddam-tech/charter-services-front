@@ -50,7 +50,7 @@ export default function BasicList() {
         setOpen(!open);
     };
     return (
-        <Box sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.paper' }}>
+        <Box sx={{ width: '100%', maxWidth: 300 }}>
             <nav aria-label="main mailbox folders">
                 <List>
                     {navigation.map((el, i) => {

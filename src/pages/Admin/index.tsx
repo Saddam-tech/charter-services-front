@@ -27,6 +27,7 @@ const Container = styled.section`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background-image: linear-gradient(to right,  #fffacd, #ffb6c1);
 `
 
 const InnerWrap = styled.section`
@@ -34,4 +35,5 @@ const InnerWrap = styled.section`
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
+    height: 100vh;
 `
