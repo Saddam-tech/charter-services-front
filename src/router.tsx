@@ -8,6 +8,7 @@ import Services from "pages/Services";
 import Admin from "pages/Admin";
 import Main from "pages/Admin/Main";
 import Orders from "pages/Admin/Orders";
+import SignIn from "pages/Admin/SignIn";
 
 const router = createBrowserRouter([
     {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <Admin />,
+        element: <SignIn />,
         children: [
             { path: "", element: <Main /> },
             { path: "orders/:path", element: <Orders /> },

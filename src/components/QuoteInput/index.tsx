@@ -20,6 +20,7 @@ import {
 const dropdown_data1 = ['Point-to-Point transportation', 'Hourly Ride', 'Airport pick-up/drop-off'];
 const dropdown_data2 = new Array(10).fill("passenger").map((el, i) => (i + 1) + " " + el + (i > 0 ? "s" : ""));
 const dropdown_data3 = ['Tesla Model 3 (5 seats)', 'Cadillac Escalade (8 seats)', 'BMW i7 (5 seats)', 'Mercedes Vito (11 seats)', 'Charter Bus (24 seats)'];
+
 const theme = createTheme({
     palette: {
         primary: {
