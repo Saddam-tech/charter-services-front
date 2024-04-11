@@ -1,10 +1,15 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Outlet, useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import Navigation from "./Navigation";
 import Header from "./Header";
 
-const Admin = () => {
+interface IProps {
+    token: string | null;
+    setToken: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const Admin = ({ token, setToken }: IProps) => {
     const location = useLocation;
     useEffect(() => {
         window.scrollTo(0, 0);

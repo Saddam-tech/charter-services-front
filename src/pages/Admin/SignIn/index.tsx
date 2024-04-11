@@ -1,9 +1,14 @@
+import React from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import styled from 'styled-components'
 
-const SignIn = () => {
+interface IProps {
+    setToken: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const SignIn = ({ setToken }: IProps) => {
     return (
         <Container>
             <ParentWrap>

@@ -9,6 +9,7 @@ import Admin from "pages/Admin";
 import Main from "pages/Admin/Main";
 import Orders from "pages/Admin/Orders";
 import SignIn from "pages/Admin/SignIn";
+import ProtectedRoute from "pages/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <SignIn />,
+        element: <ProtectedRoute />,
         children: [
             { path: "", element: <Main /> },
             { path: "orders/:path", element: <Orders /> },
