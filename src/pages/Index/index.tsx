@@ -5,6 +5,7 @@ import styled from "styled-components"
 import charters from "assets/charters.webp"
 import footerImg from "assets/footer.webp";
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Fade } from "react-awesome-reveal";
 import { socials } from "data";
 
@@ -205,6 +206,7 @@ const Index = () => {
                             <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
                             <a href="tel:+1(628) 800 4555">+1(628) 800 4555</a>
                             <p>55 Chumasero Drive , San Francisco, CA 94132</p>
+                            <p onClick={() => navigate('admin')} className="admin-login">Admin Login <OpenInNewIcon /></p>
                             <div className="social-media-list">
                                 {socials.map((el, i) => (
                                     <a key={i} target="_blank" rel="noreferrer" href={el.path}>
@@ -627,6 +629,13 @@ position: relative;
             }
             a {
                 color: #ffffff;
+            }
+            .admin-login {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            .admin-login:hover {
+                color: #c69536;
             }
             .social-media-list {
                 display: flex;

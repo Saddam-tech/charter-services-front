@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -8,12 +8,30 @@ interface IProps {
     setToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
+interface Credentials {
+    username: string;
+    password: string;
+}
+
 const SignIn = ({ setToken }: IProps) => {
+    const [credentials, setCredentials] = useState<Credentials>({ username: '', password: '' });
+    function loginHandler() {
+        try {
+            const token = credentials.username.concat(credentials.password);
+            if (!token) {
+                return;
+            }
+            localStorage.setItem('authorizationToken', token);
+            setToken(token);
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return (
         <Container>
             <ParentWrap>
                 <TextWrap>
-                    <h1>Welcome Back!</h1>
+                    <h1>Welcome Back, Azizbek!</h1>
                     <img src={require('assets/schs-mainlogo.png')} alt="" className="main-logo" />
                     <p>Enter your credentials to login</p>
                 </TextWrap>
@@ -34,17 +52,19 @@ const SignIn = ({ setToken }: IProps) => {
                             multiline
                             maxRows={4}
                             variant="filled"
+                            onChange={(e) => setCredentials(prev => ({ ...prev, username: e.target.value }))}
                         />
                         <TextField
                             required
-                            error
-                            id="filled-multiline-flexible"
+                            error={false}
+                            id="filled-password-input"
                             label="Password"
-                            multiline
-                            maxRows={4}
+                            type="password"
+                            autoComplete="current-password"
                             variant="filled"
+                            onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
                         />
-                        <Button sx={{ width: '95%', margin: '20px 0' }} variant="contained">Submit</Button>
+                        <Button onClick={loginHandler} sx={{ width: '95%', margin: '20px 0' }} variant="contained">Submit</Button>
                     </LoginBoard>
                 </Box>
 
@@ -82,6 +102,9 @@ const TextWrap = styled.section`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    max-width: 300px;
+    width: 100%;
+    text-align: center;
     img {
                 max-width: 210px;
                 width: auto;
