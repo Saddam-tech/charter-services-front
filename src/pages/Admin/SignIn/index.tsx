@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import styled from 'styled-components'
+import { EPS, provider } from "configs/axios";
 
 interface IProps {
     setToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -15,9 +16,17 @@ interface Credentials {
 
 const SignIn = ({ setToken }: IProps) => {
     const [credentials, setCredentials] = useState<Credentials>({ username: '', password: '' });
-    function loginHandler() {
+    async function loginHandler() {
         try {
-            const token = credentials.username.concat(credentials.password);
+            if (!credentials.username) {
+                return;
+            } else if (!credentials.password) {
+                return;
+            }
+            const payload = { username: credentials.username, password: credentials.password };
+            const response = await provider.post(EPS.ADMIN_SIGNIN, payload)
+            console.log({ response })
+            let { token } = response?.data;
             if (!token) {
                 return;
             }

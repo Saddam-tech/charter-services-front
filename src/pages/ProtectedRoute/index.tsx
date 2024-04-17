@@ -1,4 +1,4 @@
-import { isExpired } from 'config/utils';
+import { isExpired } from 'configs/utils';
 import Admin from 'pages/Admin';
 import SignIn from 'pages/Admin/SignIn';
 import { useEffect, useState } from 'react';
