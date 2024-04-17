@@ -5,6 +5,8 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 
+import dayjs, { Dayjs } from "dayjs";
+
 export const navigation = [
   { page: "Services", route: "services" },
   { page: "Fleet", route: "" },
@@ -13,7 +15,7 @@ export const navigation = [
   { page: "Careers", route: "" },
   { page: "Contact", route: "" },
   { page: "+1(628) 224 7797", route: "+1(628) 224 7797" },
-  { page: "Get and Book Now!", route: "" },
+  { page: "Get and Book Now!", route: "i-quote" },
 ];
 
 export const socials = [
@@ -48,3 +50,41 @@ export const socials = [
     icon: YouTubeIcon,
   },
 ];
+
+export const c_quote_default = {
+  type: "",
+  date: dayjs("2023-12-01"),
+  time: dayjs("0000-00-00"),
+  n_ppl: "",
+  car_type: "",
+  pickup_location: "",
+  dropoff_location: "",
+  firstname: "",
+  lastname: "",
+  email: "",
+  phonenumber: "",
+  special_req: "",
+};
+
+export const _errorState = {
+  pickup_location_error: false,
+  dropoff_location_error: false,
+};
+
+export const dropdown_data = {
+  0: [
+    "Point-to-Point transportation",
+    "Hourly Ride",
+    "Airport pick-up/drop-off",
+  ],
+  1: new Array(50)
+    .fill("passenger")
+    .map((el, i) => i + 1 + " " + el + (i > 0 ? "s" : "")),
+  2: [
+    "Tesla Model 3 (5 seats)",
+    "Cadillac Escalade (8 seats)",
+    "BMW i7 (5 seats)",
+    "Mercedes Vito (11 seats)",
+    "Charter Bus (24 seats)",
+  ],
+};

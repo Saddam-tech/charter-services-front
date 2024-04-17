@@ -5,23 +5,26 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { iState } from 'components/QuoteInput';
 
-export default function DatenTimePicker() {
-    const [dateValue, setDateValue] = React.useState<Dayjs | null>(dayjs('2023-12-01'));
-    const [timeValue, setTimeValue] = React.useState<Dayjs | null>(dayjs('0000-00-00'));
+interface IProps {
+    state: iState;
+    setState: React.Dispatch<React.SetStateAction<iState>>;
+}
 
+export default function DatenTimePicker({ state, setState }: IProps) {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DatePicker', 'TimePicker']}>
                 <DatePicker
                     label="Service Date"
-                    value={dateValue}
-                    onChange={(newValue) => setDateValue(newValue)}
+                    value={state?.date}
+                    onChange={(newValue) => setState((prev) => ({ ...prev, date: newValue }))}
                 />
                 <TimePicker
                     label="Service Time"
-                    value={timeValue}
-                    onChange={(newValue) => setTimeValue(newValue)}
+                    value={state?.time}
+                    onChange={(newValue) => setState((prev) => ({ ...prev, time: newValue }))}
                 />
             </DemoContainer>
         </LocalizationProvider>

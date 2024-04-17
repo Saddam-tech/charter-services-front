@@ -71,6 +71,15 @@ export default function SwipeableTemporaryDrawer() {
                         </ListItemButton>
                     </ListItem>
                 ))}
+                {/* this is a temporary list item */}
+                <ListItem onClick={() => navigate('c-quote')} disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <MailIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'Make a Custom Quote!'} />
+                    </ListItemButton>
+                </ListItem>
             </List>
         </Box>
     );
