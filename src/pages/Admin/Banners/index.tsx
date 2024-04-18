@@ -1,9 +1,9 @@
-import { Box, Collapse, List, ListItem, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Collapse, List, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components'
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import CustomTable from 'components/CustomTable';
+import BannerTable from 'components/BannerTable';
 
 
 const sections = [
@@ -40,14 +40,14 @@ const Banners = () => {
                                     const isSelected = i === selectedId && !isCollapsed;
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={i}>
-                                            <TableCell sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', cursor: 'pointer' }} onClick={() => handleItemClick(i)} key={row.id}>
-                                                <ListItemButton>
+                                            <TableCell sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', cursor: 'pointer' }} key={row.id}>
+                                                <ListItemButton onClick={() => handleItemClick(i)}>
                                                     Section {i + 1}
                                                     {isSelected ? <ExpandLess /> : <ExpandMore />}
                                                 </ListItemButton>
                                                 <Collapse in={isSelected} timeout="auto" unmountOnExit>
                                                     <List component="div" disablePadding>
-                                                        <CustomTable />
+                                                        <BannerTable />
                                                     </List>
                                                 </Collapse>
                                             </TableCell>
@@ -63,9 +63,6 @@ const Banners = () => {
 }
 
 export default Banners
-
-const boxCss = { margin: '20px 0', borderRadius: '10px', width: '100%', backgroundImage: 'linear-gradient(to right,  #fffcde, #fdc3e7)' };
-const listItemCss = { display: 'inline', width: '100%' };
 
 const Container = styled.section`
 display: flex;
