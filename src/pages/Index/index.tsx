@@ -206,7 +206,9 @@ const Index = () => {
                             <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
                             <a href="tel:+1(628) 800 4555">+1(628) 800 4555</a>
                             <p>55 Chumasero Drive , San Francisco, CA 94132</p>
-                            <p onClick={() => navigate('admin')} className="admin-login">Admin Login <OpenInNewIcon /></p>
+                            <a target="_blank" rel="noreferrer" href={window.location + 'admin'}>
+                                Admin Login <OpenInNewIcon />
+                            </a>
                             <div className="social-media-list">
                                 {socials.map((el, i) => (
                                     <a key={i} target="_blank" rel="noreferrer" href={el.path}>

@@ -57,6 +57,7 @@ align-items: flex-start;
 justify-content: flex-start;
 flex-direction: column;
 width: 100%;
+padding: 0 10px;
 `
 
 const InnerWrap = styled.section`

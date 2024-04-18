@@ -20,7 +20,8 @@ const SignIn = ({ setToken }: IProps) => {
         try {
             if (!credentials.username) {
                 return;
-            } else if (!credentials.password) {
+            }
+            if (!credentials.password) {
                 return;
             }
             const payload = { username: credentials.username, password: credentials.password };

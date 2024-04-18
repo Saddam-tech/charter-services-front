@@ -24,6 +24,7 @@ const Container = styled.section`
     align-items: center;
     justify-content: center;
     width: 100%;
+    padding: 0 10px;
 `
 
 const HeaderWrap = styled.div`
