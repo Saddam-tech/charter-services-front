@@ -7,6 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import Switch from '@mui/material/Switch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import styled from 'styled-components';
 
 interface Column {
     id: 'id' | 'img' | 'order' | 'active' | 'url' | 'settings'
@@ -42,7 +45,7 @@ const columns: readonly Column[] = [
     },
     {
         id: 'settings',
-        label: '',
+        label: 'Delete',
         minWidth: 170,
         align: 'right',
         format: (value: number) => value.toLocaleString('en-US'),
@@ -53,18 +56,18 @@ interface Data {
     id: number;
     img: React.ReactElement;
     order: number;
-    active: number;
+    active: React.ReactNode;
     url: string;
-    settings: null;
+    settings: React.ReactElement;
 }
 
 function createData(
     id: number,
     img: React.ReactElement,
     order: number,
-    active: number,
+    active: React.ReactNode,
     url: string,
-    settings: null
+    settings: React.ReactElement,
 ): Data {
     return { id, img, order, active, url, settings };
 }
@@ -73,13 +76,25 @@ function createData(
 export default function BannerTable() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [switchState, setSwitchState] = React.useState<boolean>(false);
+    const imgUrl = 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg'
+
+    const switcher = (<Switch
+        edge="end"
+        onChange={() => setSwitchState(!switchState)}
+        checked={switchState}
+        inputProps={{
+            'aria-labelledby': 'switch-list-label-wifi',
+        }}
+    />);
+    const deleteIcon = <DeleteIcon />
 
     const rows = [
-        createData(1, <img style={{ maxWidth: '200px' }} src="https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg" alt="banner" />, 1, 1, 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg', null),
-        createData(2, <img style={{ maxWidth: '200px' }} src="https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg" alt="banner" />, 1, 1, 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg', null),
-        createData(3, <img style={{ maxWidth: '200px' }} src="https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg" alt="banner" />, 1, 1, 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg', null),
-        createData(4, <img style={{ maxWidth: '200px' }} src="https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg" alt="banner" />, 1, 1, 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg', null),
-        createData(5, <img style={{ maxWidth: '200px' }} src="https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg" alt="banner" />, 1, 1, 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg', null),
+        createData(1, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 1, switcher, imgUrl, deleteIcon),
+        createData(2, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 2, switcher, imgUrl, deleteIcon),
+        createData(3, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 3, switcher, imgUrl, deleteIcon),
+        createData(4, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 4, switcher, imgUrl, deleteIcon),
+        createData(5, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 5, switcher, imgUrl, deleteIcon),
     ];
 
     const handleChangePage = (event: unknown, newPage: number) => {
