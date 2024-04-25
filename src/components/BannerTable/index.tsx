@@ -56,7 +56,7 @@ interface Data {
     id: number;
     img: React.ReactElement;
     order: number;
-    active: React.ReactNode;
+    active: boolean;
     url: string;
     settings: React.ReactElement;
 }
@@ -65,7 +65,7 @@ function createData(
     id: number,
     img: React.ReactElement,
     order: number,
-    active: React.ReactNode,
+    active: boolean,
     url: string,
     settings: React.ReactElement,
 ): Data {
@@ -78,24 +78,11 @@ export default function BannerTable() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [switchState, setSwitchState] = React.useState<boolean>(false);
     const imgUrl = 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg'
-
-    const switcher = (<Switch
-        edge="end"
-        onChange={() => setSwitchState(!switchState)}
-        checked={switchState}
-        inputProps={{
-            'aria-labelledby': 'switch-list-label-wifi',
-        }}
-    />);
-    const deleteIcon = <DeleteIcon />
-
-    const rows = [
-        createData(1, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 1, switcher, imgUrl, deleteIcon),
-        createData(2, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 2, switcher, imgUrl, deleteIcon),
-        createData(3, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 3, switcher, imgUrl, deleteIcon),
-        createData(4, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 4, switcher, imgUrl, deleteIcon),
-        createData(5, <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, 5, switcher, imgUrl, deleteIcon),
-    ];
+    const deleteIcon = <DeleteIcon />;
+    const [rows, setRows] = React.useState<Data[]>([
+        { id: 1, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 1, active: true, url: imgUrl, settings: deleteIcon },
+        { id: 2, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 2, active: false, url: imgUrl, settings: deleteIcon },
+    ]);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -105,6 +92,16 @@ export default function BannerTable() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
+    function handleSwitch(index: number) {
+        const updatedList = rows.map((el, i) => {
+            if (index === i) {
+                el.active = !el.active;
+            }
+            return el;
+        });
+        setRows(updatedList);
+    }
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -126,11 +123,20 @@ export default function BannerTable() {
                     <TableBody>
                         {rows
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => {
+                            .map((row, index) => {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                         {columns.map((column) => {
-                                            const value = row[column.id];
+                                            const value = column.id === 'active' ? (
+                                                <Switch
+                                                    edge="end"
+                                                    onChange={() => handleSwitch(index)}
+                                                    checked={row?.active}
+                                                    inputProps={{
+                                                        'aria-labelledby': 'switch-list-label-wifi',
+                                                    }}
+                                                />
+                                            ) : row[column.id];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
                                                     {column.format && typeof value === 'number'
