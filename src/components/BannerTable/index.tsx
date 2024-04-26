@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
@@ -24,7 +25,7 @@ const theme = createTheme({
 });
 
 interface Column {
-    id: 'id' | 'img' | 'order' | 'active' | 'url' | 'settings'
+    id: 'id' | 'img' | 'order' | 'active' | 'url' | 'edit' | 'settings'
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -56,9 +57,16 @@ const columns: readonly Column[] = [
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
+        id: 'edit',
+        label: '',
+        minWidth: 50,
+        align: 'right',
+        format: (value: number) => value.toLocaleString('en-US'),
+    },
+    {
         id: 'settings',
-        label: 'Delete',
-        minWidth: 170,
+        label: '',
+        minWidth: 50,
         align: 'right',
         format: (value: number) => value.toLocaleString('en-US'),
     },
@@ -70,21 +78,14 @@ interface Data {
     order: number;
     active: boolean;
     url: string;
+    edit: React.ReactElement;
     settings: React.ReactElement;
 }
 
 
-export default function BannerTable() {
+export default function BannerTable({ data, setData, sectionIndex }: { data: Data[], setData: React.Dispatch<React.SetStateAction<Data[][]>>, sectionIndex: number }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const imgUrl = 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg'
-    const deleteIcon = <DeleteIcon />;
-    const [rows, setRows] = React.useState<Data[]>([
-        { id: 1, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 1, active: true, url: imgUrl, settings: deleteIcon },
-        { id: 2, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 2, active: false, url: imgUrl, settings: deleteIcon },
-        { id: 3, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 3, active: false, url: imgUrl, settings: deleteIcon },
-        { id: 4, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 4, active: false, url: imgUrl, settings: deleteIcon },
-    ]);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -96,13 +97,17 @@ export default function BannerTable() {
     };
 
     function handleSwitch(index: number) {
-        const updatedList = rows.map((el, i) => {
+        const updatedList = data.map((el, i) => {
             if (index === i) {
                 el.active = !el.active;
             }
             return el;
         });
-        setRows(updatedList);
+
+        setData(prev => {
+            prev[sectionIndex] = updatedList;
+            return prev;
+        });
     }
 
     function handleAddBanner() { }
@@ -126,8 +131,8 @@ export default function BannerTable() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            {data
+                                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
@@ -160,7 +165,7 @@ export default function BannerTable() {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={rows.length}
+                    count={data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

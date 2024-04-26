@@ -78,9 +78,8 @@ const NewBanner = () => {
                             sx={{ margin: '10px 0 0 0' }}
                             type="number"
                             fullWidth
-                            id="dropoff_location"
+                            id="view-order"
                             label="View Order"
-                            variant="filled"
                         />
                         <div className="switch-wrap">
                             <span>Active</span>
