@@ -1,9 +1,14 @@
 import styled from 'styled-components'
 
 const Backdrop = ({ children, close }: any) => {
+    function handleContentClick(e: any) {
+        e.stopPropagation();
+    }
     return (
         <Container onClick={() => close()}>
-            {children}
+            <div onClick={(e) => handleContentClick(e)}>
+                {children}
+            </div>
         </Container>
     )
 }
@@ -22,4 +27,8 @@ const Container = styled.section`
     top: 0;
     z-index: 3;
     cursor: pointer;
+
+    div {
+        z-index: 6;
+    }
 `
