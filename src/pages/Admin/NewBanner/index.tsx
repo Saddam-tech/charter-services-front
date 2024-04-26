@@ -9,15 +9,9 @@ import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAuto
 import { styled as mui_styled } from '@mui/system';
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Switch from '@mui/material/Switch';
 import { Dayjs } from 'dayjs';
-import {
-    MuiTelInput,
-    MuiTelInputCountry,
-    MuiTelInputInfo,
-    MuiTelInputContinent,
-} from 'mui-tel-input'
-import { _errorState, c_quote_default, dropdown_data } from 'data';
+import { _errorState, c_quote_default } from 'data';
 import { EPS, provider } from 'configs/axios';
 
 
@@ -67,38 +61,41 @@ const NewBanner = () => {
             </div>
             <section className="input-tab-wrapper">
                 <ThemeProvider theme={theme}>
-                    <UnstyledSelectIntroduction type='type' setState={setState} options={dropdown_data[0]} />
-                    <DatenTimePicker state={state} setState={setState} />
-                    <UnstyledSelectIntroduction type='n_ppl' setState={setState} options={dropdown_data[1]} />
-                    <UnstyledSelectIntroduction type="car_type" setState={setState} options={dropdown_data[2]} />
                     <Box
                         component="form"
                         sx={{ width: '100%' }}
                         noValidate
                         autoComplete="off"
                     >
+                        <div className="image-input-wrap">
+                            <label htmlFor="bannerInput">Select Banner Image</label>
+                            <input id="bannerInput" type="file" name="imageInput" />
+                        </div>
                         <TextField
-                            onChange={(e) => setState((prev) => ({ ...prev, pickup_location: e.target.value }))}
-                            helperText={errorState.pickup_location_error && "This field is required!"}
-                            error={errorState.pickup_location_error}
-                            fullWidth
-                            id="pickup_location"
-                            label="Pick-up location"
-                            variant="filled"
-                        />
-                        <TextField
-                            onChange={(e) => setState((prev) => ({ ...prev, dropoff_location: e.target.value }))}
-                            helperText={errorState.dropoff_location_error && "This field is required!"}
+                            onChange={() => { }}
+                            // helperText={errorState.dropoff_location_error && "This field is required!"}
                             error={errorState.dropoff_location_error}
                             sx={{ margin: '10px 0 0 0' }}
+                            type="number"
                             fullWidth
                             id="dropoff_location"
-                            label="Drop-off location"
+                            label="View Order"
                             variant="filled"
                         />
+                        <div className="switch-wrap">
+                            <span>Active</span>
+                            <Switch
+                                edge="end"
+                                onChange={() => { }}
+                                checked={true}
+                                disabled={false}
+                                inputProps={{
+                                    'aria-labelledby': 'switch-list-label-wifi',
+                                }}
+                            />
+                        </div>
                     </Box>
-
-                    <Button onClick={() => { }} sx={{ width: '100%', backgroundColor: '#c69536', color: '#ffffff' }} variant='contained'>Continue</Button>
+                    <Button onClick={() => { }} sx={{ width: '100%', backgroundColor: '#c69536', color: '#ffffff' }} variant='contained'>Submit</Button>
                 </ThemeProvider>
             </section>
         </Container>
@@ -134,55 +131,22 @@ z-index: 7;
     padding: 10px;
     max-width: 450px;
     width: 100%;
+
+    .image-input-wrap {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .switch-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
 }
 `;
-const yellow = {
-    100: '#fff9ee',
-    200: '#ffe5b0',
-    400: '#fdd585',
-    500: '#c69536',
-    600: '#855900',
-    900: '#251900',
-};
 
-const grey = {
-    50: '#F3F6F9',
-    100: '#E5EAF2',
-    200: '#DAE2ED',
-    300: '#C7D0DD',
-    400: '#B0B8C4',
-    500: '#9DA8B7',
-    600: '#6B7A90',
-    700: '#434D5B',
-    800: '#303740',
-    900: '#1C2025',
-};
 
-const TextareaAutosize = mui_styled(BaseTextareaAutosize)(
-    ({ theme }) => `
-    width: 100%;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    padding: 18px 12px;
-    border-radius: 8px;
-    color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-    background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-    box-shadow: 0px 2px 2px ${theme.palette.mode === 'dark' ? grey[900] : grey[50]};
-  
-    &:hover {
-      border-color: ${yellow[400]};
-    }
-  
-    &:focus {
-      border-color: ${yellow[400]};
-      box-shadow: 0 0 0 3px ${theme.palette.mode === 'dark' ? yellow[600] : yellow[200]};
-    }
-  
-    // firefox
-    &:focus-visible {
-      outline: 0;
-    }
-  `,
-);
+
