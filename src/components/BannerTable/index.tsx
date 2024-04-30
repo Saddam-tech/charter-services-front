@@ -11,6 +11,7 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Button } from '@mui/material';
 
 
 const theme = createTheme({
@@ -83,9 +84,18 @@ interface Data {
 }
 
 
-export default function BannerTable({ data, setData, sectionIndex }: { data: Data[], setData: React.Dispatch<React.SetStateAction<Data[][]>>, sectionIndex: number }) {
+export default function BannerTable({ currentIndex, handleAddBanner }: { currentIndex: number, handleAddBanner: (index: number) => void }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const imgUrl = 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg'
+    const deleteIcon = <DeleteIcon />;
+    const editIcon = <EditIcon />
+    const [rows, setRows] = React.useState<Data[]>([
+        { id: 1, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 1, active: true, url: imgUrl, edit: editIcon, settings: deleteIcon },
+        { id: 2, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 2, active: false, url: imgUrl, edit: editIcon, settings: deleteIcon },
+        { id: 3, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 3, active: false, url: imgUrl, edit: editIcon, settings: deleteIcon },
+        { id: 4, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 4, active: false, url: imgUrl, edit: editIcon, settings: deleteIcon },
+    ]);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -97,20 +107,14 @@ export default function BannerTable({ data, setData, sectionIndex }: { data: Dat
     };
 
     function handleSwitch(index: number) {
-        const updatedList = data.map((el, i) => {
+        const updatedList = rows.map((el, i) => {
             if (index === i) {
                 el.active = !el.active;
             }
             return el;
         });
-
-        setData(prev => {
-            prev[sectionIndex] = updatedList;
-            return prev;
-        });
+        setRows(updatedList);
     }
-
-    function handleAddBanner() { }
 
     return (
         <ThemeProvider theme={theme}>
@@ -131,8 +135,8 @@ export default function BannerTable({ data, setData, sectionIndex }: { data: Dat
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data
-                                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            {rows
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
@@ -165,13 +169,14 @@ export default function BannerTable({ data, setData, sectionIndex }: { data: Dat
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={data.length}
+                    count={rows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
+            <Button onClick={() => handleAddBanner(currentIndex)} sx={{ maxWidth: '200px', backgroundColor: '#c69536', color: '#ffffff' }} variant="contained">New Banner</Button>
         </ThemeProvider>
     );
 }
