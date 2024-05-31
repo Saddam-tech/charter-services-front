@@ -24,6 +24,7 @@ const theme = createTheme({
 const Banners = () => {
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+    const [currentSection, setCurrentSection] = useState<number | null>(null)
     const [modal, setModal] = useState<boolean>(false);
 
     function handleItemClick(id: number) {
@@ -33,6 +34,7 @@ const Banners = () => {
             setSelectedId(id);
             setIsCollapsed(false);
         }
+        setCurrentSection(id + 1);
     }
     function handleAddBanner(index: number) {
         setModal(true);
@@ -74,7 +76,7 @@ const Banners = () => {
                 </Paper>
             </ThemeProvider>
             {modal && <Backdrop close={() => setModal(false)}>
-                <NewBanner />
+                <NewBanner currentSection={currentSection} />
             </Backdrop>}
         </Container>
     )

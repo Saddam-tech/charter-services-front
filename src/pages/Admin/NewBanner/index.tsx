@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import DatenTimePicker from 'components/DatenTimePicker';
-import UnstyledSelectIntroduction from 'components/UnstyledSelectIntroduction';
 import Button from '@mui/material/Button';
 import { styled } from 'styled-components';
-import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
-import { styled as mui_styled } from '@mui/system';
-import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-import { Dayjs } from 'dayjs';
-import { _errorState, c_quote_default } from 'data';
 import { EPS, provider } from 'configs/axios';
 
 
@@ -27,32 +20,41 @@ const theme = createTheme({
 });
 
 
-export interface iState {
-    type: string;
-    date: Dayjs | null;
-    time: Dayjs | null;
-    car_type: string;
-    n_ppl: string;
-    pickup_location: string;
-    dropoff_location: string;
-    firstname: string;
-    lastname: string;
-    email: string;
-    phonenumber: string;
-    special_req: string;
+interface data {
+    file: File | null;
+    order: string | null;
+    active: boolean;
 }
 
-interface errorState {
-    pickup_location_error: boolean;
-    dropoff_location_error: boolean;
-}
 
-const NewBanner = () => {
-    const navigate = useNavigate();
-    const [process, setProcess] = useState<number>(0);
-    const [errorState, setErrorState] = useState<errorState>(_errorState);
-    const [state, setState] = useState<iState>(c_quote_default);
+const NewBanner = ({ currentSection }: { currentSection: number | null }) => {
+    const [data, setData] = useState<data>({ file: null, order: null, active: true })
 
+    function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+        if (event.target.files && event.target.files[0]) {
+            const file = event?.target?.files[0] ?? null;
+            console.log(file)
+            setData(prev => ({ ...prev, file }));
+        }
+    }
+
+    async function handleSubmit() {
+        try {
+            if (!data?.file || !data?.order || !currentSection) {
+                return;
+            }
+            let reqData = {
+                file: data.file,
+                sequence: data.order,
+                active: data.active,
+                section: currentSection
+            }
+            const response = await provider.post(EPS.BANNERS, reqData)
+            console.log({ response })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <Container>
@@ -69,12 +71,12 @@ const NewBanner = () => {
                     >
                         <div className="image-input-wrap">
                             <label htmlFor="bannerInput">Select Banner Image</label>
-                            <input id="bannerInput" type="file" name="imageInput" />
+                            <input id="bannerInput" type="file" name="imageInput" onChange={handleFileChange} />
                         </div>
                         <TextField
-                            onChange={() => { }}
+                            onChange={(event) => setData(prev => ({ ...prev, order: event.target.value }))}
                             // helperText={errorState.dropoff_location_error && "This field is required!"}
-                            error={errorState.dropoff_location_error}
+                            // error={errorState.dropoff_location_error}
                             sx={{ margin: '10px 0 0 0' }}
                             type="number"
                             fullWidth
@@ -85,8 +87,8 @@ const NewBanner = () => {
                             <span>Active</span>
                             <Switch
                                 edge="end"
-                                onChange={() => { }}
-                                checked={true}
+                                onChange={() => setData((prev) => ({ ...prev, active: !data.active }))}
+                                checked={data.active}
                                 disabled={false}
                                 inputProps={{
                                     'aria-labelledby': 'switch-list-label-wifi',
@@ -94,7 +96,7 @@ const NewBanner = () => {
                             />
                         </div>
                     </Box>
-                    <Button onClick={() => { }} sx={{ width: '100%', backgroundColor: '#c69536', color: '#ffffff' }} variant='contained'>Submit</Button>
+                    <Button onClick={handleSubmit} sx={{ width: '100%', backgroundColor: '#c69536', color: '#ffffff' }} variant='contained'>Submit</Button>
                 </ThemeProvider>
             </section>
         </Container>
