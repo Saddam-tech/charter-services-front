@@ -4,7 +4,6 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-
 import dayjs, { Dayjs } from "dayjs";
 
 export const navigation = [
@@ -15,7 +14,7 @@ export const navigation = [
   { page: "Careers", route: "" },
   { page: "Contact", route: "" },
   { page: "+1(628) 224 7797", route: "+1(628) 224 7797" },
-  { page: "Get and Book Now!", route: "i-quote" },
+  // { page: "Get and Book Now!", route: "i-quote" },
 ];
 
 export const socials = [
