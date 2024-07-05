@@ -59,13 +59,13 @@ const Navigation = () => {
                         ))}
                     </div>
                 )}
-                <ul onMouseEnter={() => handleNavigationHover(7, true)} onMouseLeave={() => handleNavigationHover(7, false)} className="hover-group">
+                {/* <ul onMouseEnter={() => handleNavigationHover(7, true)} onMouseLeave={() => handleNavigationHover(7, false)} className="hover-group">
                     {
                         [{ name: 'Instant Quote', path: 'i-quote' }, { name: "Custom Quote", path: 'c-quote' }].map((el, i) => {
                             return (<li onClick={() => navigate(el.path)} key={i}>{el.name}</li>)
                         })
                     }
-                </ul>
+                </ul> */}
             </ul>
             <SwipeableTemporaryDrawer />
         </Container>
