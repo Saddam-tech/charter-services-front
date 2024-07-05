@@ -33,7 +33,6 @@ const NewBanner = ({ currentSection }: { currentSection: number | null }) => {
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files[0]) {
             const file = event?.target?.files[0] ?? null;
-            console.log(file)
             setData(prev => ({ ...prev, file }));
         }
     }
@@ -43,13 +42,12 @@ const NewBanner = ({ currentSection }: { currentSection: number | null }) => {
             if (!data?.file || !data?.order || !currentSection) {
                 return;
             }
-            let reqData = {
-                file: data.file,
-                sequence: data.order,
-                active: data.active,
-                section: currentSection
-            }
-            const response = await provider.post(EPS.BANNERS, reqData)
+            const formData = new FormData();
+            formData.append('file', data.file);
+            formData.append('sequence', data.order);
+            formData.append('active', data.active ? '1' : '0');
+            formData.append('section', currentSection.toString());
+            const response = await provider.post(EPS.BANNERS, formData);
             console.log({ response })
         } catch (err) {
             console.log(err)

@@ -4,7 +4,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 export const navigation = [
   { page: "Services", route: "services" },
