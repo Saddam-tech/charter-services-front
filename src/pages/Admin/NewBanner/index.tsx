@@ -53,7 +53,7 @@ const NewBanner = ({ currentSection, close }: { currentSection: number | null, c
             formData.append('active', data.active ? '1' : '0');
             formData.append('section', currentSection.toString());
             setLoader(true);
-            await provider.post(EPS.BANNERS, formData);
+            await provider.post(EPS.NEW_BANNER, formData);
             setLoader(false);
             addToast(MESSAGES.UPLOAD_COMPLETE, {
                 appearance: 'success',

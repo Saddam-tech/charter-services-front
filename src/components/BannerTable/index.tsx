@@ -34,7 +34,6 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-    { id: 'id', label: 'Id', minWidth: 30 },
     { id: 'img', label: 'Image', minWidth: 100 },
     {
         id: 'order',
@@ -74,28 +73,19 @@ const columns: readonly Column[] = [
 ];
 
 interface Data {
-    id: number;
-    img: React.ReactElement;
-    order: number;
-    active: boolean;
-    url: string;
-    edit: React.ReactElement;
-    settings: React.ReactElement;
+    id?: number;
+    img?: React.ReactElement;
+    order?: number;
+    active?: boolean;
+    url?: string;
+    edit?: React.ReactElement;
+    settings?: React.ReactElement;
 }
 
 
-export default function BannerTable({ currentIndex, handleAddBanner }: { currentIndex: number, handleAddBanner: (index: number) => void }) {
+export default function BannerTable({ rows, currentIndex, handleAddBanner }: { rows: Data[], currentIndex: number, handleAddBanner: (index: number) => void }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const imgUrl = 'https://lp-cms-production.imgix.net/2020-11/Hemphill%20celebrity%20bus.jpg'
-    const deleteIcon = <DeleteIcon />;
-    const editIcon = <EditIcon />
-    const [rows, setRows] = React.useState<Data[]>([
-        { id: 1, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 1, active: true, url: imgUrl, edit: editIcon, settings: deleteIcon },
-        { id: 2, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 2, active: false, url: imgUrl, edit: editIcon, settings: deleteIcon },
-        { id: 3, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 3, active: false, url: imgUrl, edit: editIcon, settings: deleteIcon },
-        { id: 4, img: <img style={{ maxWidth: '100px' }} src={imgUrl} alt="banner" />, order: 4, active: false, url: imgUrl, edit: editIcon, settings: deleteIcon },
-    ]);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -113,7 +103,7 @@ export default function BannerTable({ currentIndex, handleAddBanner }: { current
             }
             return el;
         });
-        setRows(updatedList);
+        // setRows(updatedList);
     }
 
     return (
@@ -167,7 +157,7 @@ export default function BannerTable({ currentIndex, handleAddBanner }: { current
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
+                    rowsPerPageOptions={[5, 10, 25]}
                     component="div"
                     count={rows.length}
                     rowsPerPage={rowsPerPage}

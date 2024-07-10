@@ -1,12 +1,15 @@
 import { Collapse, List, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import BannerTable from 'components/BannerTable';
 import NewBanner from '../NewBanner';
 import Backdrop from 'components/Backdrop';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { EPS, provider } from 'configs/axios';
 
 const theme = createTheme({
     palette: {
@@ -19,6 +22,15 @@ const theme = createTheme({
     },
 });
 
+interface Data {
+    id?: number;
+    img?: React.ReactElement;
+    order?: number;
+    active?: boolean;
+    url?: string;
+    edit?: React.ReactElement;
+    settings?: React.ReactElement;
+}
 
 
 const Banners = () => {
@@ -26,6 +38,29 @@ const Banners = () => {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
     const [currentSection, setCurrentSection] = useState<number | null>(null)
     const [modal, setModal] = useState<boolean>(false);
+    const [rows, setRows] = React.useState<Data[]>([]);
+
+    async function loadBanners(section_id: number) {
+        try {
+            const { data: { response } } = await provider.get(EPS.BANNERS + `/${section_id}`);
+            console.log({ response });
+            let newRows: Data[] = [];
+            for (let el of response) {
+                let item: Data = {};
+                item.id = el.id;
+                item.img = <img style={{ maxWidth: '100px' }} src={el.urlToS3} alt="banner" />;
+                item.active = el.active;
+                item.order = el.sequence;
+                item.url = el.urlToS3;
+                item.edit = <EditIcon />;
+                item.settings = <DeleteIcon />;
+                newRows.push(item);
+            }
+            setRows(newRows);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     function handleItemClick(id: number) {
         if (selectedId === id) {
@@ -34,7 +69,9 @@ const Banners = () => {
             setSelectedId(id);
             setIsCollapsed(false);
         }
-        setCurrentSection(id + 1);
+        let _currentSection = id + 1;
+        setCurrentSection(_currentSection);
+        loadBanners(_currentSection);
     }
     function handleAddBanner(index: number) {
         setModal(true);
@@ -63,7 +100,7 @@ const Banners = () => {
                                                     </ListItemButton>
                                                     <Collapse in={isSelected} timeout="auto" unmountOnExit>
                                                         <List sx={{ display: 'flex', alignItem: 'flex-end', justifyContent: 'flex-end', flexDirection: 'column', gap: '10px' }} component="div" disablePadding>
-                                                            <BannerTable currentIndex={currentSection} handleAddBanner={handleAddBanner} />
+                                                            <BannerTable rows={rows} currentIndex={currentSection} handleAddBanner={handleAddBanner} />
                                                         </List>
                                                     </Collapse>
                                                 </TableCell>
