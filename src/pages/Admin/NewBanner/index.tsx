@@ -6,6 +6,10 @@ import { styled } from 'styled-components';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { EPS, provider } from 'configs/axios';
+import LinearProgress from '@mui/material/LinearProgress';
+import { useToasts } from 'react-toast-notifications';
+import { MESSAGES } from 'utils/messages';
+
 
 
 const theme = createTheme({
@@ -27,9 +31,10 @@ interface data {
 }
 
 
-const NewBanner = ({ currentSection }: { currentSection: number | null }) => {
-    const [data, setData] = useState<data>({ file: null, order: null, active: true })
-
+const NewBanner = ({ currentSection, close }: { currentSection: number | null, close: () => void }) => {
+    const [data, setData] = useState<data>({ file: null, order: null, active: true });
+    const [loader, setLoader] = useState<boolean>(false);
+    const { addToast } = useToasts();
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files[0]) {
             const file = event?.target?.files[0] ?? null;
@@ -47,10 +52,18 @@ const NewBanner = ({ currentSection }: { currentSection: number | null }) => {
             formData.append('sequence', data.order);
             formData.append('active', data.active ? '1' : '0');
             formData.append('section', currentSection.toString());
-            const response = await provider.post(EPS.BANNERS, formData);
-            console.log({ response })
+            setLoader(true);
+            await provider.post(EPS.BANNERS, formData);
+            setLoader(false);
+            addToast(MESSAGES.UPLOAD_COMPLETE, {
+                appearance: 'success',
+                autoDismiss: true,
+            });
+            close();
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            setLoader(false);
+            close();
         }
     }
 
@@ -94,7 +107,11 @@ const NewBanner = ({ currentSection }: { currentSection: number | null }) => {
                             />
                         </div>
                     </Box>
-                    <Button onClick={handleSubmit} sx={{ width: '100%', backgroundColor: '#c69536', color: '#ffffff' }} variant='contained'>Submit</Button>
+                    {
+                        loader ? (<Box sx={{ width: '100%', height: '10px' }}>
+                            <LinearProgress />
+                        </Box>) : (<Button onClick={handleSubmit} sx={{ width: '100%', backgroundColor: '#c69536', color: '#ffffff' }} variant='contained'>Submit</Button>)
+                    }
                 </ThemeProvider>
             </section>
         </Container>

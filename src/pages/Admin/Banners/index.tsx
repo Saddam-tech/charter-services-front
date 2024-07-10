@@ -76,7 +76,7 @@ const Banners = () => {
                 </Paper>
             </ThemeProvider>
             {modal && <Backdrop close={() => setModal(false)}>
-                <NewBanner currentSection={currentSection} />
+                <NewBanner currentSection={currentSection} close={() => setModal(false)} />
             </Backdrop>}
         </Container>
     )
