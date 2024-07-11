@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Carousel from "components/Carousel"
 import styled from "styled-components"
@@ -8,18 +8,34 @@ import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Fade } from "react-awesome-reveal";
 import { socials } from "data";
+import { EPS, provider } from "configs/axios";
 
 const socialsConf = { fontSize: 20, color: "#ffffff" };
 
 const Index = () => {
     const navigate = useNavigate();
+    const [banners, setBanners] = useState<string[]>([]);
+
+    async function loadBanners(section_id: number) {
+        try {
+            const { data: { response } } = await provider.get(EPS.BANNERS + `/${section_id}`);
+            const arr: string[] = [];
+            for (let el of response) {
+                arr.push(el.urlToS3);
+            }
+            setBanners(arr);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     useEffect(() => {
+        loadBanners(1);
         window.scrollTo(0, 0);
     }, [])
     return (
         <Container>
-            <Carousel />
+            <Carousel banners={banners} />
 
             {/* input fields */}
             {/* <QuoteInput /> */}

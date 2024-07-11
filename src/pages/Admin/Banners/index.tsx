@@ -27,9 +27,10 @@ interface Data {
     img?: React.ReactElement;
     order?: number;
     active?: boolean;
-    url?: string;
+    url?: React.ReactElement;
     edit?: React.ReactElement;
     settings?: React.ReactElement;
+    text?: string;
 }
 
 
@@ -51,9 +52,10 @@ const Banners = () => {
                 item.img = <img style={{ maxWidth: '100px' }} src={el.urlToS3} alt="banner" />;
                 item.active = el.active;
                 item.order = el.sequence;
-                item.url = el.urlToS3;
+                item.url = <a href={el.urlToS3} target="_blank" rel="noreferrer">{el.urlToS3.slice(0, 35) + ' ... ' + el.urlToS3.slice(-25)}</a>
                 item.edit = <EditIcon />;
                 item.settings = <DeleteIcon />;
+                item.text = el.text;
                 newRows.push(item);
             }
             setRows(newRows);
@@ -87,7 +89,7 @@ const Banners = () => {
                     <TableContainer>
                         <Table stickyHeader aria-label="sticky table">
                             <TableBody>
-                                {new Array(5).fill('*')
+                                {new Array(3).fill('*')
                                     .map((row, i) => {
                                         const isSelected = i === selectedId && !isCollapsed;
                                         let currentSection = i + 1;
@@ -113,7 +115,7 @@ const Banners = () => {
                 </Paper>
             </ThemeProvider>
             {modal && <Backdrop close={() => setModal(false)}>
-                <NewBanner currentSection={currentSection} close={() => setModal(false)} />
+                <NewBanner reload={loadBanners} currentSection={currentSection} close={() => setModal(false)} />
             </Backdrop>}
         </Container>
     )

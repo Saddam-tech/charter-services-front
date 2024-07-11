@@ -26,7 +26,7 @@ const theme = createTheme({
 });
 
 interface Column {
-    id: 'id' | 'img' | 'order' | 'active' | 'url' | 'edit' | 'settings'
+    id: 'id' | 'img' | 'order' | 'active' | 'url' | 'edit' | 'settings' | 'text'
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -35,6 +35,13 @@ interface Column {
 
 const columns: readonly Column[] = [
     { id: 'img', label: 'Image', minWidth: 100 },
+    {
+        id: 'text',
+        label: 'Text',
+        minWidth: 170,
+        align: 'right',
+        format: (value: number) => value.toLocaleString('en-US'),
+    },
     {
         id: 'order',
         label: 'View Order',
@@ -69,7 +76,7 @@ const columns: readonly Column[] = [
         minWidth: 50,
         align: 'right',
         format: (value: number) => value.toLocaleString('en-US'),
-    },
+    }
 ];
 
 interface Data {
@@ -77,15 +84,16 @@ interface Data {
     img?: React.ReactElement;
     order?: number;
     active?: boolean;
-    url?: string;
+    url?: React.ReactElement;
     edit?: React.ReactElement;
     settings?: React.ReactElement;
+    text?: string;
 }
 
 
 export default function BannerTable({ rows, currentIndex, handleAddBanner }: { rows: Data[], currentIndex: number, handleAddBanner: (index: number) => void }) {
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);

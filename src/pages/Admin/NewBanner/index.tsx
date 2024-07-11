@@ -28,11 +28,12 @@ interface data {
     file: File | null;
     order: string | null;
     active: boolean;
+    text: string;
 }
 
 
-const NewBanner = ({ currentSection, close }: { currentSection: number | null, close: () => void }) => {
-    const [data, setData] = useState<data>({ file: null, order: null, active: true });
+const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: number) => void; currentSection: number | null, close: () => void }) => {
+    const [data, setData] = useState<data>({ file: null, order: null, active: true, text: "" });
     const [loader, setLoader] = useState<boolean>(false);
     const { addToast } = useToasts();
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -51,6 +52,7 @@ const NewBanner = ({ currentSection, close }: { currentSection: number | null, c
             formData.append('file', data.file);
             formData.append('sequence', data.order);
             formData.append('active', data.active ? '1' : '0');
+            formData.append('text', data.text);
             formData.append('section', currentSection.toString());
             setLoader(true);
             await provider.post(EPS.NEW_BANNER, formData);
@@ -59,6 +61,7 @@ const NewBanner = ({ currentSection, close }: { currentSection: number | null, c
                 appearance: 'success',
                 autoDismiss: true,
             });
+            reload(currentSection);
             close();
         } catch (err) {
             console.log(err);
@@ -93,6 +96,16 @@ const NewBanner = ({ currentSection, close }: { currentSection: number | null, c
                             fullWidth
                             id="view-order"
                             label="View Order"
+                        />
+                        <TextField
+                            onChange={(event) => setData(prev => ({ ...prev, text: event.target.value }))}
+                            // helperText={errorState.dropoff_location_error && "This field is required!"}
+                            // error={errorState.dropoff_location_error}
+                            sx={{ margin: '10px 0 0 0' }}
+                            type="text"
+                            fullWidth
+                            id="header-input"
+                            label="Text Input"
                         />
                         <div className="switch-wrap">
                             <span>Active</span>

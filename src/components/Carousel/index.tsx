@@ -3,23 +3,28 @@ import { CCarousel, CCarouselItem, CImage } from "@coreui/react"
 import '@coreui/coreui/dist/css/coreui.min.css'
 import banner0 from "assets/banners/banner0.webp";
 import banner1 from "assets/banners/banner1.webp";
-
 import { Fade } from "react-awesome-reveal";
 
-const Carousel = () => {
+interface IProps {
+  banners: string[];
+}
+
+const Carousel = ({ banners }: IProps) => {
 
   return (
     <Container>
       <CCarousel className="slider" transition="crossfade" interval={4000} controls indicators>
-        <CCarouselItem className="inner-wrap">
-          <div className="text-wrap">
-            <Fade duration={2000}>
-              <h1>Executive solutions</h1>
-              <p>Our commitment to safety combined with superior service, truly sets us apart from the competition. We invite you to try us out. Come and get away with us.</p>
-            </Fade>
-          </div>
-          <CImage className='image' src={banner0} alt="slide 3" />
-        </CCarouselItem>
+        {banners.map((el, i) => (
+          <CCarouselItem key={i} className="inner-wrap">
+            <div className="text-wrap">
+              <Fade duration={2000}>
+                <h1>Executive solutions</h1>
+                <p>Our commitment to safety combined with superior service, truly sets us apart from the competition. We invite you to try us out. Come and get away with us.</p>
+              </Fade>
+            </div>
+            <CImage className='image' src={el} alt="slide 3" />
+          </CCarouselItem>
+        ))}
         {/* <CCarouselItem className="inner-wrap">
           <div className="text-wrap">
             <Fade delay={400} duration={2000}>
