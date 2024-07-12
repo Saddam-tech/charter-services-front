@@ -56,8 +56,8 @@ const Banners = () => {
                 item.url = <a href={el.urlToS3} target="_blank" rel="noreferrer">{el.urlToS3.slice(0, 35) + ' ... ' + el.urlToS3.slice(-25)}</a>
                 item.edit = <EditIcon />;
                 item.settings = <DeleteIcon />;
-                item.text = el.text ?? '-';
-                item.head = el.head ?? '-';
+                item.text = el.text ? el.text : '-';
+                item.head = el.head ? el.head : '-';
                 newRows.push(item);
             }
             setRows(newRows);
