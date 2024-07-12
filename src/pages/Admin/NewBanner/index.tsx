@@ -28,12 +28,13 @@ interface data {
     file: File | null;
     order: string | null;
     active: boolean;
+    head: string;
     text: string;
 }
 
 
 const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: number) => void; currentSection: number | null, close: () => void }) => {
-    const [data, setData] = useState<data>({ file: null, order: null, active: true, text: "" });
+    const [data, setData] = useState<data>({ file: null, order: null, active: true, head: "", text: "" });
     const [loader, setLoader] = useState<boolean>(false);
     const { addToast } = useToasts();
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -52,6 +53,7 @@ const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: num
             formData.append('file', data.file);
             formData.append('sequence', data.order);
             formData.append('active', data.active ? '1' : '0');
+            formData.append('head', data.head);
             formData.append('text', data.text);
             formData.append('section', currentSection.toString());
             setLoader(true);
@@ -98,13 +100,23 @@ const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: num
                             label="View Order"
                         />
                         <TextField
-                            onChange={(event) => setData(prev => ({ ...prev, text: event.target.value }))}
+                            onChange={(event) => setData(prev => ({ ...prev, head: event.target.value }))}
                             // helperText={errorState.dropoff_location_error && "This field is required!"}
                             // error={errorState.dropoff_location_error}
                             sx={{ margin: '10px 0 0 0' }}
                             type="text"
                             fullWidth
                             id="header-input"
+                            label="Header Input"
+                        />
+                        <TextField
+                            onChange={(event) => setData(prev => ({ ...prev, text: event.target.value }))}
+                            // helperText={errorState.dropoff_location_error && "This field is required!"}
+                            // error={errorState.dropoff_location_error}
+                            sx={{ margin: '10px 0 0 0' }}
+                            type="text"
+                            fullWidth
+                            id="text-input"
                             label="Text Input"
                         />
                         <div className="switch-wrap">

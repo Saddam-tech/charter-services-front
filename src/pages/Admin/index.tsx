@@ -33,6 +33,7 @@ const Container = styled.section`
     justify-content: center;
     flex-direction: column;
     background-image: linear-gradient(to right,  #fff6a3, #ffb6e3);
+    height: 100%;
 `
 
 const InnerWrap = styled.section`
@@ -40,5 +41,5 @@ const InnerWrap = styled.section`
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 `

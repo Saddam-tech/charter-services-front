@@ -16,13 +16,13 @@ const Backdrop = ({ children, close }: any) => {
 export default Backdrop
 
 const Container = styled.section`
-    position: absolute;
+    position: fixed;
     background-color: rgb(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     left: 0;
     top: 0;
     z-index: 3;

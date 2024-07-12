@@ -30,6 +30,7 @@ interface Data {
     url?: React.ReactElement;
     edit?: React.ReactElement;
     settings?: React.ReactElement;
+    head?: string;
     text?: string;
 }
 
@@ -43,7 +44,7 @@ const Banners = () => {
 
     async function loadBanners(section_id: number) {
         try {
-            const { data: { response } } = await provider.get(EPS.BANNERS + `/${section_id}`);
+            const { data: { response } } = await provider.get(EPS.BANNERS + `?section=${section_id}`);
             console.log({ response });
             let newRows: Data[] = [];
             for (let el of response) {
@@ -55,7 +56,8 @@ const Banners = () => {
                 item.url = <a href={el.urlToS3} target="_blank" rel="noreferrer">{el.urlToS3.slice(0, 35) + ' ... ' + el.urlToS3.slice(-25)}</a>
                 item.edit = <EditIcon />;
                 item.settings = <DeleteIcon />;
-                item.text = el.text;
+                item.text = el.text ?? '-';
+                item.head = el.head ?? '-';
                 newRows.push(item);
             }
             setRows(newRows);

@@ -26,7 +26,7 @@ const theme = createTheme({
 });
 
 interface Column {
-    id: 'id' | 'img' | 'order' | 'active' | 'url' | 'edit' | 'settings' | 'text'
+    id: 'id' | 'img' | 'order' | 'active' | 'url' | 'edit' | 'settings' | 'text' | 'head'
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -35,6 +35,13 @@ interface Column {
 
 const columns: readonly Column[] = [
     { id: 'img', label: 'Image', minWidth: 100 },
+    {
+        id: 'head',
+        label: 'Header',
+        minWidth: 170,
+        align: 'right',
+        format: (value: number) => value.toLocaleString('en-US'),
+    },
     {
         id: 'text',
         label: 'Text',
@@ -75,7 +82,7 @@ const columns: readonly Column[] = [
         label: '',
         minWidth: 50,
         align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),
+        format: (value: number) => value ? value.toLocaleString('en-US') : '-',
     }
 ];
 
@@ -87,6 +94,7 @@ interface Data {
     url?: React.ReactElement;
     edit?: React.ReactElement;
     settings?: React.ReactElement;
+    head?: string;
     text?: string;
 }
 

@@ -12,30 +12,46 @@ import { EPS, provider } from "configs/axios";
 
 const socialsConf = { fontSize: 20, color: "#ffffff" };
 
+export interface BannerInfo {
+    head?: string;
+    body?: string;
+    url: string;
+    section: string;
+    order: string;
+    active: number;
+}
+
 const Index = () => {
     const navigate = useNavigate();
-    const [banners, setBanners] = useState<string[]>([]);
+    const [banners, setBanners] = useState<BannerInfo[]>([]);
 
-    async function loadBanners(section_id: number) {
+    async function loadBanners() {
         try {
-            const { data: { response } } = await provider.get(EPS.BANNERS + `/${section_id}`);
-            const arr: string[] = [];
+            const { data: { response } } = await provider.get(EPS.BANNERS);
+            const arr: BannerInfo[] = [];
             for (let el of response) {
-                arr.push(el.urlToS3);
+                arr.push({
+                    head: el.head,
+                    body: el.text,
+                    url: el.urlToS3,
+                    section: el.section,
+                    order: el.sequence,
+                    active: el.active
+                });
             }
-            setBanners(arr);
+            setBanners(arr.filter(el => el.active === 1));
         } catch (err) {
             console.log(err);
         }
     }
 
     useEffect(() => {
-        loadBanners(1);
+        loadBanners();
         window.scrollTo(0, 0);
     }, [])
     return (
         <Container>
-            <Carousel banners={banners} />
+            <Carousel banners={banners.filter(el => el.section === '1').sort((a, b) => parseInt(a.order) - parseInt(b.order))} />
 
             {/* input fields */}
             {/* <QuoteInput /> */}
@@ -50,22 +66,23 @@ const Index = () => {
                         <p>Profesionally cleaned each time for your safety</p>
                     </div>
                 </div>
-                {/* <p className="watch-safety-video">
-                    Watch our COVID-19 Safety Video
-                </p> */}
             </section>
             {/* covid measures belt end */}
 
             <Fade cascade damping={0.1}>
                 {/* charters brag */}
-                <section className="charters">
-                    <img src={charters} alt="charters" />
-                    <section className="strip-map">
-                        <div className="inner-content">
-                            <p>Our World-Class Executive Black Cars ready to give you an unforgettable experience in the San Francisco Bay Area and other states of the US</p>
-                        </div>
+                {banners.filter(el => el.section === '2').sort((a, b) => parseInt(a.order) - parseInt(b.order)).map((_el, i) => (
+                    <section key={i} className="charters">
+                        <img src={_el.url} alt="charters" />
+                        <section className="strip-map">
+                            <div className="inner-content">
+                                {/* <p>Our World-Class Executive Black Cars ready to give you an unforgettable experience in the San Francisco Bay Area and other states of the US</p> */}
+                                {_el.head && <p>{_el.head}</p>}
+                                {_el.body && <p>{_el.body}</p>}
+                            </div>
+                        </section>
                     </section>
-                </section>
+                ))}
                 {/* charters brag */}
 
                 {/* list */}
@@ -109,10 +126,10 @@ const Index = () => {
 
                 {/* image map */}
                 <section className="image-map">
-                    {new Array(3).fill('*').map((_, i) => (
+                    {banners.filter(el => el.section === "3").sort((a, b) => parseInt(a.order) - parseInt(b.order)).map((_el, i) => (
                         <div key={i} className="wrap">
-                            <img loading="lazy" src={require(`assets/pic-section0-${i}.webp`)} alt={`cgi-${i}`} />
-                            <p>{['Airport  Transfers', 'Wine Country  Tours', 'Ski Trips'][i]}</p>
+                            <img loading="lazy" src={_el.url} alt={`cgi-${i}`} />
+                            <p>{_el.head}</p>
                         </div>
                     ))}
                 </section>
