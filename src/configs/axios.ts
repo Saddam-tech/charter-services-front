@@ -9,6 +9,7 @@ export const provider = axios.create({ baseURL });
 export enum EPS {
   BANNERS = "/banners/all",
   NEW_BANNER = "/banners/new",
+  DELETE_BANNER = "/banners",
   ORDERS = "/orders",
   ADMIN_SIGNIN = "/admin/signin",
 }

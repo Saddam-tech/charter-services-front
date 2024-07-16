@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { EPS, provider } from 'configs/axios';
+import AlertDialog from 'components/AlertDialog';
 
 const theme = createTheme({
     palette: {
@@ -40,9 +41,11 @@ const Banners = () => {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
     const [currentSection, setCurrentSection] = useState<number | null>(null)
     const [modal, setModal] = useState<boolean>(false);
+    const [alertDialog, setAlertDialog] = useState<boolean>(false);
+    const [deleteItemUuid, setDeleteItemUuid] = useState<string>('');
     const [rows, setRows] = React.useState<Data[]>([]);
 
-    async function loadBanners(section_id: number) {
+    async function loadBanners(section_id: number | null) {
         try {
             const { data: { response } } = await provider.get(EPS.BANNERS + `?section=${section_id}`);
             console.log({ response });
@@ -55,7 +58,7 @@ const Banners = () => {
                 item.order = el.sequence;
                 item.url = <a href={el.urlToS3} target="_blank" rel="noreferrer">{el.urlToS3.slice(0, 35) + ' ... ' + el.urlToS3.slice(-25)}</a>
                 item.edit = <EditIcon />;
-                item.settings = <DeleteIcon />;
+                item.settings = <DeleteIcon onClick={() => { setDeleteItemUuid(el.uuid); setAlertDialog(true); }} />;
                 item.text = el.text ? el.text : '-';
                 item.head = el.head ? el.head : '-';
                 newRows.push(item);
@@ -119,6 +122,7 @@ const Banners = () => {
             {modal && <Backdrop close={() => setModal(false)}>
                 <NewBanner reload={loadBanners} currentSection={currentSection} close={() => setModal(false)} />
             </Backdrop>}
+            {alertDialog && <AlertDialog section_id={currentSection} loadBanners={loadBanners} itemuuid={deleteItemUuid} open={alertDialog} setOpen={setAlertDialog} />}
         </Container>
     )
 }
