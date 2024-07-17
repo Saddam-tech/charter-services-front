@@ -9,22 +9,23 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Switch from '@mui/material/Switch';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Button } from '@mui/material';
-
+import { Button, TextField } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#c69536'
+            main: '#c69536',
         },
         secondary: {
-            main: '#c6963685'
-        }
+            main: '#c6963685',
+        },
     },
 });
 
 interface Column {
-    id: 'id' | 'img' | 'order' | 'active' | 'url' | 'edit' | 'settings' | 'text' | 'head'
+    id: 'id' | 'img' | 'order' | 'active' | 'url' | 'edit' | 'settings' | 'text' | 'head';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -80,26 +81,39 @@ const columns: readonly Column[] = [
         label: '',
         minWidth: 50,
         align: 'right',
-        format: (value: number) => value ? value.toLocaleString('en-US') : '-',
-    }
+        format: (value: number) => (value ? value.toLocaleString('en-US') : '-'),
+    },
 ];
 
 interface Data {
     id?: number;
-    img?: React.ReactElement;
+    img?: string;
     order?: number;
     active?: boolean;
-    url?: React.ReactElement;
+    url?: string;
     edit?: React.ReactElement;
     settings?: React.ReactElement;
     head?: string;
     text?: string;
+    urlToS3?: string;
 }
 
-
-export default function BannerTable({ rows, currentIndex, handleAddBanner }: { rows: Data[], currentIndex: number, handleAddBanner: (index: number) => void }) {
+export default function BannerTable({
+    rows,
+    currentIndex,
+    handleAddBanner,
+    setRows,
+}: {
+    rows: Data[];
+    currentIndex: number;
+    handleAddBanner: (index: number) => void;
+    setRows: React.Dispatch<React.SetStateAction<Data[]>>;
+}) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [editingId, setEditingId] = React.useState<number | null>(null);
+    const [editedData, setEditedData] = React.useState<Data>({});
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -117,7 +131,36 @@ export default function BannerTable({ rows, currentIndex, handleAddBanner }: { r
             }
             return el;
         });
-        // setRows(updatedList);
+        setRows(updatedList);
+    }
+
+    function handleEdit(id: number) {
+        setEditingId(id);
+        const itemToEdit = rows.find((item) => item.id === id);
+        if (itemToEdit) {
+            setEditedData(itemToEdit);
+        }
+    }
+
+    function handleImageClick() {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    }
+
+    function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+        if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+            setEditedData((prev) => ({ ...prev, img: URL.createObjectURL(file), urlToS3: '' }));
+        }
+    }
+
+    function handleSave() {
+        const updatedList = rows.map((item) =>
+            item.id === editingId ? { ...item, ...editedData } : item
+        );
+        setRows(updatedList);
+        setEditingId(null);
     }
 
     return (
@@ -142,20 +185,97 @@ export default function BannerTable({ rows, currentIndex, handleAddBanner }: { r
                             {rows
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
+                                    const isEditing = row.id === editingId;
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                             {columns.map((column) => {
-                                                const value = column.id === 'active' ? (
-                                                    <Switch
-                                                        edge="end"
-                                                        onChange={() => handleSwitch(index)}
-                                                        checked={row?.active}
-                                                        disabled={false}
-                                                        inputProps={{
-                                                            'aria-labelledby': 'switch-list-label-wifi',
-                                                        }}
-                                                    />
-                                                ) : row[column.id];
+                                                const value = isEditing
+                                                    ? column.id === 'img'
+                                                        ? (
+                                                            <>
+                                                                <input
+                                                                    ref={fileInputRef}
+                                                                    id="bannerInput"
+                                                                    type="file"
+                                                                    name="imageInput"
+                                                                    onChange={handleFileChange}
+                                                                    hidden
+                                                                />
+                                                                <img
+                                                                    onClick={handleImageClick}
+                                                                    style={{ maxWidth: '100px' }}
+                                                                    src={editedData.img || row.urlToS3}
+                                                                    alt="banner"
+                                                                />
+                                                            </>
+                                                        )
+                                                        : column.id === 'order'
+                                                            ? (
+                                                                <TextField
+                                                                    value={editedData.order || ''}
+                                                                    onChange={(event) =>
+                                                                        setEditedData((prev) => ({
+                                                                            ...prev,
+                                                                            order: parseInt(event.target.value),
+                                                                        }))
+                                                                    }
+                                                                    type="number"
+                                                                    fullWidth
+                                                                />
+                                                            )
+                                                            : column.id === 'head'
+                                                                ? (
+                                                                    <TextField
+                                                                        value={editedData.head || ''}
+                                                                        onChange={(event) =>
+                                                                            setEditedData((prev) => ({
+                                                                                ...prev,
+                                                                                head: event.target.value,
+                                                                            }))
+                                                                        }
+                                                                        type="text"
+                                                                        fullWidth
+                                                                    />
+                                                                )
+                                                                : column.id === 'text'
+                                                                    ? (
+                                                                        <TextField
+                                                                            value={editedData.text || ''}
+                                                                            onChange={(event) =>
+                                                                                setEditedData((prev) => ({
+                                                                                    ...prev,
+                                                                                    text: event.target.value,
+                                                                                }))
+                                                                            }
+                                                                            type="text"
+                                                                            fullWidth
+                                                                        />
+                                                                    )
+                                                                    : column.id === 'active'
+                                                                        ? (
+                                                                            <Switch
+                                                                                edge="end"
+                                                                                onChange={() =>
+                                                                                    setEditedData((prev) => ({
+                                                                                        ...prev,
+                                                                                        active: !prev.active,
+                                                                                    }))
+                                                                                }
+                                                                                checked={!!editedData.active}
+                                                                            />
+                                                                        )
+                                                                        : row[column.id]
+                                                    : column.id === 'edit'
+                                                        ? <EditIcon onClick={() => handleEdit(row.id!)} />
+                                                        : column.id === 'active'
+                                                            ? (
+                                                                <Switch
+                                                                    edge="end"
+                                                                    onChange={() => handleSwitch(index)}
+                                                                    checked={row.active}
+                                                                />
+                                                            )
+                                                            : row[column.id];
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
                                                         {column.format && typeof value === 'number'
@@ -164,6 +284,17 @@ export default function BannerTable({ rows, currentIndex, handleAddBanner }: { r
                                                     </TableCell>
                                                 );
                                             })}
+                                            {isEditing && (
+                                                <TableCell colSpan={columns.length}>
+                                                    <Button
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={handleSave}
+                                                    >
+                                                        Save
+                                                    </Button>
+                                                </TableCell>
+                                            )}
                                         </TableRow>
                                     );
                                 })}
@@ -180,7 +311,13 @@ export default function BannerTable({ rows, currentIndex, handleAddBanner }: { r
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
-            <Button onClick={() => handleAddBanner(currentIndex)} sx={{ maxWidth: '200px', backgroundColor: '#c69536', color: '#ffffff' }} variant="contained">New Banner</Button>
+            <Button
+                onClick={() => handleAddBanner(currentIndex)}
+                sx={{ maxWidth: '200px', backgroundColor: '#c69536', color: '#ffffff' }}
+                variant="contained"
+            >
+                New Banner
+            </Button>
         </ThemeProvider>
     );
 }

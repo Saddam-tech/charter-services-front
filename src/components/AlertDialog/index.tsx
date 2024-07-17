@@ -39,17 +39,17 @@ export default function AlertDialog({ section_id, itemuuid, open, setOpen, loadB
             aria-describedby="alert-dialog-description"
         >
             <DialogTitle id="alert-dialog-title" sx={{ width: '100%', minWidth: '400px' }}>
-                {"Are you sure?"}
+                {"Are you sure to delete?"}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Action can no be undone!
+                    {"Action can not be undone!"}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleClose}>{"Cancel"}</Button>
                 <Button onClick={() => deleteHandler(itemuuid)} autoFocus>
-                    Delete
+                    {"Delete"}
                 </Button>
             </DialogActions>
         </Dialog>
