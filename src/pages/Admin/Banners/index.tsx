@@ -34,10 +34,8 @@ const theme = createTheme({
 
 interface Data {
     id?: number;
-    img?: string;
-    order?: number;
+    sequence?: number;
     active?: boolean;
-    url?: string;
     head?: string;
     text?: string;
     uuid?: string;

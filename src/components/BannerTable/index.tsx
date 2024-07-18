@@ -90,7 +90,6 @@ interface Data {
     urlToS3?: string;
     sequence?: number;
     active?: boolean;
-    url?: string;
     edit?: React.ReactElement;
     delete?: React.ReactElement;
     head?: string;
@@ -272,7 +271,7 @@ export default function BannerTable({
                                                                     checked={row.active}
                                                                 />
                                                             )
-                                                            : column.id === 'delete' ? <DeleteIcon />
+                                                            : column.id === 'delete' ? <DeleteIcon /> : column.id === "url" ? <a href={row.urlToS3} target="_blank" rel="noreferrer">{row.urlToS3.slice(0, 35) + ' ... ' + row.urlToS3.slice(-25)}</a>
                                                                 : row[column.id];
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
