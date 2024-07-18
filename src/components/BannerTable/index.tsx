@@ -11,7 +11,7 @@ import Switch from '@mui/material/Switch';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const theme = createTheme({
     palette: {
@@ -25,7 +25,7 @@ const theme = createTheme({
 });
 
 interface Column {
-    id: 'id' | 'img' | 'order' | 'active' | 'url' | 'edit' | 'settings' | 'text' | 'head';
+    id: 'id' | 'urlToS3' | 'sequence' | 'active' | 'url' | 'edit' | 'delete' | 'text' | 'head';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -33,7 +33,7 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-    { id: 'img', label: 'Image', minWidth: 100 },
+    { id: 'urlToS3', label: 'Image', minWidth: 100 },
     {
         id: 'head',
         label: 'Header',
@@ -49,7 +49,7 @@ const columns: readonly Column[] = [
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'order',
+        id: 'sequence',
         label: 'View Order',
         minWidth: 170,
         align: 'right',
@@ -77,7 +77,7 @@ const columns: readonly Column[] = [
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'settings',
+        id: 'delete',
         label: '',
         minWidth: 50,
         align: 'right',
@@ -87,15 +87,14 @@ const columns: readonly Column[] = [
 
 interface Data {
     id?: number;
-    img?: string;
-    order?: number;
+    urlToS3?: string;
+    sequence?: number;
     active?: boolean;
     url?: string;
     edit?: React.ReactElement;
-    settings?: React.ReactElement;
+    delete?: React.ReactElement;
     head?: string;
     text?: string;
-    urlToS3?: string;
 }
 
 export default function BannerTable({
@@ -151,7 +150,7 @@ export default function BannerTable({
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
-            setEditedData((prev) => ({ ...prev, img: URL.createObjectURL(file), urlToS3: '' }));
+            setEditedData((prev) => ({ ...prev, urlToS3: URL.createObjectURL(file) }));
         }
     }
 
@@ -189,82 +188,80 @@ export default function BannerTable({
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                             {columns.map((column) => {
-                                                const value = isEditing
-                                                    ? column.id === 'img'
+                                                const value = isEditing ? column.id === 'urlToS3' ? (
+                                                    <>
+                                                        <img
+                                                            onClick={handleImageClick}
+                                                            style={{ maxWidth: '100px' }}
+                                                            src={editedData.urlToS3 || row.urlToS3}
+                                                            alt="banner"
+                                                        />
+                                                        <input
+                                                            ref={fileInputRef}
+                                                            id="bannerInput"
+                                                            type="file"
+                                                            name="imageInput"
+                                                            onChange={handleFileChange}
+                                                            hidden
+                                                        />
+                                                    </>
+                                                )
+                                                    : column.id === 'sequence'
                                                         ? (
-                                                            <>
-                                                                <input
-                                                                    ref={fileInputRef}
-                                                                    id="bannerInput"
-                                                                    type="file"
-                                                                    name="imageInput"
-                                                                    onChange={handleFileChange}
-                                                                    hidden
-                                                                />
-                                                                <img
-                                                                    onClick={handleImageClick}
-                                                                    style={{ maxWidth: '100px' }}
-                                                                    src={editedData.img || row.urlToS3}
-                                                                    alt="banner"
-                                                                />
-                                                            </>
+                                                            <TextField
+                                                                value={editedData.sequence || ''}
+                                                                onChange={(event) =>
+                                                                    setEditedData((prev) => ({
+                                                                        ...prev,
+                                                                        order: parseInt(event.target.value),
+                                                                    }))
+                                                                }
+                                                                type="number"
+                                                                fullWidth
+                                                            />
                                                         )
-                                                        : column.id === 'order'
+                                                        : column.id === 'head'
                                                             ? (
                                                                 <TextField
-                                                                    value={editedData.order || ''}
+                                                                    value={editedData.head || ''}
                                                                     onChange={(event) =>
                                                                         setEditedData((prev) => ({
                                                                             ...prev,
-                                                                            order: parseInt(event.target.value),
+                                                                            head: event.target.value,
                                                                         }))
                                                                     }
-                                                                    type="number"
+                                                                    type="text"
                                                                     fullWidth
                                                                 />
                                                             )
-                                                            : column.id === 'head'
+                                                            : column.id === 'text'
                                                                 ? (
                                                                     <TextField
-                                                                        value={editedData.head || ''}
+                                                                        value={editedData.text || ''}
                                                                         onChange={(event) =>
                                                                             setEditedData((prev) => ({
                                                                                 ...prev,
-                                                                                head: event.target.value,
+                                                                                text: event.target.value,
                                                                             }))
                                                                         }
                                                                         type="text"
                                                                         fullWidth
                                                                     />
                                                                 )
-                                                                : column.id === 'text'
+                                                                : column.id === 'active'
                                                                     ? (
-                                                                        <TextField
-                                                                            value={editedData.text || ''}
-                                                                            onChange={(event) =>
+                                                                        <Switch
+                                                                            edge="end"
+                                                                            onChange={() =>
                                                                                 setEditedData((prev) => ({
                                                                                     ...prev,
-                                                                                    text: event.target.value,
+                                                                                    active: !prev.active,
                                                                                 }))
                                                                             }
-                                                                            type="text"
-                                                                            fullWidth
+                                                                            checked={!!editedData.active}
                                                                         />
                                                                     )
-                                                                    : column.id === 'active'
-                                                                        ? (
-                                                                            <Switch
-                                                                                edge="end"
-                                                                                onChange={() =>
-                                                                                    setEditedData((prev) => ({
-                                                                                        ...prev,
-                                                                                        active: !prev.active,
-                                                                                    }))
-                                                                                }
-                                                                                checked={!!editedData.active}
-                                                                            />
-                                                                        )
-                                                                        : row[column.id]
+                                                                    : row[column.id]
                                                     : column.id === 'edit'
                                                         ? <EditIcon onClick={() => handleEdit(row.id!)} />
                                                         : column.id === 'active'
@@ -275,7 +272,8 @@ export default function BannerTable({
                                                                     checked={row.active}
                                                                 />
                                                             )
-                                                            : row[column.id];
+                                                            : column.id === 'delete' ? <DeleteIcon />
+                                                                : row[column.id];
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
                                                         {column.format && typeof value === 'number'
@@ -284,7 +282,7 @@ export default function BannerTable({
                                                     </TableCell>
                                                 );
                                             })}
-                                            {isEditing && (
+                                            {isEditing && (<>
                                                 <TableCell colSpan={columns.length}>
                                                     <Button
                                                         variant="contained"
@@ -294,6 +292,16 @@ export default function BannerTable({
                                                         Save
                                                     </Button>
                                                 </TableCell>
+                                                <TableCell colSpan={columns.length}>
+                                                    <Button
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={handleSave}
+                                                    >
+                                                        Cancel
+                                                    </Button>
+                                                </TableCell>
+                                            </>
                                             )}
                                         </TableRow>
                                     );
