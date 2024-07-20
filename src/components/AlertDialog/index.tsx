@@ -9,7 +9,7 @@ import { EPS, provider } from 'configs/axios';
 import { useToasts } from 'react-toast-notifications';
 import { MESSAGES } from 'utils/messages';
 
-export default function AlertDialog({ section_id, itemuuid, open, setOpen, loadBanners }: { section_id: number | null, itemuuid: string, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>, loadBanners: (section_id: number | null) => void }) {
+export default function AlertDialog({ section_id, itemuuid, open, setOpen, loadBanners }: { section_id: number, itemuuid: string, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>, loadBanners: (section_id: number) => Promise<void> }) {
     const { addToast } = useToasts();
 
     async function deleteHandler(uuid: string) {

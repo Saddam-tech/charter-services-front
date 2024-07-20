@@ -25,7 +25,7 @@ const theme = createTheme({
 });
 
 interface Column {
-    id: 'id' | 'urlToS3' | 'sequence' | 'active' | 'url' | 'edit' | 'delete' | 'text' | 'head';
+    id: 'id' | 'urlToS3' | 'sequence' | 'active' | 'edit' | 'delete' | 'text' | 'head';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -63,13 +63,6 @@ const columns: readonly Column[] = [
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'url',
-        label: 'Url',
-        minWidth: 170,
-        align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),
-    },
-    {
         id: 'edit',
         label: '',
         minWidth: 50,
@@ -94,6 +87,7 @@ interface Data {
     delete?: React.ReactElement;
     head?: string;
     text?: string;
+    uuid?: string;
 }
 
 export default function BannerTable({
@@ -101,11 +95,15 @@ export default function BannerTable({
     currentIndex,
     handleAddBanner,
     setRows,
+    setDeleteItemUUID,
+    setAlertDialog,
 }: {
-    rows: Data[];
-    currentIndex: number;
-    handleAddBanner: (index: number) => void;
-    setRows: React.Dispatch<React.SetStateAction<Data[]>>;
+    rows: Data[]
+    currentIndex: number
+    handleAddBanner: (index: number) => void
+    setRows: React.Dispatch<React.SetStateAction<Data[]>>
+    setDeleteItemUUID: React.Dispatch<React.SetStateAction<string>>
+    setAlertDialog: React.Dispatch<React.SetStateAction<boolean>>
 }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -140,9 +138,22 @@ export default function BannerTable({
         }
     }
 
-    function handleImageClick() {
+    function handleImageClickWhileEditing() {
         if (fileInputRef.current) {
             fileInputRef.current.click();
+        }
+    }
+
+    function navigateUrlToImage(urlPath: string | undefined) {
+        if (urlPath) {
+            window.open(urlPath, '_blank');
+        }
+    }
+
+    function handleDeleteItem(uuid: string | undefined) {
+        if (uuid) {
+            setDeleteItemUUID(uuid);
+            setAlertDialog(true);
         }
     }
 
@@ -190,7 +201,7 @@ export default function BannerTable({
                                                 const value = isEditing ? column.id === 'urlToS3' ? (
                                                     <>
                                                         <img
-                                                            onClick={handleImageClick}
+                                                            onClick={handleImageClickWhileEditing}
                                                             style={{ maxWidth: '100px' }}
                                                             src={editedData.urlToS3 || row.urlToS3}
                                                             alt="banner"
@@ -261,18 +272,22 @@ export default function BannerTable({
                                                                         />
                                                                     )
                                                                     : row[column.id]
-                                                    : column.id === 'edit'
-                                                        ? <EditIcon onClick={() => handleEdit(row.id!)} />
-                                                        : column.id === 'active'
-                                                            ? (
+                                                    : column.id === 'urlToS3' ? <img
+                                                        onClick={() => navigateUrlToImage(row.urlToS3)}
+                                                        style={{ maxWidth: '100px' }}
+                                                        src={editedData.urlToS3 || row.urlToS3}
+                                                        alt="banner"
+                                                    />
+                                                        : column.id === 'edit' ? <EditIcon onClick={() => handleEdit(row.id!)} />
+                                                            : column.id === 'active' ? (
                                                                 <Switch
                                                                     edge="end"
                                                                     onChange={() => handleSwitch(index)}
                                                                     checked={row.active}
                                                                 />
                                                             )
-                                                            : column.id === 'delete' ? <DeleteIcon /> : column.id === "url" ? <a href={row.urlToS3} target="_blank" rel="noreferrer">{row.urlToS3.slice(0, 35) + ' ... ' + row.urlToS3.slice(-25)}</a>
-                                                                : row[column.id];
+                                                                : column.id === 'delete' ? <DeleteIcon onClick={() => handleDeleteItem(row.uuid)} />
+                                                                    : row[column.id];
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
                                                         {column.format && typeof value === 'number'
