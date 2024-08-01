@@ -328,7 +328,7 @@ export default function BannerTable({
                                                     <Button
                                                         variant="contained"
                                                         color="primary"
-                                                        onClick={handleSave}
+                                                        onClick={() => setEditingId(null)}
                                                     >
                                                         Cancel
                                                     </Button>
