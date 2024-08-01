@@ -12,6 +12,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { EPS, provider } from 'configs/axios';
+import { useToasts } from 'react-toast-notifications';
+import { MESSAGES } from 'utils/messages';
 
 const theme = createTheme({
     palette: {
@@ -110,6 +113,7 @@ export default function BannerTable({
     const [editingId, setEditingId] = React.useState<number | null>(null);
     const [editedData, setEditedData] = React.useState<Data>({});
     const fileInputRef = React.useRef<HTMLInputElement>(null);
+    const { addToast } = useToasts();
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -164,12 +168,25 @@ export default function BannerTable({
         }
     }
 
-    function handleSave() {
-        const updatedList = rows.map((item) =>
-            item.id === editingId ? { ...item, ...editedData } : item
-        );
-        setRows(updatedList);
-        setEditingId(null);
+    async function handleSave() {
+        try {
+            const updatedList = rows.map((item) =>
+                item.id === editingId ? { ...item, ...editedData } : item
+            );
+            setRows(updatedList);
+            setEditingId(null);
+            await provider.put(EPS.EDIT_BANNER + `/${editedData.uuid}`, { ...editedData });
+            addToast(MESSAGES.EDIT_COMPLETE, {
+                appearance: 'success',
+                autoDismiss: true
+            })
+        } catch (err) {
+            addToast(MESSAGES.EDIT_FAILURE, {
+                appearance: 'error',
+                autoDismiss: true
+            })
+            console.log(err)
+        }
     }
 
     return (
@@ -223,7 +240,7 @@ export default function BannerTable({
                                                                 onChange={(event) =>
                                                                     setEditedData((prev) => ({
                                                                         ...prev,
-                                                                        order: parseInt(event.target.value),
+                                                                        sequence: parseInt(event.target.value),
                                                                     }))
                                                                 }
                                                                 type="number"
@@ -275,7 +292,7 @@ export default function BannerTable({
                                                     : column.id === 'urlToS3' ? <img
                                                         onClick={() => navigateUrlToImage(row.urlToS3)}
                                                         style={{ maxWidth: '100px' }}
-                                                        src={editedData.urlToS3 || row.urlToS3}
+                                                        src={row.urlToS3}
                                                         alt="banner"
                                                     />
                                                         : column.id === 'edit' ? <EditIcon onClick={() => handleEdit(row.id!)} />
@@ -284,6 +301,7 @@ export default function BannerTable({
                                                                     edge="end"
                                                                     onChange={() => handleSwitch(index)}
                                                                     checked={row.active}
+                                                                    disabled
                                                                 />
                                                             )
                                                                 : column.id === 'delete' ? <DeleteIcon onClick={() => handleDeleteItem(row.uuid)} />
