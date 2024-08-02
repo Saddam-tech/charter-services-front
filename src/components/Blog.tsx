@@ -22,9 +22,11 @@ const Blog = () => {
                 <Image src={dummyImage} alt="blogImage" />
                 <Header>Local Transportation services in San Francisco</Header>
                 <Content>Whether you're organizing transportation for a few VIPs or a trade show or convention with thousands</Content>
-                {/* <Switch edge="end" checked={true} />
-                <Button variant="contained" color="primary">Edit</Button>
-                <Button variant="contained" color="primary">Delete</Button> */}
+                <Wrap>
+                    <Switch edge="end" disabled checked={true} />
+                    <Button variant="contained" color="primary">Edit</Button>
+                    <Button variant="contained" color="primary">Delete</Button>
+                </Wrap>
             </Container>
         </ThemeProvider>
     )
@@ -41,11 +43,13 @@ padding: 10px;
 background-color: #ffffff;
 max-width: 500px;
 gap: 10px;
+border-radius: 5px;
 `
 
 const Image = styled.img`
     width: 100%;
     height: 100%;
+    border-radius: 5px;
 `
 
 const Header = styled.h1`
@@ -53,4 +57,12 @@ const Header = styled.h1`
 `
 
 const Content = styled.p`
+`
+
+const Wrap = styled.div`
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 10px;
 `
