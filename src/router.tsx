@@ -13,6 +13,7 @@ import ProtectedRoute from "pages/ProtectedRoute";
 import Banners from "pages/Admin/Banners";
 import Blogs from "pages/Admin/Blogs";
 import MainBlogs from "pages/Blogs";
+import AdminSpecificBlog from "pages/Blogs/AdminSpecificBlog";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
             { path: "orders/:path", element: <Orders /> },
             { path: "banners", element: <Banners /> },
             { path: "blogs", element: <Blogs /> },
+            { path: "blogs/:uuid", element: <AdminSpecificBlog /> },
         ],
     },
 ])

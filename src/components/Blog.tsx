@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Button, Switch } from '@mui/material';
+
+import { Link } from "react-router-dom";
 
 const theme = createTheme({
     palette: {
@@ -13,18 +14,22 @@ const theme = createTheme({
     },
 });
 
-const Blog = ({ type, header, content, imgURL }: { type: string; header: string; content: string; imgURL: string; }) => {
+interface Data {
+    head: string;
+    text: string;
+    urlToS3: string;
+    active: boolean;
+    type: string;
+    uuid: string;
+}
+
+const Blog = ({ head, text, urlToS3, type, uuid }: Data) => {
     return (
         <ThemeProvider theme={theme}>
             <Container>
-                <Image src={imgURL} alt="blogImage" />
-                <Header>{header}</Header>
-                <Content>{content}</Content>
-                {type !== 'main' && <Wrap>
-                    <Switch edge="end" disabled checked={true} />
-                    <Button variant="contained" color="primary">Edit</Button>
-                    <Button variant="contained" color="primary">Delete</Button>
-                </Wrap>}
+                <Image src={urlToS3} alt="blogImage" />
+                <Header>{head}</Header>
+                <Content>{text?.length > 100 ? text.slice(0, 100) : text} <Link style={{ textDecoration: "none" }} to={`${type}/blogs/${uuid}`}>...Read More</Link></Content>
             </Container>
         </ThemeProvider>
     )
@@ -40,14 +45,19 @@ flex-direction: column;
 padding: 10px;
 background-color: #ffffff;
 max-width: 500px;
+height: 400px;
 gap: 10px;
 border-radius: 5px;
+padding: 10px;
 `
 
 const Image = styled.img`
+    max-width: 500px;
     width: 100%;
     height: 100%;
     border-radius: 5px;
+    object-fit: fit;
+    overflow: hidden;
 `
 
 const Header = styled.h1`
@@ -56,13 +66,5 @@ const Header = styled.h1`
 `
 
 const Content = styled.p`
-font-size: 14px;
+    font-size: 14px;
 `
-
-const Wrap = styled.div`
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    width: 100%;
-    gap: 10px;
-` 

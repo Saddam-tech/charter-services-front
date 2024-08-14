@@ -34,8 +34,8 @@ const Blogs = () => {
                 <h2>Blogs</h2>
             </HeaderWrap>
             <BlogsWrap>
-                {blogs?.map((el, index) => (
-                    <Blog header={el.head} content={el.text} imgURL={el.urlToS3} key={index} type='main' />
+                {blogs?.filter((el) => el.active).map((el, index) => (
+                    <Blog {...el} key={index} type='' />
                 ))}
             </BlogsWrap>
         </Container>
@@ -70,6 +70,7 @@ const BlogsWrap = styled.section`
     flex-wrap: wrap;
     gap: 15px;
     width: 100%;
-    margin: 15px 0 0 0;
-    height: 100vh;
+    margin: 15px 0 30px 0;
+    height: 100%;
+
 `

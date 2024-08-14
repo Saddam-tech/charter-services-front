@@ -9,6 +9,7 @@ export const provider = axios.create({ baseURL });
 export enum EPS {
   // blogs
   BLOGS = "/blogs/all",
+  BLOG = "/blogs", // /:uuid // specific blog
   NEW_BLOG = "/blogs/new",
   EDIT_BLOG = "/blogs", // /:uuid
   DELETE_BLOG = "/blogs",

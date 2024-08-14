@@ -93,6 +93,10 @@ interface Data {
     uuid?: string;
 }
 
+interface EditedData extends Data {
+    file?: File;
+}
+
 export default function BannerTable({
     rows,
     currentIndex,
@@ -111,7 +115,7 @@ export default function BannerTable({
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [editingId, setEditingId] = React.useState<number | null>(null);
-    const [editedData, setEditedData] = React.useState<Data>({});
+    const [editedData, setEditedData] = React.useState<EditedData>({});
     const fileInputRef = React.useRef<HTMLInputElement>(null);
     const { addToast } = useToasts();
 
@@ -164,7 +168,7 @@ export default function BannerTable({
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
-            setEditedData((prev) => ({ ...prev, urlToS3: URL.createObjectURL(file) }));
+            setEditedData((prev) => ({ ...prev, urlToS3: URL.createObjectURL(file), file }));
         }
     }
 
@@ -175,7 +179,13 @@ export default function BannerTable({
             );
             setRows(updatedList);
             setEditingId(null);
-            await provider.put(EPS.EDIT_BANNER + `/${editedData.uuid}`, { ...editedData });
+            const formData = new FormData();
+            for (let [key, value] of Object.entries(editedData)) {
+                if (key !== "urlToS3") {
+                    formData.append(key, value);
+                }
+            }
+            await provider.put(EPS.EDIT_BANNER + `/${editedData.uuid}`, formData);
             addToast(MESSAGES.EDIT_COMPLETE("Banner"), {
                 appearance: 'success',
                 autoDismiss: true
