@@ -12,6 +12,7 @@ import SignIn from "pages/Admin/SignIn";
 import ProtectedRoute from "pages/ProtectedRoute";
 import Banners from "pages/Admin/Banners";
 import Blogs from "pages/Admin/Blogs";
+import MainBlogs from "pages/Blogs";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
             { path: "i-quote", element: <Iframe /> },
             { path: "aboutus", element: <AboutUs /> },
             { path: "services", element: <Services /> },
+            { path: "blogs", element: <MainBlogs /> },
         ],
     },
     {

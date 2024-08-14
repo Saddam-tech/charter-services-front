@@ -176,12 +176,12 @@ export default function BannerTable({
             setRows(updatedList);
             setEditingId(null);
             await provider.put(EPS.EDIT_BANNER + `/${editedData.uuid}`, { ...editedData });
-            addToast(MESSAGES.EDIT_COMPLETE, {
+            addToast(MESSAGES.EDIT_COMPLETE("Banner"), {
                 appearance: 'success',
                 autoDismiss: true
             })
         } catch (err) {
-            addToast(MESSAGES.EDIT_FAILURE, {
+            addToast(MESSAGES.EDIT_FAILURE("banner"), {
                 appearance: 'error',
                 autoDismiss: true
             })

@@ -26,15 +26,14 @@ const theme = createTheme({
 
 interface data {
     file: File | null;
-    order: string | null;
     active: boolean;
     head: string;
     text: string;
 }
 
 
-const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: number) => void; currentSection: number | null, close: () => void }) => {
-    const [data, setData] = useState<data>({ file: null, order: null, active: true, head: "", text: "" });
+const NewBlog = ({ reload, close }: { reload: () => void; close: () => void }) => {
+    const [data, setData] = useState<data>({ file: null, active: true, head: "", text: "" });
     const [loader, setLoader] = useState<boolean>(false);
     const { addToast } = useToasts();
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -46,24 +45,22 @@ const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: num
 
     async function handleSubmit() {
         try {
-            if (!data?.file || !data?.order || !currentSection) {
+            if (!data?.file) {
                 return;
             }
             const formData = new FormData();
             formData.append('file', data.file);
-            formData.append('sequence', data.order);
             formData.append('active', data.active ? '1' : '0');
             formData.append('head', data.head);
             formData.append('text', data.text);
-            formData.append('section', currentSection.toString());
             setLoader(true);
-            await provider.post(EPS.NEW_BANNER, formData);
+            await provider.post(EPS.NEW_BLOG, formData);
             setLoader(false);
-            addToast(MESSAGES.UPLOAD_COMPLETE("Banner"), {
+            addToast(MESSAGES.UPLOAD_COMPLETE('Blog'), {
                 appearance: 'success',
                 autoDismiss: true,
             });
-            reload(currentSection);
+            reload();
             close();
         } catch (err) {
             console.log(err);
@@ -75,7 +72,7 @@ const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: num
     return (
         <Container>
             <div className="quote-type-select">
-                <p>New Banner</p>
+                <p>New Blog</p>
             </div>
             <section className="input-tab-wrapper">
                 <ThemeProvider theme={theme}>
@@ -86,19 +83,9 @@ const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: num
                         autoComplete="off"
                     >
                         <div className="image-input-wrap">
-                            <label htmlFor="bannerInput">Select Banner Image</label>
+                            <label htmlFor="bannerInput">Select Blog Image</label>
                             <input id="bannerInput" type="file" name="imageInput" onChange={handleFileChange} />
                         </div>
-                        <TextField
-                            onChange={(event) => setData(prev => ({ ...prev, order: event.target.value }))}
-                            // helperText={errorState.dropoff_location_error && "This field is required!"}
-                            // error={errorState.dropoff_location_error}
-                            sx={{ margin: '10px 0 0 0' }}
-                            type="number"
-                            fullWidth
-                            id="view-order"
-                            label="View Order"
-                        />
                         <TextField
                             onChange={(event) => setData(prev => ({ ...prev, head: event.target.value }))}
                             // helperText={errorState.dropoff_location_error && "This field is required!"}
@@ -107,7 +94,7 @@ const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: num
                             type="text"
                             fullWidth
                             id="header-input"
-                            label="Header Input"
+                            label="Header"
                         />
                         <TextField
                             onChange={(event) => setData(prev => ({ ...prev, text: event.target.value }))}
@@ -116,8 +103,8 @@ const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: num
                             sx={{ margin: '10px 0 0 0' }}
                             type="text"
                             fullWidth
-                            id="text-input"
-                            label="Text Input"
+                            id="content-input"
+                            label="Content"
                         />
                         <div className="switch-wrap">
                             <span>Active</span>
@@ -143,7 +130,7 @@ const NewBanner = ({ reload, currentSection, close }: { reload: (section_id: num
     )
 }
 
-export default NewBanner
+export default NewBlog
 
 const Container = styled.section`
 z-index: 7;

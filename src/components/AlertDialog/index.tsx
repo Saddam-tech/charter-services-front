@@ -16,7 +16,7 @@ export default function AlertDialog({ section_id, itemuuid, open, setOpen, loadB
         try {
             await provider.delete(EPS.DELETE_BANNER + `/${uuid}`);
             loadBanners(section_id);
-            addToast(MESSAGES.DELETE_COMPLETE, {
+            addToast(MESSAGES.DELETE_COMPLETE("Banner"), {
                 appearance: 'success',
                 autoDismiss: true,
             });

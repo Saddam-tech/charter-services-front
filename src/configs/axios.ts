@@ -7,10 +7,20 @@ axios.defaults.headers.common["Authorization"] = `${token}`;
 export const provider = axios.create({ baseURL });
 
 export enum EPS {
+  // blogs
+  BLOGS = "/blogs/all",
+  NEW_BLOG = "/blogs/new",
+  EDIT_BLOG = "/blogs", // /:uuid
+  DELETE_BLOG = "/blogs",
+
+  // banners
   BANNERS = "/banners/all",
   NEW_BANNER = "/banners/new",
   EDIT_BANNER = "/banners", // /:uuid
   DELETE_BANNER = "/banners",
-  ORDERS = "/orders",
+
+  // admin
   ADMIN_SIGNIN = "/admin/signin",
+  // orders
+  ORDERS = "/orders",
 }
