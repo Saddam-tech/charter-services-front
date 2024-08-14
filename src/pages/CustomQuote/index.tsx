@@ -1,5 +1,6 @@
 import QuoteInput from "components/QuoteInput";
 import { useEffect, useState } from "react";
+import { Fade } from "react-awesome-reveal";
 import { styled } from "styled-components";
 
 const CustomQuote = () => {
@@ -8,7 +9,9 @@ const CustomQuote = () => {
     }, [])
     return (
         <Container>
-            <QuoteInput />
+            <Fade damping={0.1}>
+                <QuoteInput />
+            </Fade>
         </Container>
     );
 };

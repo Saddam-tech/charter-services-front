@@ -1,5 +1,4 @@
 import { IBlogs } from 'components/ServicesBlog'
-import React from 'react'
 import styled from 'styled-components'
 
 const ServicesDropdown = ({ h1, arr, img }: IBlogs) => {

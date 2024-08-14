@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const theme = createTheme({
     palette: {
@@ -24,9 +24,10 @@ interface Data {
 }
 
 const Blog = ({ head, text, urlToS3, type, uuid }: Data) => {
+    const navigate = useNavigate();
     return (
         <ThemeProvider theme={theme}>
-            <Container>
+            <Container onClick={() => navigate(`${type}/blogs/${uuid}`)}>
                 <Image src={urlToS3} alt="blogImage" />
                 <Header>{head}</Header>
                 <Content>{text?.length > 100 ? text.slice(0, 100) : text} <Link style={{ textDecoration: "none" }} to={`${type}/blogs/${uuid}`}>...Read More</Link></Content>
@@ -49,6 +50,7 @@ height: 400px;
 gap: 10px;
 border-radius: 5px;
 padding: 10px;
+cursor: pointer;
 `
 
 const Image = styled.img`

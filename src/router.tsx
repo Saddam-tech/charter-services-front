@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         children: [
             { path: "", element: <Index /> },
             { path: "c-quote", element: <CustomQuote /> },
-            { path: "i-quote", element: <Iframe /> },
+            // { path: "i-quote", element: <Iframe /> },
             { path: "aboutus", element: <AboutUs /> },
             { path: "services", element: <Services /> },
             { path: "blogs", element: <MainBlogs /> },

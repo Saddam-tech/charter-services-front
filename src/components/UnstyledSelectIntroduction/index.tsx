@@ -180,5 +180,5 @@ const Option = styled(BaseOption)(
 );
 
 const Popper = styled(BasePopper)`
-  z-index: 1;
+  z-index: 9;
 `;

@@ -57,7 +57,6 @@ interface errorState {
 }
 
 const QuoteInput = () => {
-    const navigate = useNavigate();
     const [process, setProcess] = useState<number>(0);
     const [errorState, setErrorState] = useState<errorState>(_errorState);
     const [state, setState] = useState<iState>(c_quote_default);
@@ -217,7 +216,7 @@ const Container = styled.section`
         padding: 20px;
         margin: 0;
         text-align: center;
-        width: 85%;
+        width: 100%;
         color: #ffffff;
         font-weight: 700;
     }

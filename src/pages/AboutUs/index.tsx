@@ -203,10 +203,6 @@ height: 100vh;
     h1 {
         color: #c69536;
     }
-    .quote-input {
-        max-width: 500px;
-        width: 100%;
-    }
 }
 
 .footer-section {
