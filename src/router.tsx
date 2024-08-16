@@ -14,6 +14,7 @@ import Banners from "pages/Admin/Banners";
 import Blogs from "pages/Admin/Blogs";
 import MainBlogs from "pages/Blogs";
 import AdminSpecificBlog from "pages/Blogs/AdminSpecificBlog";
+import AdminSpecificOrder from "pages/Admin/Orders/AdminSpecificOrder";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
         children: [
             { path: "", element: <Main /> },
             { path: "orders/:path", element: <Orders /> },
+            { path: "orders/:path/:orderId", element: <AdminSpecificOrder /> },
             { path: "banners", element: <Banners /> },
             { path: "blogs", element: <Blogs /> },
             { path: "blogs/:uuid", element: <AdminSpecificBlog /> },

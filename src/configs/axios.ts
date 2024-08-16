@@ -24,4 +24,5 @@ export enum EPS {
   ADMIN_SIGNIN = "/admin/signin",
   // orders
   ORDERS = "/orders",
+  SPEC_ORDER = "/orders/order", // /:orderid // specific order query
 }

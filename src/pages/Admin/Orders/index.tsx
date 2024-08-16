@@ -15,7 +15,6 @@ const Orders = () => {
     async function loadOrders(status: number) {
         try {
             const { data: { orders } } = await provider.get(`${EPS.ORDERS}?status=${status}`);
-            console.log({ orders })
             setOrders(orders);
         } catch (err) {
             console.log(err);
@@ -24,7 +23,7 @@ const Orders = () => {
 
     useEffect(() => {
         loadOrders(mapPathToStatus[path as PathKey]);
-    }, [])
+    }, [path])
     return (
         <Container>
             <HeaderWrap>

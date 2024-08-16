@@ -1,5 +1,7 @@
 export type PathKey = "incoming" | "accepted" | "rejected";
 
+export type StatusKey = 0 | 1 | 2;
+
 export interface Order {
   id: number;
   orderid: string;
