@@ -1,16 +1,37 @@
 import CustomTable from 'components/CustomTable'
 import styled from 'styled-components'
 import { useParams } from "react-router-dom";
+import { EPS, provider } from 'configs/axios';
+import { useEffect, useState } from 'react';
+import { Order, PathKey } from 'configs/types';
+import { mapPathToStatus } from 'configs/constants';
+
+
 
 const Orders = () => {
     const { path } = useParams();
+    const [orders, setOrders] = useState<Order[]>([]);
+
+    async function loadOrders(status: number) {
+        try {
+            const { data: { orders } } = await provider.get(`${EPS.ORDERS}?status=${status}`);
+            console.log({ orders })
+            setOrders(orders);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        loadOrders(mapPathToStatus[path as PathKey]);
+    }, [])
     return (
         <Container>
             <HeaderWrap>
                 <h2>{path && path[0].toUpperCase() + path?.slice(1)} Orders</h2>
                 <p>Orders are fetched each 5 seconds</p>
                 <TableWrap>
-                    <CustomTable />
+                    <CustomTable orders={orders} />
                 </TableWrap>
             </HeaderWrap>
         </Container>

@@ -7,9 +7,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import { Order } from 'configs/types';
 
 interface Column {
-    id: 'id' | 'type' | 'date' | 'p_location' | 'd_location' | 'email' | 'phone';
+    id: 'id' | 'type' | 'date' | 'pickup_location' | 'dropoff_location' | 'email' | 'phonenumber';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -27,14 +28,14 @@ const columns: readonly Column[] = [
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'p_location',
+        id: 'pickup_location',
         label: 'Pick-up Location',
         minWidth: 170,
         align: 'right',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'd_location',
+        id: 'dropoff_location',
         label: 'Drop-off Location',
         minWidth: 170,
         align: 'right',
@@ -48,7 +49,7 @@ const columns: readonly Column[] = [
         format: (value: number) => value.toFixed(2),
     },
     {
-        id: 'phone',
+        id: 'phonenumber',
         label: 'Phone Number',
         minWidth: 170,
         align: 'right',
@@ -56,45 +57,8 @@ const columns: readonly Column[] = [
     },
 ];
 
-interface Data {
-    id: number;
-    type: string;
-    date: string;
-    p_location: string;
-    d_location: string;
-    email: string;
-    phone: string;
-}
 
-function createData(
-    id: number,
-    type: string,
-    date: string,
-    p_location: string,
-    d_location: string,
-    email: string,
-    phone: string
-): Data {
-    return { id, type, date, p_location, d_location, email, phone };
-}
-
-const rows = [
-    createData(1, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(2, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(3, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(4, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(5, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(6, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(7, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(8, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(9, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(11, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(12, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(13, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-    createData(14, 'Airport pick-up/drop-off', '2024-12-04 07:24 pm', 'Seoul', 'New York', 'tatebrothers@gmail.com', '+129 2398 2398'),
-];
-
-export default function CustomTable() {
+export default function CustomTable({ orders }: { orders: Order[] }) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -109,7 +73,7 @@ export default function CustomTable() {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
+            <TableContainer>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
@@ -125,7 +89,7 @@ export default function CustomTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows
+                        {orders
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
                                 return (
@@ -147,9 +111,9 @@ export default function CustomTable() {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[10, 25, 30]}
                 component="div"
-                count={rows.length}
+                count={orders.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

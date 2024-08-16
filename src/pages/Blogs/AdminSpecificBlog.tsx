@@ -153,7 +153,10 @@ const Wrap = styled.div`
 `
 const Textarea = styled.textarea`
     width: 900px;
-
+    background-color: rgb(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
     @media screen and (max-width: 728px) {
         width: 100%;
     }
