@@ -24,10 +24,6 @@ export default function OrderSpecificCard({ order }: { order: Order }) {
         n_ppl,
     } = order;
     const rowsToShow = {
-        // date,
-        // status,
-        // time,
-        // created_at,
         type,
         pickup_location,
         dropoff_location,

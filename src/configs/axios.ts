@@ -25,4 +25,5 @@ export enum EPS {
   // orders
   ORDERS = "/orders",
   SPEC_ORDER = "/orders/order", // /:orderid // specific order query
+  STATUS_UPDATE = "/orders/status-update",
 }

@@ -107,7 +107,7 @@ export default function CustomTable({ orders }: { orders: Order[] }) {
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
-                                                <TableCell onClick={() => navigate(`${location.pathname}/${row.orderid}`)} key={column.id} align={column.align}>
+                                                <TableCell sx={{ cursor: 'pointer' }} onClick={() => navigate(`${location.pathname}/${row.orderid}`)} key={column.id} align={column.align}>
                                                     {column.id === 'status' ? mapStatusToString[value as StatusKey] : column.id === 'date' ? dayjs(value).format('YYYY-MM-DD hh:mm a') : column.format && typeof value === 'number'
                                                         ? column.format(value)
                                                         : value}
