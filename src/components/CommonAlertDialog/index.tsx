@@ -5,11 +5,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { EPS, provider } from 'configs/axios';
-import { useToasts } from 'react-toast-notifications';
-import { MESSAGES } from 'utils/messages';
 
-export default function CommonAlertDialog({ header, content, actionBtn, open, setOpen }: { header: string; content: string; actionBtn: string; open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
+export default function CommonAlertDialog({ header, content, actionBtn, open, setOpen, exec }: { header: string; content?: string; actionBtn: string; open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>, exec: () => void }) {
 
     const handleClose = () => {
         setOpen(false);
@@ -32,7 +29,7 @@ export default function CommonAlertDialog({ header, content, actionBtn, open, se
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>{"Cancel"}</Button>
-                <Button onClick={() => { }} autoFocus>
+                <Button onClick={exec} autoFocus>
                     {actionBtn}
                 </Button>
             </DialogActions>

@@ -9,9 +9,9 @@ import Typography from '@mui/joy/Typography';
 import styled from 'styled-components';
 import { Order, StatusKey } from 'configs/types';
 import dayjs from 'dayjs';
-import { mapStatusToString } from 'configs/constants';
+import { mapStatusToString, STATUS } from 'configs/constants';
 
-export default function OrderSpecificCard({ order }: { order: Order }) {
+export default function OrderSpecificCard({ order, func }: { order: Order, func: (status: number) => void }) {
     const {
         type,
         pickup_location,
@@ -92,8 +92,8 @@ export default function OrderSpecificCard({ order }: { order: Order }) {
             <CardOverflow sx={{ bgcolor: 'background.level1' }}>
                 <CardActions buttonFlex="1">
                     <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
-                        <Button>Accept</Button>
-                        <Button>Reject</Button>
+                        <Button onClick={() => func(STATUS.ACCEPT)}>Accept</Button>
+                        <Button onClick={() => func(STATUS.REJECT)}>Reject</Button>
                         <Button>Delete</Button>
                     </ButtonGroup>
                 </CardActions>

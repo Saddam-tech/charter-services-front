@@ -5,6 +5,9 @@ import TextField from '@mui/material/TextField';
 import styled from 'styled-components'
 import { EPS, provider } from "configs/axios";
 
+import { useToasts } from 'react-toast-notifications';
+import { MESSAGES } from 'utils/messages';
+
 interface IProps {
     setToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
@@ -16,12 +19,21 @@ interface Credentials {
 
 const SignIn = ({ setToken }: IProps) => {
     const [credentials, setCredentials] = useState<Credentials>({ username: '', password: '' });
+    const { addToast } = useToasts();
     async function loginHandler() {
         try {
             if (!credentials.username) {
+                addToast(MESSAGES.NO_USERNAME, {
+                    appearance: 'error',
+                    autoDismiss: true
+                })
                 return;
             }
             if (!credentials.password) {
+                addToast(MESSAGES.NO_PASSWORD, {
+                    appearance: 'error',
+                    autoDismiss: true
+                })
                 return;
             }
             const payload = { username: credentials.username, password: credentials.password };
@@ -29,11 +41,21 @@ const SignIn = ({ setToken }: IProps) => {
             console.log({ response })
             let { token } = response?.data;
             if (!token) {
+                addToast(MESSAGES.USER_NOT_FOUND, {
+                    appearance: 'error',
+                    autoDismiss: true
+                })
                 return;
             }
             localStorage.setItem('authorizationToken', token);
             setToken(token);
+            window.location.reload();
+
         } catch (err) {
+            addToast(MESSAGES.ERROR, {
+                appearance: 'error',
+                autoDismiss: true
+            })
             console.log(err);
         }
     }

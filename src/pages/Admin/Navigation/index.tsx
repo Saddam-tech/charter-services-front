@@ -24,6 +24,8 @@ import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useNavigate } from 'react-router-dom';
+import Backdrop from 'components/Backdrop';
+import CommonAlertDialog from 'components/CommonAlertDialog';
 
 const navigation = [
     { name: "Home", icon: <AccountCircleIcon />, path: '/admin' },
@@ -45,10 +47,16 @@ const sub_orders = [
 export default function BasicList() {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
+    const [alertDialog, setAlertDialog] = React.useState<boolean>(false);
 
     const handleClick = () => {
         setOpen(!open);
     };
+    function handleLogout() {
+        localStorage.removeItem('authorizationToken');
+        setAlertDialog(false);
+        window.location.reload();
+    }
     return (
         <Box sx={{ height: '100vh', width: '100%', maxWidth: 300, borderRight: '1px solid #84848423' }}>
             <nav aria-label="main mailbox folders">
@@ -92,7 +100,7 @@ export default function BasicList() {
             <nav aria-label="secondary mailbox folders">
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => setAlertDialog(true)}>
                             <ListItemIcon>
                                 <LogoutIcon />
                             </ListItemIcon>
@@ -101,6 +109,9 @@ export default function BasicList() {
                     </ListItem>
                 </List>
             </nav>
+            {alertDialog && <Backdrop close={() => setAlertDialog(false)}>
+                <CommonAlertDialog header="Are you sure to logout?" actionBtn="Logout" open={alertDialog} setOpen={setAlertDialog} exec={handleLogout} />
+            </Backdrop>}
         </Box>
     );
 }

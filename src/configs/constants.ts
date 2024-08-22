@@ -12,6 +12,17 @@ export const mapStatusToString: Record<StatusKey, string> = {
   2: "Rejected",
 };
 
+export const STATUS = {
+  ACCEPT: 1,
+  REJECT: 2,
+};
+
+export const mapStatusToStringForAlertMessage: Record<number, string> = {
+  0: "",
+  1: "Accept",
+  2: "Reject",
+};
+
 export const defaultOrder = {
   id: 0,
   orderid: "",
@@ -32,4 +43,14 @@ export const defaultOrder = {
   lastname: "",
   email: "",
   phonenumber: "",
+};
+
+export const defaultAdmin = {
+  firstname: "",
+  lastname: "",
+  username: "",
+  active: 1,
+  bio: "",
+  profileImgUrl: "",
+  password: "",
 };

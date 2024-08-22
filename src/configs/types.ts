@@ -23,3 +23,14 @@ export interface Order {
   email: string;
   phonenumber: string;
 }
+
+export interface ProfileCreds {
+  firstname: string;
+  lastname: string;
+  username: string;
+  active: number;
+  bio: string;
+  profileImgUrl: string;
+  file?: File;
+  password?: string;
+}

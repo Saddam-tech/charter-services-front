@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import ContrastIcon from '@mui/icons-material/Contrast';
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+    const navigate = useNavigate();
     return (
         <Container>
             <div className="logo-wrap">
@@ -11,7 +13,7 @@ const Header = () => {
             </div>
             <div className="logo-wrap">
                 <ContrastIcon sx={{ fontSize: '30px' }} />
-                <img className="profile" src={require('assets/aziz-profile-pic.webp')} alt="profile-pic" />
+                <img onClick={() => navigate('/admin/profile')} className="profile" src={require('assets/aziz-profile-pic.webp')} alt="profile-pic" />
             </div>
         </Container>
     )

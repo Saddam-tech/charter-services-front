@@ -153,6 +153,7 @@ const Wrap = styled.div`
 `
 const Textarea = styled.textarea`
     width: 900px;
+    height: 400px;
     background-color: rgb(255, 255, 255, 0.3);
     border: none;
     border-radius: 10px;

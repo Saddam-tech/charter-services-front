@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import OrderSpecificCard from 'components/OrderSpecificCard';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import { Order, StatusKey } from 'configs/types';
 import { EPS, provider } from 'configs/axios';
-import { defaultOrder } from 'configs/constants';
+import { defaultOrder, mapStatusToStringForAlertMessage } from 'configs/constants';
 import { useToasts } from 'react-toast-notifications';
 import { MESSAGES } from 'utils/messages';
+import Backdrop from 'components/Backdrop';
+import CommonAlertDialog from 'components/CommonAlertDialog';
 
 const AdminSpecificOrder = () => {
     const { orderId } = useParams();
     const [order, setOrder] = useState<Order>(defaultOrder);
     const { addToast } = useToasts();
+    const [alertDialog, setAlertDialog] = useState<boolean>(false);
+    const [status, setStatus] = useState<number>(0);
+    const navigate = useNavigate();
 
     async function loadOrder() {
         try {
@@ -21,7 +26,12 @@ const AdminSpecificOrder = () => {
             console.log(err);
         }
     }
-    async function statusUpdateHandler(status: number) {
+    function handleStatusUpdateTrigger(status: number) {
+        setStatus(status);
+        setAlertDialog(true);
+    }
+
+    async function statusUpdateHandler() {
         try {
             const body = { status, orderid: orderId };
             await provider.put(EPS.STATUS_UPDATE, body)
@@ -34,11 +44,14 @@ const AdminSpecificOrder = () => {
                 appearance: 'success',
                 autoDismiss: true,
             });
+            setAlertDialog(false);
+            navigate(-1);
         } catch (err) {
             addToast(MESSAGES.EDIT_FAILURE('status'), {
                 appearance: 'error',
                 autoDismiss: true,
             });
+            setAlertDialog(false);
             console.log(err);
         }
     }
@@ -48,7 +61,16 @@ const AdminSpecificOrder = () => {
     }, [])
     return (
         <Container>
-            <OrderSpecificCard order={order} />
+            <OrderSpecificCard func={handleStatusUpdateTrigger} order={order} />
+            {alertDialog && <Backdrop close={() => setAlertDialog(false)}>
+                <CommonAlertDialog
+                    header={`Are you sure to ${mapStatusToStringForAlertMessage[status].toLowerCase()} the order?`}
+                    actionBtn={mapStatusToStringForAlertMessage[status]}
+                    open={alertDialog}
+                    setOpen={setAlertDialog}
+                    exec={statusUpdateHandler}
+                />
+            </Backdrop>}
         </Container>
     )
 }

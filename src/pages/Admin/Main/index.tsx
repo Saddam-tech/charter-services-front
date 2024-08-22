@@ -53,8 +53,8 @@ export default Main
 
 const Container = styled.section`
 display: flex;
-align-items: flex-start;
-justify-content: flex-start;
+align-items: center;
+justify-content: center;
 flex-direction: column;
 width: 100%;
 padding: 0 10px;
@@ -81,8 +81,8 @@ const InnerWrap = styled.section`
 
 const Content = styled.section`
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     padding: 20px 0;
     width: 100%;
     gap: 20px;
