@@ -1,46 +1,64 @@
-import React from 'react'
+import { EPS, provider } from 'configs/axios';
+import { defaultAdmin } from 'configs/constants';
+import { ProfileCreds } from 'configs/types';
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
+    const [adminInfo, setAdminInfo] = useState<ProfileCreds>(defaultAdmin);
+    const navigate = useNavigate();
+
+    async function loadProfile() {
+        try {
+            const { data: { admin } } = await provider.get(EPS.ADMIN_INFO);
+            setAdminInfo(admin);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    useEffect(() => {
+        loadProfile();
+    }, [])
     return (
         <Container>
             <InnerWrap>
-                <img src={require('assets/aziz-profile-pic.webp')} alt="profile-pic" />
-                <h1>Welcome, Azizbek Abduganiev</h1>
+                <img src={adminInfo.profileImgUrl} alt="profile-pic" />
+                <h1>Welcome, {adminInfo.firstname} {adminInfo.lastname}</h1>
                 <p>Manage your info, page banners and posts conveniently with a click of a button!</p>
             </InnerWrap>
-            <Content>
+            <Content onClick={() => navigate('/admin/orders/incoming')}>
                 <div className="box long">
                     <h2>Incoming orders</h2>
                     <p>View all the incoming orders here</p>
                 </div>
             </Content>
             <Content>
-                <div className="box">
+                <div onClick={() => navigate('/admin/banners')} className="box">
                     <h2>Banners</h2>
                     <p>Upload and modify your banners here</p>
                 </div>
-                <div className="box">
+                <div onClick={() => navigate('/admin/blogs')} className="box">
                     <h2>Blogs</h2>
                     <p>Post your blogs here</p>
                 </div>
             </Content>
             <Content>
-                <div className="box">
+                <div onClick={() => navigate('/admin/services')} className="box">
                     <h2>Services</h2>
                     <p>Modify your services here</p>
                 </div>
-                <div className="box">
+                <div onClick={() => navigate('/admin/fleet')} className="box">
                     <h2>Fleet</h2>
                     <p>Post new fleet here</p>
                 </div>
             </Content>
             <Content>
-                <div className="box">
+                <div onClick={() => navigate('/admin/careers')} className="box">
                     <h2>Careers</h2>
                     <p>Post new job openings</p>
                 </div>
-                <div className="box">
+                <div onClick={() => navigate('/admin/contact-info')} className="box">
                     <h2>Contact info</h2>
                     <p>Modify your contact info</p>
                 </div>
@@ -69,9 +87,10 @@ const InnerWrap = styled.section`
 
     img {
         width: 200px;
+        height: 200px;
         border-radius: 50%;
-        outline: 2px solid #868686;
-        border: 4px solid #ffffff;
+        border: 6px solid #ffffff;
+        object-fit: cover;
     }
     h1 {
         font-size: 24px;
