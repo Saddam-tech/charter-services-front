@@ -9,14 +9,17 @@ const ProtectedRoute = () => {
 
     const CheckJwt = async () => {
         const token = localStorage.getItem('authorizationToken');
-
-        // if (!authorizationToken || isExpired(authorizationToken)) {
+        if (isExpired(authToken)) {
+            localStorage.removeItem('authorizationToken');
+            setAuthToken(null);
+            return;
+        }
         if (!authToken) {
             localStorage.removeItem('authorizationToken');
-            return setAuthToken(null);
+            setAuthToken(null);
+            return;
         }
-
-        return setAuthToken(token);
+        setAuthToken(token);
     };
 
     useEffect(() => {

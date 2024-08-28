@@ -1,19 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import ContrastIcon from '@mui/icons-material/Contrast';
 import { useNavigate } from "react-router-dom";
+import { ProfileCreds } from 'configs/types';
+import { defaultAdmin } from 'configs/constants';
+import { EPS, provider } from 'configs/axios';
 
 const Header = () => {
     const navigate = useNavigate();
+    const [adminInfo, setAdminInfo] = useState<ProfileCreds>(defaultAdmin);
+
+    async function loadProfile() {
+        try {
+            const { data: { admin } } = await provider.get(EPS.ADMIN_INFO);
+            setAdminInfo(admin);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    useEffect(() => {
+        loadProfile();
+    }, [])
     return (
         <Container>
             <div className="logo-wrap">
-                <img src={require('assets/schs-mainlogo.png')} alt="" />
+                <img src={require('assets/schs-mainlogo.png')} alt="profile-pic" />
                 <p>admin</p>
             </div>
             <div className="logo-wrap">
                 <ContrastIcon sx={{ fontSize: '30px' }} />
-                <img onClick={() => navigate('/admin/profile')} className="profile" src={require('assets/aziz-profile-pic.webp')} alt="profile-pic" />
+                <img onClick={() => navigate('/admin/profile')} className="profile" src={adminInfo.profileImgUrl} alt="profile-pic" />
             </div>
         </Container>
     )
@@ -42,7 +58,6 @@ padding: 0 20px;
     .profile {
             width: 50px;
             border-radius: 50%;
-            outline: 1px solid #868686;
             border: 2px solid #ffffff;
             cursor: pointer;
         }
