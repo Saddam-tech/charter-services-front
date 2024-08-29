@@ -16,6 +16,8 @@ import MainBlogs from "pages/Blogs";
 import AdminSpecificBlog from "pages/Blogs/AdminSpecificBlog";
 import AdminSpecificOrder from "pages/Admin/Orders/AdminSpecificOrder";
 import Profile from "pages/Admin/Profile";
+import Fleet from "pages/Admin/Fleet";
+import AdminSpecificFleet from "pages/Admin/Fleet/AdminSpecificFleet";
 
 const router = createBrowserRouter([
     {
@@ -38,7 +40,9 @@ const router = createBrowserRouter([
             { path: "orders/:path", element: <Orders /> },
             { path: "orders/:path/:orderId", element: <AdminSpecificOrder /> },
             { path: "banners", element: <Banners /> },
+            { path: "fleet", element: <Fleet /> },
             { path: "blogs", element: <Blogs /> },
+            { path: "fleet/:uuid", element: <AdminSpecificFleet /> },
             { path: "blogs/:uuid", element: <AdminSpecificBlog /> },
             { path: "profile", element: <Profile /> },
         ],

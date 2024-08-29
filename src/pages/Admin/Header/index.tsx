@@ -56,10 +56,12 @@ padding: 0 20px;
         }
     }
     .profile {
+            height: 50px;
             width: 50px;
             border-radius: 50%;
             border: 2px solid #ffffff;
             cursor: pointer;
+            object-fit: cover;
         }
     
 }

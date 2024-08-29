@@ -132,7 +132,8 @@ const Listbox = styled('ul')(
   margin: 12px 0;
   min-width: 320px;
   border-radius: 12px;
-  overflow: auto;
+  overflow: scroll;
+  max-height: 450px;
   outline: 0px;
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
@@ -147,7 +148,7 @@ const Option = styled(BaseOption)(
   list-style: none;
   padding: 8px;
   border-radius: 8px;
-  cursor: default;
+  cursor: pointer;
 
   &:last-of-type {
     border-bottom: none;
