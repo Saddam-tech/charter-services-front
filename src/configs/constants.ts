@@ -54,3 +54,11 @@ export const defaultAdmin = {
   profileImgUrl: "",
   password: "",
 };
+
+export const fleetTypes = [
+  "Luxury SUVs",
+  "Luxury Sedans",
+  "Luxury Vans",
+  "Luxury Shuttles",
+  "School Busses",
+];

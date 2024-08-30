@@ -4,7 +4,9 @@ import { useParams } from "react-router-dom";
 import { EPS, provider } from 'configs/axios';
 import { Button, Input, Switch } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { fleetTypes } from 'configs/constants';
+import { useToasts } from 'react-toast-notifications';
+import { MESSAGES } from 'utils/messages';
 
 interface Data {
     model_name?: string;
@@ -34,6 +36,7 @@ const AdminSpecificFleet = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [fleet, setFleet] = useState<Data>();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { addToast } = useToasts();
 
     async function loadFleet() {
         try {
@@ -68,12 +71,20 @@ const AdminSpecificFleet = () => {
                     }
                 }
                 setIsEditing(false);
-                await provider.put(EPS.BLOG + `/${uuid}`, formData);
+                await provider.put(EPS.EDIT_FLEET + `/${uuid}`, formData);
                 loadFleet();
+                addToast(MESSAGES.EDIT_COMPLETE("Fleet"), {
+                    appearance: 'success',
+                    autoDismiss: true
+                })
             } else {
                 setIsEditing(true);
             }
         } catch (err) {
+            addToast(MESSAGES.EDIT_FAILURE("fleet"), {
+                appearance: 'error',
+                autoDismiss: true
+            })
             console.log(err);
         }
     }
@@ -95,10 +106,23 @@ const AdminSpecificFleet = () => {
                     {isEditing && <input ref={fileInputRef} id="blogInput" type="file" name="blogInput" onChange={handleFileChange} hidden />}
                 </>
                 <Content>
-                    {isEditing ? <BrandNameInput value={fleet?.brand_name} onChange={(e) => setFleet(prev => ({ ...prev, brand_name: e.target.value }))} placeholder="Brand Name" /> : <Header>{fleet?.brand_name}</Header>}
-                    {isEditing ? <ModelNameInput value={fleet?.model_name} onChange={(e) => setFleet(prev => ({ ...prev, model_name: e.target.value }))} placeholder="Model Name" /> : <Text>{fleet?.model_name}</Text>}
-                    {isEditing ? <Textarea value={fleet?.description} onChange={(e) => setFleet(prev => ({ ...prev, description: e.target.value }))} placeholder="Description" /> : <Text>{fleet?.description}</Text>}
-                    {isEditing ? <Input sx={{ maxWidth: '600px', width: '100%' }} value={fleet?.seats} onChange={(e) => setFleet(prev => ({ ...prev, seats: e.target.value }))} placeholder="Seats" /> : <Text>{fleet?.seats}</Text>}
+                    {isEditing ? <BrandNameInput value={fleet?.brand_name} onChange={(e) => setFleet(prev => ({ ...prev, brand_name: e.target.value }))} placeholder="Brand Name" /> : <Header>Brand Name: {fleet?.brand_name}</Header>}
+                    {isEditing ? <ModelNameInput value={fleet?.model_name} onChange={(e) => setFleet(prev => ({ ...prev, model_name: e.target.value }))} placeholder="Model Name" /> : <Text>Model Name: {fleet?.model_name}</Text>}
+                    {isEditing ? <Textarea value={fleet?.description} onChange={(e) => setFleet(prev => ({ ...prev, description: e.target.value }))} placeholder="Description" /> : <Text>Description: {fleet?.description}</Text>}
+                    {isEditing ? <Select value={fleet?.seats} onChange={(e) => setFleet(prev => ({ ...prev, seats: e.target.value }))}>
+                        {new Array(50).fill("passenger").map((el, i) => i + 1 + " " + el + (i > 0 ? "s" : "")).map((el, i) => (
+                            <option key={i} value={i + 1}>
+                                {el}
+                            </option>
+                        ))}
+                    </Select> : <Text>Seats: {fleet?.seats}</Text>}
+                    {isEditing ? <Select value={fleet?.type} onChange={(e) => setFleet(prev => ({ ...prev, type: e.target.value }))}>
+                        {fleetTypes.map((el, i) => (
+                            <option key={i} value={el}>
+                                {el}
+                            </option>
+                        ))}
+                    </Select> : <Text>Type: {fleet?.type}</Text>}
                 </Content>
             </Container>
         </ThemeProvider>
@@ -130,13 +154,12 @@ const Image = styled.img`
 
 const Content = styled.section`
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 20px;
-    max-width: 700px;
+    max-width: 550px;
     height: 100%;
-    max-width: 900px;
 `
 const Header = styled.h1`
     font-size: 28px;
@@ -146,7 +169,7 @@ const Header = styled.h1`
 
 const Text = styled.p`
 font-size: 18px;
-text-align: center;
+text-align: left;
 `
 const Wrap = styled.div`
     display: flex;
@@ -189,3 +212,13 @@ const Textarea = styled.textarea`
         width: 100%;
     }
 `
+
+const Select = styled.select`
+  width: 325px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #c69536;
+  border-radius: 10px;
+  font-weight: 300;
+  cursor: pointer;
+`;

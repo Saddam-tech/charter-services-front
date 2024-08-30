@@ -32,7 +32,7 @@ const SpecFleet = ({ model_name, brand_name, description, seats, uuid, type, act
             <Container onClick={() => navigate(`${type}/fleet/${uuid}`)}>
                 <Image src={urlToS3} alt="fleetImage" />
                 <Header>{brand_name} {model_name}</Header>
-                <Content>{description?.length > 100 ? description.slice(0, 100) : description} <Link style={{ textDecoration: "none" }} to={`${type}/fleet/${uuid}`}>...Read More</Link></Content>
+                <Content>{description?.length > 100 ? description.slice(0, 100) : description} <Link style={{ textDecoration: "none" }} to={`${type}/fleet/${uuid}`}>...Check details</Link></Content>
             </Container>
         </ThemeProvider>
     )

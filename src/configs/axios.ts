@@ -34,4 +34,5 @@ export enum EPS {
   FLEET = "/fleet/all",
   NEW_FLEET = "/fleet/new",
   SPEC_FLEET = "/fleet", // :uuid
+  EDIT_FLEET = "/fleet", // :uuid
 }
