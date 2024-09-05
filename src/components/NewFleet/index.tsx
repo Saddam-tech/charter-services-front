@@ -9,6 +9,7 @@ import { EPS, provider } from 'configs/axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useToasts } from 'react-toast-notifications';
 import { MESSAGES } from 'utils/messages';
+import { fleetTypes } from 'configs/constants';
 
 
 
@@ -24,16 +25,19 @@ const theme = createTheme({
 });
 
 
-interface data {
-    file: File | null;
-    active: boolean;
-    head: string;
-    text: string;
+interface Data {
+    model_name?: string;
+    brand_name?: string;
+    description?: string;
+    seats?: string;
+    active?: boolean;
+    type?: string;
+    file?: File
 }
 
 
 const NewFleet = ({ reload, close }: { reload: () => void; close: () => void }) => {
-    const [data, setData] = useState<data>({ file: null, active: true, head: "", text: "" });
+    const [data, setData] = useState<Data>();
     const [loader, setLoader] = useState<boolean>(false);
     const { addToast } = useToasts();
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -49,14 +53,13 @@ const NewFleet = ({ reload, close }: { reload: () => void; close: () => void }) 
                 return;
             }
             const formData = new FormData();
-            formData.append('file', data.file);
-            formData.append('active', data.active ? '1' : '0');
-            formData.append('head', data.head);
-            formData.append('text', data.text);
+            for (let [key, value] of Object.entries(data || {})) {
+                formData.append(key, value);
+            }
             setLoader(true);
-            await provider.post(EPS.NEW_BLOG, formData);
+            await provider.post(EPS.NEW_FLEET, formData);
             setLoader(false);
-            addToast(MESSAGES.UPLOAD_COMPLETE('Blog'), {
+            addToast(MESSAGES.UPLOAD_COMPLETE('Fleet'), {
                 appearance: 'success',
                 autoDismiss: true,
             });
@@ -87,31 +90,46 @@ const NewFleet = ({ reload, close }: { reload: () => void; close: () => void }) 
                             <input id="bannerInput" type="file" name="imageInput" onChange={handleFileChange} />
                         </div>
                         <TextField
-                            onChange={(event) => setData(prev => ({ ...prev, head: event.target.value }))}
+                            onChange={(event) => setData(prev => ({ ...prev, brand_name: event.target.value }))}
                             // helperText={errorState.dropoff_location_error && "This field is required!"}
                             // error={errorState.dropoff_location_error}
                             sx={{ margin: '10px 0 0 0' }}
                             type="text"
                             fullWidth
-                            id="header-input"
-                            label="Header"
+                            id="brand-input"
+                            label="Brand name"
                         />
                         <TextField
-                            onChange={(event) => setData(prev => ({ ...prev, text: event.target.value }))}
+                            onChange={(event) => setData(prev => ({ ...prev, model_name: event.target.value }))}
                             // helperText={errorState.dropoff_location_error && "This field is required!"}
                             // error={errorState.dropoff_location_error}
                             sx={{ margin: '10px 0 0 0' }}
                             type="text"
                             fullWidth
-                            id="content-input"
-                            label="Content"
+                            id="model-input"
+                            label="Model name"
                         />
+                        <Select value={data?.seats} onChange={(e) => setData(prev => ({ ...prev, seats: e.target.value }))}>
+                            {new Array(50).fill("passenger").map((el, i) => i + 1 + " " + el + (i > 0 ? "s" : "")).map((el, i) => (
+                                <option key={i} value={i + 1}>
+                                    {el}
+                                </option>
+                            ))}
+                        </Select>
+                        <Select value={data?.type} onChange={(e) => setData(prev => ({ ...prev, type: e.target.value }))}>
+                            {fleetTypes.map((el, i) => (
+                                <option key={i} value={el}>
+                                    {el}
+                                </option>
+                            ))}
+                        </Select>
+                        <Textarea value={data?.description} onChange={(e) => setData(prev => ({ ...prev, description: e.target.value }))} placeholder="Description" />
                         <div className="switch-wrap">
                             <span>Active</span>
                             <Switch
                                 edge="end"
-                                onChange={() => setData((prev) => ({ ...prev, active: !data.active }))}
-                                checked={data.active}
+                                onChange={() => setData((prev) => ({ ...prev, active: !data?.active }))}
+                                checked={data?.active}
                                 disabled={false}
                                 inputProps={{
                                     'aria-labelledby': 'switch-list-label-wifi',
@@ -176,5 +194,26 @@ z-index: 7;
 }
 `;
 
+const Textarea = styled.textarea`
+    width: 100%;
+    height: 200px;
+    background-color: rgb(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0 0 0;
+    @media screen and (max-width: 728px) {
+        width: 100%;
+    }
+`
 
-
+const Select = styled.select`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #c69536;
+  border-radius: 10px;
+  font-weight: 300;
+  cursor: pointer;
+  margin: 10px 0 0 0;
+`;
