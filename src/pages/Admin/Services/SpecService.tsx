@@ -100,8 +100,8 @@ const SpecService = () => {
                     <Button variant="contained" color="primary">Delete</Button>
                 </Wrap>
                 <>
-                    <Image onClick={handleImageClickWhileEditing} src={service?.urlToS3} alt="blogImage" />
-                    {isEditing && <input ref={fileInputRef} id="blogInput" type="file" name="blogInput" onChange={handleFileChange} hidden />}
+                    <Image onClick={handleImageClickWhileEditing} src={service?.urlToS3} alt="service-image" />
+                    {isEditing && <input ref={fileInputRef} id="serviceInput" type="file" name="serviceInput" onChange={handleFileChange} hidden />}
                 </>
                 <Content>
                     {isEditing ? <Textarea value={service?.head} onChange={(e) => setService(prev => ({ ...prev, head: e.target.value }))} placeholder="Type Header" /> : <Header>{service?.head}</Header>}

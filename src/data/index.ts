@@ -9,10 +9,10 @@ import dayjs from "dayjs";
 export const navigation = [
   { page: "Services", route: "services" },
   { page: "Fleet", route: "" },
-  { page: "About Us", route: "aboutus" },
   { page: "Blogs", route: "blogs" },
-  { page: "Careers", route: "" },
-  { page: "Contact", route: "" },
+  { page: "About Us", route: "aboutus" },
+  // { page: "Careers", route: "" },
+  // { page: "Contact", route: "" },
   { page: "+1(628) 224 7797", route: "+1(628) 224 7797" },
   { page: "Make a custom quote!", route: "c-quote" },
 ];

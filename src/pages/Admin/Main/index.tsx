@@ -53,7 +53,7 @@ const Main = () => {
                     <p>Post new fleet here</p>
                 </div>
             </Content>
-            <Content>
+            {/* <Content>
                 <div onClick={() => navigate('/admin/careers')} className="box">
                     <h2>Careers</h2>
                     <p>Post new job openings</p>
@@ -62,7 +62,7 @@ const Main = () => {
                     <h2>Contact info</h2>
                     <p>Modify your contact info</p>
                 </div>
-            </Content>
+            </Content> */}
         </Container>
     )
 }

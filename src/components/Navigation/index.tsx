@@ -50,7 +50,7 @@ const Navigation = () => {
             </div>
             <ul>
                 {navigation.map((el, i) => {
-                    return i === 6 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon />{el.route}</a> : <li className={activeIndex === i ? 'active' : ''} onMouseEnter={() => handleNavigationHover(i, true)} onMouseLeave={() => handleNavigationHover(i, false)} onClick={() => handleNavigationClick(el.route, i)} key={i}>{el.page}</li>
+                    return i === 4 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon />{el.route}</a> : <li className={activeIndex === i ? 'active' : ''} onMouseEnter={() => handleNavigationHover(i, true)} onMouseLeave={() => handleNavigationHover(i, false)} onClick={() => handleNavigationClick(el.route, i)} key={i}>{el.page}</li>
                 })}
                 {active.services && (
                     <div onMouseEnter={() => handleNavigationHover(0, true)} onMouseLeave={() => handleNavigationHover(0, false)} className="dropdown">
@@ -166,13 +166,13 @@ const Container = styled.section<active>`
         li:hover {
             color: #767676
         }
-        li:nth-of-type(7) {
+        li:nth-of-type(5) {
             height: unset;
         }
         .active {
             color: #767676;
         }
-        a, li:nth-child(8) {
+        a, li:nth-child(6) {
             background-color: #c6963685;
             color: #000000;
             border: 1px solid #c6963685;

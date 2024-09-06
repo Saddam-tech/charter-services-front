@@ -59,6 +59,12 @@ const SignIn = ({ setToken }: IProps) => {
             console.log(err);
         }
     }
+    function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            loginHandler();
+        }
+    }
     return (
         <Container>
             <ParentWrap>
@@ -84,6 +90,7 @@ const SignIn = ({ setToken }: IProps) => {
                             multiline
                             maxRows={4}
                             variant="filled"
+                            onKeyDown={handleKeyPress}
                             onChange={(e) => setCredentials(prev => ({ ...prev, username: e.target.value }))}
                         />
                         <TextField
@@ -94,6 +101,7 @@ const SignIn = ({ setToken }: IProps) => {
                             type="password"
                             autoComplete="current-password"
                             variant="filled"
+                            onKeyDown={handleKeyPress}
                             onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
                         />
                         <Button onClick={loginHandler} sx={{ width: '95%', margin: '20px 0' }} variant="contained">Submit</Button>
