@@ -34,8 +34,8 @@ const navigation = [
     { name: "Blogs", icon: <BookIcon />, path: '/admin/blogs' },
     { name: "Services", icon: <HomeRepairServiceIcon />, path: '/admin/services' },
     { name: "Fleet", icon: <DirectionsCarIcon />, path: '/admin/fleet' },
-    { name: "Careers", icon: <WorkIcon />, path: '/admin/careers' },
-    { name: "Contact Info", icon: <ContactSupportIcon />, path: '/admin/contact-info' },
+    // { name: "Careers", icon: <WorkIcon />, path: '/admin/careers' },
+    // { name: "Contact Info", icon: <ContactSupportIcon />, path: '/admin/contact-info' },
 ]
 
 const sub_orders = [

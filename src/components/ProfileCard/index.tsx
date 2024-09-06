@@ -18,6 +18,12 @@ import styled from 'styled-components';
 import { useToasts } from 'react-toast-notifications';
 import { MESSAGES } from 'utils/messages';
 import { defaultAdmin } from 'configs/constants';
+import {
+    MuiTelInput,
+    MuiTelInputCountry,
+    MuiTelInputInfo,
+    MuiTelInputContinent,
+} from 'mui-tel-input'
 
 interface IProps {
     adminInfo: ProfileCreds;
@@ -31,6 +37,10 @@ export default function ProfileCard({ adminInfo, setState }: IProps) {
         username,
         bio,
         profileImgUrl,
+        email,
+        phone_1,
+        phone_2,
+        address
     } = adminInfo;
     const [isEditing, setIsEditing] = React.useState<boolean>(false);
     const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -38,6 +48,8 @@ export default function ProfileCard({ adminInfo, setState }: IProps) {
     const [pwDanger, setPwDanger] = React.useState<boolean>(false);
     const [updateData, setUpdateData] = React.useState<ProfileCreds>(defaultAdmin);
     const { addToast } = useToasts();
+    const continents: MuiTelInputContinent[] = ['NA', 'SA', 'EU']
+    const excludedCountries: MuiTelInputCountry[] = []
 
     function handleImageClickWhileEditing() {
         if (isEditing && fileInputRef.current) {
@@ -139,6 +151,37 @@ export default function ProfileCard({ adminInfo, setState }: IProps) {
                             <Input variant="soft" value={updateData.lastname || lastname} placeholder="Lastname here..." onChange={(e) => setUpdateData(prev => ({ ...prev, lastname: e.target.value }))} />
                         </LineWrap>
                         <LineWrap>
+                            <Typography level="title-lg">Email</Typography>
+                            <Input variant="soft" value={updateData.email || email} placeholder="Email here..." onChange={(e) => setUpdateData(prev => ({ ...prev, email: e.target.value }))} />
+                        </LineWrap>
+                        <LineWrap>
+                            <Typography level="title-lg">Address</Typography>
+                            <Input variant="soft" value={updateData.address || address} placeholder="Address here..." onChange={(e) => setUpdateData(prev => ({ ...prev, address: e.target.value }))} />
+                        </LineWrap>
+                        <LineWrap>
+                            <Typography level="title-lg">Phone_1</Typography>
+                            <MuiTelInput
+                                value={updateData.phone_1 || phone_1}
+                                onChange={(value) => setUpdateData((prev) => ({ ...prev, phone_1: value.toString() }))}
+                                continents={continents}
+                                excludedCountries={excludedCountries}
+                                defaultCountry='US'
+                                sx={{ width: '100%', padding: '10px 0' }}
+
+                            />
+                        </LineWrap>
+                        <LineWrap>
+                            <Typography level="title-lg">Phone_2</Typography>
+                            <MuiTelInput
+                                value={updateData.phone_2 || phone_2}
+                                onChange={(value) => setUpdateData((prev) => ({ ...prev, phone_2: value.toString() }))}
+                                continents={continents}
+                                excludedCountries={excludedCountries}
+                                defaultCountry='US'
+                                sx={{ width: '100%', padding: '10px 0' }}
+                            />
+                        </LineWrap>
+                        <LineWrap>
                             <Typography level="title-lg">Password</Typography>
                             <Input color={pwDanger ? 'danger' : 'neutral'} variant="soft" value={updateData.password} placeholder="Password here..." onChange={(e) => setUpdateData(prev => ({ ...prev, password: e.target.value }))} />
                         </LineWrap>
@@ -188,7 +231,8 @@ const InputWrap = styled.section`
 const LineWrap = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
     gap: 10px;
 `
 

@@ -53,6 +53,10 @@ export const defaultAdmin = {
   bio: "",
   profileImgUrl: "",
   password: "",
+  email: "",
+  phone_1: "",
+  phone_2: "",
+  address: "",
 };
 
 export const fleetTypes = [
