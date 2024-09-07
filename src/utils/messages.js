@@ -1,4 +1,5 @@
 export const MESSAGES = {
+  ORDER_POSTED: "Order successfully posted!",
   UPLOAD_COMPLETE: (type) => `${type} successfully uploaded!`,
   DELETE_COMPLETE: (type) => `${type} has successfully been deleted!`,
   EDIT_COMPLETE: (type) => `${type} successfully updated!`,

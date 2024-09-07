@@ -5,6 +5,7 @@ import { EPS, provider } from 'configs/axios';
 import { useEffect, useState } from 'react';
 import { Order, PathKey } from 'configs/types';
 import { mapPathToStatus } from 'configs/constants';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 
 
@@ -27,8 +28,10 @@ const Orders = () => {
     return (
         <Container>
             <HeaderWrap>
-                <h2>{path && path[0].toUpperCase() + path?.slice(1)} Orders</h2>
-                <p>Orders are fetched each 5 seconds</p>
+                <Row>
+                    <h2>{path && path[0].toUpperCase() + path?.slice(1)} Orders</h2>
+                    <ReplayIcon onClick={() => loadOrders(mapPathToStatus[path as PathKey])} sx={{ cursor: 'pointer' }} />
+                </Row>
                 <TableWrap>
                     <CustomTable orders={orders} />
                 </TableWrap>
@@ -53,6 +56,14 @@ const HeaderWrap = styled.div`
     justify-content: flex-start;
     width: 100%;
     flex-direction: column;
+    gap: 20px;
+`
+
+const Row = styled.section`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 `
 
 const TableWrap = styled.section`

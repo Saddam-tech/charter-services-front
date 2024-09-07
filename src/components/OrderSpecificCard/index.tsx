@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import { Order, StatusKey } from 'configs/types';
 import dayjs from 'dayjs';
 import { mapStatusToString, STATUS } from 'configs/constants';
+import { useNavigate } from 'react-router-dom';
 
 export default function OrderSpecificCard({ order, func }: { order: Order, func: (status: number) => void }) {
     const {
@@ -34,6 +35,7 @@ export default function OrderSpecificCard({ order, func }: { order: Order, func:
         car_type,
         n_ppl,
     }
+    const navigate = useNavigate();
     return (
         <Card
             sx={{
@@ -98,6 +100,7 @@ export default function OrderSpecificCard({ order, func }: { order: Order, func:
                     </ButtonGroup>
                 </CardActions>
             </CardOverflow>
+            <Button onClick={() => navigate(-1)}>Go back</Button>
         </Card>
     );
 }

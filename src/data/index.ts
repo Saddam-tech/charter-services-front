@@ -54,7 +54,7 @@ export const c_quote_default = {
   type: "",
   date: dayjs("2023-12-01"),
   time: dayjs("0000-00-00"),
-  n_ppl: "",
+  n_ppl: "1 passenger",
   car_type: "",
   pickup_location: "",
   dropoff_location: "",
@@ -72,6 +72,7 @@ export const _errorState = {
 
 export const dropdown_data = {
   0: [
+    "Select transportation type",
     "Point-to-Point transportation",
     "Hourly Ride",
     "Airport pick-up/drop-off",
@@ -80,6 +81,7 @@ export const dropdown_data = {
     .fill("passenger")
     .map((el, i) => i + 1 + " " + el + (i > 0 ? "s" : "")),
   2: [
+    "Select car model",
     "Tesla Model 3 (5 seats)",
     "Cadillac Escalade (8 seats)",
     "BMW i7 (5 seats)",

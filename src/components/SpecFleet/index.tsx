@@ -46,7 +46,7 @@ align-items: flex-start;
 justify-content: flex-start;
 flex-direction: column;
 padding: 10px;
-background-color: #ffffff;
+background-color: #c6963685;
 max-width: 500px;
 height: 400px;
 gap: 10px;

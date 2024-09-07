@@ -19,7 +19,8 @@ import {
 } from 'mui-tel-input'
 import { _errorState, c_quote_default, dropdown_data } from 'data';
 import { EPS, provider } from 'configs/axios';
-
+import { useToasts } from 'react-toast-notifications';
+import { MESSAGES } from 'utils/messages';
 const theme = createTheme({
     palette: {
         primary: {
@@ -45,6 +46,7 @@ export interface iState {
     email: string;
     phonenumber: string;
     special_req: string;
+    status?: number;
 }
 
 interface errorState {
@@ -70,6 +72,7 @@ const QuoteInput = () => {
     const continents: MuiTelInputContinent[] = ['NA', 'SA', 'EU']
     const excludedCountries: MuiTelInputCountry[] = []
     const [fleetArr, setFleetArr] = useState<string[]>([]);
+    const { addToast } = useToasts();
 
     async function loadFleet() {
         try {
@@ -106,15 +109,25 @@ const QuoteInput = () => {
                     }
                     break;
                 case 1:
-                    console.log({ state })
                     await provider.post(EPS.ORDERS, state);
+                    setProcess(0);
+                    addToast(MESSAGES.ORDER_POSTED, {
+                        appearance: 'success',
+                        autoDismiss: true
+                    })
+                    setState(c_quote_default);
                     break;
                 default:
                     setProcess(0);
+                    setState(c_quote_default);
                     break;
 
             }
         } catch (err) {
+            addToast(MESSAGES.ERROR, {
+                appearance: 'error',
+                autoDismiss: true
+            })
             console.log(err)
         }
     }
@@ -123,7 +136,7 @@ const QuoteInput = () => {
         <UnstyledSelectIntroduction type='type' setState={setState} options={dropdown_data[0]} />
         <DatenTimePicker state={state} setState={setState} />
         <UnstyledSelectIntroduction type='n_ppl' setState={setState} options={dropdown_data[1]} />
-        <UnstyledSelectIntroduction type="car_type" setState={setState} options={fleetArr} />
+        <UnstyledSelectIntroduction type="car_type" setState={setState} options={['Select your ride', ...fleetArr]} />
         <Box
             component="form"
             sx={{ width: '100%' }}
@@ -197,11 +210,7 @@ const QuoteInput = () => {
                 defaultCountry='US'
                 sx={{ width: '100%', padding: '10px 0' }}
             />
-            <TextareaAutosize
-                onChange={(e) => setState((prev) => ({ ...prev, special_req: e.target.value }))}
-                aria-label="empty textarea"
-                placeholder="Special Request"
-            />
+            <Textarea value={state?.special_req} onChange={(e) => setState((prev) => ({ ...prev, special_req: e.target.value }))} placeholder="Special Request" />
         </Box>
 
         <Button onClick={submitHandler} sx={{ width: '100%', backgroundColor: '#c69536', color: '#ffffff' }} variant='contained'>Submit</Button>
@@ -239,8 +248,8 @@ const Container = styled.section`
     align-items: center;
     justify-content: center;
     background-color: #c6963685;
+    padding: 20px;
     p {
-        padding: 20px;
         margin: 0;
         text-align: center;
         width: 100%;
@@ -261,53 +270,15 @@ const Container = styled.section`
     width: 100%;
 }
 `;
-const yellow = {
-    100: '#fff9ee',
-    200: '#ffe5b0',
-    400: '#fdd585',
-    500: '#c69536',
-    600: '#855900',
-    900: '#251900',
-};
 
-const grey = {
-    50: '#F3F6F9',
-    100: '#E5EAF2',
-    200: '#DAE2ED',
-    300: '#C7D0DD',
-    400: '#B0B8C4',
-    500: '#9DA8B7',
-    600: '#6B7A90',
-    700: '#434D5B',
-    800: '#303740',
-    900: '#1C2025',
-};
 
-const TextareaAutosize = mui_styled(BaseTextareaAutosize)(
-    ({ theme }) => `
+const Textarea = styled.textarea`
     width: 100%;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    padding: 18px 12px;
-    border-radius: 8px;
-    color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-    background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-    box-shadow: 0px 2px 2px ${theme.palette.mode === 'dark' ? grey[900] : grey[50]};
-  
-    &:hover {
-      border-color: ${yellow[400]};
+    background-color: rgb(255, 255, 255, 0.3);
+    border: 1px solid #adadad;
+    border-radius: 10px;
+    padding: 10px;
+    @media screen and (max-width: 728px) {
+        width: 100%;
     }
-  
-    &:focus {
-      border-color: ${yellow[400]};
-      box-shadow: 0 0 0 3px ${theme.palette.mode === 'dark' ? yellow[600] : yellow[200]};
-    }
-  
-    // firefox
-    &:focus-visible {
-      outline: 0;
-    }
-  `,
-);
+`
