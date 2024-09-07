@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 
 export const navigation = [
   { page: "Services", route: "services" },
-  { page: "Fleet", route: "" },
+  { page: "Fleet", route: "fleet" },
   { page: "Blogs", route: "blogs" },
   { page: "About Us", route: "aboutus" },
   // { page: "Careers", route: "" },

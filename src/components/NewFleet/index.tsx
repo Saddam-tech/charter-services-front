@@ -9,7 +9,7 @@ import { EPS, provider } from 'configs/axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useToasts } from 'react-toast-notifications';
 import { MESSAGES } from 'utils/messages';
-import { fleetTypes } from 'configs/constants';
+import { defaultFleet, fleetTypes } from 'configs/constants';
 
 
 
@@ -37,7 +37,7 @@ interface Data {
 
 
 const NewFleet = ({ reload, close }: { reload: () => void; close: () => void }) => {
-    const [data, setData] = useState<Data>();
+    const [data, setData] = useState<Data>(defaultFleet);
     const [loader, setLoader] = useState<boolean>(false);
     const { addToast } = useToasts();
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {

@@ -18,7 +18,6 @@ interface Data {
     head: string;
     text: string;
     urlToS3: string;
-    active: boolean;
     type: string;
     uuid: string;
 }

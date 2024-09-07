@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { EPS, provider } from 'configs/axios';
 import { Button, Input, Switch } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { fleetTypes } from 'configs/constants';
 import { useToasts } from 'react-toast-notifications';
 import { MESSAGES } from 'utils/messages';
+import CommonAlertDialog from 'components/CommonAlertDialog';
 
 interface Data {
     model_name?: string;
@@ -37,6 +38,8 @@ const AdminSpecificFleet = () => {
     const [fleet, setFleet] = useState<Data>();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { addToast } = useToasts();
+    const navigate = useNavigate();
+    const [alert, setAlert] = useState<boolean>(false);
 
     async function loadFleet() {
         try {
@@ -89,6 +92,23 @@ const AdminSpecificFleet = () => {
         }
     }
 
+    async function handleDelete() {
+        try {
+            await provider.delete(EPS.DELETE_FLEET + `/${uuid}`);
+            addToast(MESSAGES.DELETE_COMPLETE('Fleet'), {
+                appearance: 'success',
+                autoDismiss: true,
+            });
+            navigate(-1);
+        } catch (err) {
+            addToast(MESSAGES.ERROR, {
+                appearance: 'error',
+                autoDismiss: true,
+            });
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         loadFleet();
     }, [])
@@ -99,7 +119,7 @@ const AdminSpecificFleet = () => {
                 <Wrap>
                     <Switch onChange={() => setFleet(prev => ({ ...prev, active: !fleet?.active }))} edge="end" disabled={!isEditing} checked={fleet?.active} />
                     <Button onClick={handleEdit} variant="contained" color="primary">{isEditing ? "Done" : "Edit"}</Button>
-                    <Button variant="contained" color="primary">Delete</Button>
+                    <Button onClick={() => setAlert(true)} variant="contained" color="primary">Delete</Button>
                 </Wrap>
                 <>
                     <Image onClick={handleImageClickWhileEditing} src={fleet?.urlToS3} alt="blogImage" />
@@ -124,6 +144,7 @@ const AdminSpecificFleet = () => {
                         ))}
                     </Select> : <Text>Type: {fleet?.type}</Text>}
                 </Content>
+                {alert && <CommonAlertDialog header='Are you sure to delete the fleet?' actionBtn="Delete" open={alert} setOpen={setAlert} exec={handleDelete} />}
             </Container>
         </ThemeProvider>
     )

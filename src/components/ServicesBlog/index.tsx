@@ -14,7 +14,7 @@ const ServicesBlog = ({ h1, text, img }: IBlogs) => {
                 <h2>{h1}</h2>
                 <p>{text}</p>
             </section>
-            <img src={require(`assets/${img}`)} alt="service-img" />
+            <img src={img} alt="service-img" />
         </Container>
     )
 }

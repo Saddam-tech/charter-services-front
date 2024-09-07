@@ -34,9 +34,14 @@ const AdminSpecificOrder = () => {
     async function statusUpdateHandler() {
         try {
             const body = { status, orderid: orderId };
-            await provider.put(EPS.STATUS_UPDATE, body)
+            console.log({ status })
+            if (status === 0) {
+                handleDelete();
+            } else {
+                await provider.put(EPS.STATUS_UPDATE, body)
+            }
             let statusMessage: Record<StatusKey, string> = {
-                0: "",
+                0: MESSAGES.ORDER_STATUS_0,
                 1: MESSAGES.ORDER_STATUS_1,
                 2: MESSAGES.ORDER_STATUS_2
             }
@@ -52,6 +57,18 @@ const AdminSpecificOrder = () => {
                 autoDismiss: true,
             });
             setAlertDialog(false);
+            console.log(err);
+        }
+    }
+    async function handleDelete() {
+        try {
+            await provider.delete(EPS.DELETE_ORDER + `/${orderId}`);
+            navigate(-1);
+        } catch (err) {
+            addToast(MESSAGES.ERROR, {
+                appearance: 'error',
+                autoDismiss: true,
+            });
             console.log(err);
         }
     }

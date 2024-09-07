@@ -94,7 +94,7 @@ export default function OrderSpecificCard({ order, func }: { order: Order, func:
                     <ButtonGroup variant="outlined" sx={{ bgcolor: 'background.surface' }}>
                         <Button onClick={() => func(STATUS.ACCEPT)}>Accept</Button>
                         <Button onClick={() => func(STATUS.REJECT)}>Reject</Button>
-                        <Button>Delete</Button>
+                        <Button onClick={() => func(STATUS.DELETE)}>Delete</Button>
                     </ButtonGroup>
                 </CardActions>
             </CardOverflow>

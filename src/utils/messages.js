@@ -1,7 +1,8 @@
 export const MESSAGES = {
   UPLOAD_COMPLETE: (type) => `${type} successfully uploaded!`,
-  DELETE_COMPLETE: (type) => `${type} has been successfully deleted!`,
+  DELETE_COMPLETE: (type) => `${type} has successfully been deleted!`,
   EDIT_COMPLETE: (type) => `${type} successfully updated!`,
+  ORDER_STATUS_0: "Order has been deleted!",
   ORDER_STATUS_1: "Order has been accepted!",
   ORDER_STATUS_2: "Order has been rejected!",
 

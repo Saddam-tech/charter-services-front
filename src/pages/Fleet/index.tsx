@@ -6,35 +6,38 @@ import ServicesBlog from 'components/ServicesBlog';
 import QuoteInput from 'components/QuoteInput';
 import { Fade } from "react-awesome-reveal";
 import { EPS, provider } from 'configs/axios';
+import FleetCard from 'components/FleetCard';
 const socialsConf = { fontSize: 40, color: "#ffffff" };
-export const blogs = [{ h1: 'Exquisite Fleet of Luxury Buses', text: 'Our fleet boasts a collection of meticulously maintained luxury buses designed for comfort, elegance, and maximum enjoyment. From plush seating to cutting-edge amenities, we redefine the standards of luxury travel.', img: "services-0.webp" },
-{ h1: 'Spacious Interiors for Group Comfort', text: 'With ample seating capacity, our buses provide a spacious and comfortable environment for your entire group. Enjoy the journey together in style, whether you`re planning a corporate outing or a family celebration.', img: "services-1.webp" },
-{ h1: 'Professional Chauffeurs, Seamless Service', text: 'Our experienced and professional chauffeurs are dedicated to ensuring a smooth and enjoyable journey. Sit back, relax, and let our skilled drivers navigate the roads while you focus on creating memories.', img: "services-1.webp" },
+export const blogs = [{ h1: 'Exquisite Fleet of Luxury Buses', text: 'Our fleet boasts a collection of meticulously maintained luxury buses designed for comfort, elegance, and maximum enjoyment. From plush seating to cutting-edge amenities, we redefine the standards of luxury travel.', img: "fleet-0.webp" },
+{ h1: 'Spacious Interiors for Group Comfort', text: 'With ample seating capacity, our buses provide a spacious and comfortable environment for your entire group. Enjoy the journey together in style, whether you`re planning a corporate outing or a family celebration.', img: "fleet-1.webp" },
+{ h1: 'Professional Chauffeurs, Seamless Service', text: 'Our experienced and professional chauffeurs are dedicated to ensuring a smooth and enjoyable journey. Sit back, relax, and let our skilled drivers navigate the roads while you focus on creating memories.', img: "fleet-1.webp" },
 
 ]
 interface Data {
-    id: number;
-    head: string;
-    text: string;
+    model_name: string;
+    brand_name: string;
+    description: string;
+    seats: number;
     uuid: string;
-    urlToS3: string;
     active: number;
+    type: string;
+    urlToS3: string;
 }
 
-const Services = () => {
-    const [services, setServices] = useState<Data[]>();
+const Fleet = () => {
+    const [fleet, setFleet] = useState<Data[]>();
 
-    async function loadServices() {
+    async function loadFleet() {
         try {
-            const { data: { response } } = await provider.get(EPS.SERVICES);
+            const { data: { response } } = await provider.get(EPS.FLEET);
             const filtered = response.filter((el: Data) => el.active == 1);
-            setServices(filtered);
+            setFleet(filtered);
         } catch (err) {
             console.log(err);
         }
     }
     useEffect(() => {
-        loadServices();
+        loadFleet();
     }, []);
     return (
         <Container>
@@ -43,10 +46,10 @@ const Services = () => {
                 <section className="profile-wrap">
                     <div className="backdrop"></div>
                     <div className="text-wrap">
-                        <h1>OUR SERVICES</h1>
+                        <h1>OUR Fleet</h1>
                         <p>Luxury Bus Charters: Elevate Your Events with Unparalleled Comfort and Style. <br />
-                            🌟 Welcome to Summit Charter Services Luxury Bus Charters – Where Every Journey Is a Grand Experience!
-                            Transform your events into unforgettable experiences with our opulent fleet of luxury buses. Whether it's a corporate gathering, wedding, sports event, or any special occasion, Summit Charter Services is your premier choice for unparalleled comfort and style.
+                            🌟 Welcome to Summit Charter Fleet Luxury Bus Charters – Where Every Journey Is a Grand Experience!
+                            Transform your events into unforgettable experiences with our opulent service of luxury buses. Whether it's a corporate gathering, wedding, sports event, or any special occasion, Summit Charter Fleet is your premier choice for unparalleled comfort and style.
                         </p>
                     </div>
                     <div className="social-media-list">
@@ -62,7 +65,7 @@ const Services = () => {
                 {/* strip map */}
                 <section className="strip-map">
                     <ul>
-                        <li>Corporate Services</li>
+                        <li>Corporate Fleet</li>
                         <li>Charters & Tours</li>
                         <li>Events & Entertainment</li>
                         <li>Custom solutions</li>
@@ -70,19 +73,19 @@ const Services = () => {
                 </section>
                 {/* strip map */}
 
-                {/* blogs-holder */}
+                {/* fleet-holder */}
                 <section className="blogs-holder">
-                    {services?.map((el, i) => (
-                        <ServicesBlog key={i} h1={el.head} text={el.text} img={el.urlToS3} />
+                    {fleet?.map((el, i) => (
+                        <FleetCard key={i} {...el} />
                     ))}
                 </section>
-                {/* blogs-holder */}
+                {/* fleet-holder */}
             </Fade>
         </Container>
     )
 }
 
-export default Services
+export default Fleet
 
 const Container = styled.section`
 background-color: #000000;

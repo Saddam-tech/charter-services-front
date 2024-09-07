@@ -9,7 +9,7 @@ interface Data {
     text: string;
     uuid: string;
     urlToS3: string;
-    active: boolean;
+    active: number;
 }
 
 const Blogs = () => {
@@ -18,8 +18,8 @@ const Blogs = () => {
     async function loadBlogs() {
         try {
             const { data: { response } } = await provider.get(EPS.BLOGS);
-            console.log({ response })
-            setBlogs(response);
+            const filtered = response.filter((el: Data) => el.active == 1);
+            setBlogs(filtered);
         } catch (err) {
             console.log(err);
         }
@@ -34,7 +34,7 @@ const Blogs = () => {
                 <h2>Blogs</h2>
             </HeaderWrap>
             <BlogsWrap>
-                {blogs?.filter((el) => el.active).map((el, index) => (
+                {blogs?.map((el, index) => (
                     <Blog {...el} key={index} type='' />
                 ))}
             </BlogsWrap>

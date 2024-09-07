@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { EPS, provider } from 'configs/axios';
 import { Button, Switch } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { MESSAGES } from 'utils/messages';
+import { useToasts } from 'react-toast-notifications';
+import CommonAlertDialog from 'components/CommonAlertDialog';
 
 
 interface Data {
@@ -32,6 +35,9 @@ const AdminSpecificBlog = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [blog, setBlog] = useState<Data>();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { addToast } = useToasts();
+    const navigate = useNavigate();
+    const [alert, setAlert] = useState<boolean>(false);
 
     async function loadBlog() {
         try {
@@ -68,10 +74,35 @@ const AdminSpecificBlog = () => {
                 setIsEditing(false);
                 await provider.put(EPS.BLOG + `/${uuid}`, formData);
                 loadBlog();
+                addToast(MESSAGES.EDIT_COMPLETE('Blog'), {
+                    appearance: 'success',
+                    autoDismiss: true,
+                });
             } else {
                 setIsEditing(true);
             }
         } catch (err) {
+            addToast(MESSAGES.ERROR, {
+                appearance: 'error',
+                autoDismiss: true,
+            });
+            console.log(err);
+        }
+    }
+
+    async function handleDelete() {
+        try {
+            await provider.delete(EPS.BLOG + `/${uuid}`);
+            addToast(MESSAGES.DELETE_COMPLETE('Blog'), {
+                appearance: 'success',
+                autoDismiss: true,
+            });
+            navigate(-1);
+        } catch (err) {
+            addToast(MESSAGES.ERROR, {
+                appearance: 'error',
+                autoDismiss: true,
+            });
             console.log(err);
         }
     }
@@ -86,7 +117,7 @@ const AdminSpecificBlog = () => {
                 <Wrap>
                     <Switch onChange={() => setBlog(prev => ({ ...prev, active: !blog?.active }))} edge="end" disabled={!isEditing} checked={blog?.active} />
                     <Button onClick={handleEdit} variant="contained" color="primary">{isEditing ? "Done" : "Edit"}</Button>
-                    <Button variant="contained" color="primary">Delete</Button>
+                    <Button onClick={() => setAlert(true)} variant="contained" color="primary">Delete</Button>
                 </Wrap>
                 <>
                     <Image onClick={handleImageClickWhileEditing} src={blog?.urlToS3} alt="blogImage" />
@@ -97,6 +128,7 @@ const AdminSpecificBlog = () => {
                     {isEditing ? <Textarea value={blog?.text} onChange={(e) => setBlog(prev => ({ ...prev, text: e.target.value }))} placeholder="Type Content" /> : <Text>{blog?.text}</Text>}
                 </Content>
             </Container>
+            {alert && <CommonAlertDialog header='Are you sure to delete the blog?' actionBtn="Delete" open={alert} setOpen={setAlert} exec={handleDelete} />}
         </ThemeProvider>
     )
 }

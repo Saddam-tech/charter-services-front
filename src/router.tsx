@@ -17,9 +17,11 @@ import MainBlogs from "pages/Blogs";
 import AdminSpecificBlog from "pages/Blogs/AdminSpecificBlog";
 import AdminSpecificOrder from "pages/Admin/Orders/AdminSpecificOrder";
 import Profile from "pages/Admin/Profile";
-import Fleet from "pages/Admin/Fleet";
+import AdminFleet from "pages/Admin/Fleet";
+import Fleet from "pages/Fleet";
 import AdminSpecificFleet from "pages/Admin/Fleet/AdminSpecificFleet";
 import SpecService from "pages/Admin/Services/SpecService";
+import SpecificBlog from "pages/Blogs/SpecificBlog";
 
 const router = createBrowserRouter([
     {
@@ -31,7 +33,9 @@ const router = createBrowserRouter([
             // { path: "i-quote", element: <Iframe /> },
             { path: "aboutus", element: <AboutUs /> },
             { path: "services", element: <Services /> },
+            { path: "fleet", element: <Fleet /> },
             { path: "blogs", element: <MainBlogs /> },
+            { path: "blogs/:uuid", element: <SpecificBlog /> },
         ],
     },
     {
@@ -43,7 +47,7 @@ const router = createBrowserRouter([
             { path: "orders/:path/:orderId", element: <AdminSpecificOrder /> },
             { path: "banners", element: <Banners /> },
             { path: "services", element: <AdminServices /> },
-            { path: "fleet", element: <Fleet /> },
+            { path: "fleet", element: <AdminFleet /> },
             { path: "blogs", element: <Blogs /> },
             { path: "fleet/:uuid", element: <AdminSpecificFleet /> },
             { path: "blogs/:uuid", element: <AdminSpecificBlog /> },

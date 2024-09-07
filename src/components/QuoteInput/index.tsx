@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import DatenTimePicker from 'components/DatenTimePicker';
@@ -19,10 +19,6 @@ import {
 } from 'mui-tel-input'
 import { _errorState, c_quote_default, dropdown_data } from 'data';
 import { EPS, provider } from 'configs/axios';
-
-const dropdown_data1 = ['Point-to-Point transportation', 'Hourly Ride', 'Airport pick-up/drop-off'];
-const dropdown_data2 = new Array(10).fill("passenger").map((el, i) => (i + 1) + " " + el + (i > 0 ? "s" : ""));
-const dropdown_data3 = ['Tesla Model 3 (5 seats)', 'Cadillac Escalade (8 seats)', 'BMW i7 (5 seats)', 'Mercedes Vito (11 seats)', 'Charter Bus (24 seats)'];
 
 const theme = createTheme({
     palette: {
@@ -56,12 +52,43 @@ interface errorState {
     dropoff_location_error: boolean;
 }
 
+interface Data {
+    model_name: string;
+    brand_name: string;
+    description: string;
+    seats: number;
+    uuid: string;
+    active: number;
+    type: string;
+    urlToS3: string;
+}
+
 const QuoteInput = () => {
     const [process, setProcess] = useState<number>(0);
     const [errorState, setErrorState] = useState<errorState>(_errorState);
     const [state, setState] = useState<iState>(c_quote_default);
     const continents: MuiTelInputContinent[] = ['NA', 'SA', 'EU']
     const excludedCountries: MuiTelInputCountry[] = []
+    const [fleetArr, setFleetArr] = useState<string[]>([]);
+
+    async function loadFleet() {
+        try {
+            const { data: { response } } = await provider.get(EPS.FLEET);
+            const filtered = response.filter((el: Data) => el.active == 1);
+            let arr = [];
+            for (let item of filtered) {
+                let { brand_name, model_name, seats } = item;
+                arr.push(`${model_name} ${brand_name} (${seats} seats)`);
+            }
+            setFleetArr(arr);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        loadFleet();
+    }, [])
 
     async function submitHandler() {
         try {
@@ -96,7 +123,7 @@ const QuoteInput = () => {
         <UnstyledSelectIntroduction type='type' setState={setState} options={dropdown_data[0]} />
         <DatenTimePicker state={state} setState={setState} />
         <UnstyledSelectIntroduction type='n_ppl' setState={setState} options={dropdown_data[1]} />
-        <UnstyledSelectIntroduction type="car_type" setState={setState} options={dropdown_data[2]} />
+        <UnstyledSelectIntroduction type="car_type" setState={setState} options={fleetArr} />
         <Box
             component="form"
             sx={{ width: '100%' }}

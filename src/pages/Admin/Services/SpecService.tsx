@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { EPS, provider } from 'configs/axios';
 import { Button, Switch } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { MESSAGES } from 'utils/messages';
 import { useToasts } from 'react-toast-notifications';
+import CommonAlertDialog from 'components/CommonAlertDialog';
 
 
 interface Data {
@@ -35,6 +36,8 @@ const SpecService = () => {
     const [service, setService] = useState<Data>();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { addToast } = useToasts();
+    const navigate = useNavigate();
+    const [alert, setAlert] = useState<boolean>(false);
 
     async function loadBlog() {
         try {
@@ -87,6 +90,23 @@ const SpecService = () => {
         }
     }
 
+    async function handleDelete() {
+        try {
+            await provider.delete(EPS.DELETE_SERVICE + `/${uuid}`);
+            addToast(MESSAGES.DELETE_COMPLETE('Service'), {
+                appearance: 'success',
+                autoDismiss: true,
+            });
+            navigate(-1);
+        } catch (err) {
+            addToast(MESSAGES.ERROR, {
+                appearance: 'error',
+                autoDismiss: true,
+            });
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         loadBlog();
     }, [])
@@ -97,7 +117,7 @@ const SpecService = () => {
                 <Wrap>
                     <Switch onChange={() => setService(prev => ({ ...prev, active: !service?.active }))} edge="end" disabled={!isEditing} checked={service?.active} />
                     <Button onClick={handleEdit} variant="contained" color="primary">{isEditing ? "Done" : "Edit"}</Button>
-                    <Button variant="contained" color="primary">Delete</Button>
+                    <Button onClick={() => setAlert(true)} variant="contained" color="primary">Delete</Button>
                 </Wrap>
                 <>
                     <Image onClick={handleImageClickWhileEditing} src={service?.urlToS3} alt="service-image" />
@@ -107,6 +127,7 @@ const SpecService = () => {
                     {isEditing ? <Textarea value={service?.head} onChange={(e) => setService(prev => ({ ...prev, head: e.target.value }))} placeholder="Type Header" /> : <Header>{service?.head}</Header>}
                     {isEditing ? <Textarea value={service?.text} onChange={(e) => setService(prev => ({ ...prev, text: e.target.value }))} placeholder="Type Content" /> : <Text>{service?.text}</Text>}
                 </Content>
+                {alert && <CommonAlertDialog header='Are you sure to delete the service?' actionBtn="Delete" open={alert} setOpen={setAlert} exec={handleDelete} />}
             </Container>
         </ThemeProvider>
     )

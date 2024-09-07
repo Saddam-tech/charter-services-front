@@ -13,12 +13,13 @@ export const mapStatusToString: Record<StatusKey, string> = {
 };
 
 export const STATUS = {
+  DELETE: 0,
   ACCEPT: 1,
   REJECT: 2,
 };
 
 export const mapStatusToStringForAlertMessage: Record<number, string> = {
-  0: "",
+  0: "Delete",
   1: "Accept",
   2: "Reject",
 };
@@ -66,3 +67,12 @@ export const fleetTypes = [
   "Luxury Shuttles",
   "School Busses",
 ];
+
+export const defaultFleet = {
+  model_name: "",
+  brand_name: "",
+  description: "",
+  seats: "1 passenger",
+  active: true,
+  type: "Luxury SUVs",
+};

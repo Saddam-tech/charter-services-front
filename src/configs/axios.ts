@@ -29,16 +29,19 @@ export enum EPS {
   ORDERS = "/orders",
   SPEC_ORDER = "/orders/order", // /:orderid // specific order query
   STATUS_UPDATE = "/orders/status-update",
+  DELETE_ORDER = "/orders", // /:orderId
 
   // fleet
   FLEET = "/fleet/all",
   NEW_FLEET = "/fleet/new",
   SPEC_FLEET = "/fleet", // :uuid
   EDIT_FLEET = "/fleet", // :uuid
+  DELETE_FLEET = "/fleet", // :uuid
 
   // fleet
   SERVICES = "/services/all",
   NEW_SERVICE = "/services/new",
   SPEC_SERVICE = "/services", // :uuid
   EDIT_SERVICE = "/services", // :uuid
+  DELETE_SERVICE = "/services", // :uuid
 }
