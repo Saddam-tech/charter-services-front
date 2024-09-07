@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Carousel from "components/Carousel"
 import styled from "styled-components"
-import charters from "assets/charters.webp"
 import footerImg from "assets/footer.webp";
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Fade } from "react-awesome-reveal";
 import { socials } from "data";
 import { EPS, provider } from "configs/axios";
+import { defaultAdmin } from 'configs/constants';
+import { ProfileCreds } from 'configs/types';
 
 const socialsConf = { fontSize: 20, color: "#ffffff" };
 
@@ -24,6 +25,7 @@ export interface BannerInfo {
 const Index = () => {
     const navigate = useNavigate();
     const [banners, setBanners] = useState<BannerInfo[]>([]);
+    const [adminInfo, setAdminInfo] = useState<ProfileCreds>(defaultAdmin);
 
     async function loadBanners() {
         try {
@@ -44,9 +46,18 @@ const Index = () => {
             console.log(err);
         }
     }
+    async function loadProfile() {
+        try {
+            const { data: { admin } } = await provider.get(EPS.ADMIN_INFO);
+            setAdminInfo(admin);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     useEffect(() => {
         loadBanners();
+        loadProfile();
         window.scrollTo(0, 0);
     }, [])
     return (
@@ -105,7 +116,7 @@ const Index = () => {
 
                 {/* free quote btn */}
                 <section className="btn-wrap">
-                    <button onClick={() => navigate('reservation')}>
+                    <button onClick={() => navigate('c-quote')}>
                         Get a Free Quote
                     </button>
                 </section>
@@ -198,7 +209,7 @@ const Index = () => {
                             <img key={i} src={require(`assets/vehicle-${i}.webp`)} alt={`vehicle-${i}`} />
                         ))}
                     </div>
-                    <button>View Fleet</button>
+                    <button onClick={() => navigate('/fleet')}>View Fleet</button>
                 </section>
                 {/* fleet */}
 
@@ -235,10 +246,10 @@ const Index = () => {
                             </ul>
                         </div>
                         <div className="block">
-                            <a target="blank" href="mailto:info@summitchs.com">info@summitchs.com</a>
-                            <a href="tel:+1(628) 224 7797">+1(628) 224 7797</a>
-                            <a href="tel:+1(628) 800 4555">+1(628) 800 4555</a>
-                            <p>55 Chumasero Drive , San Francisco, CA 94132</p>
+                            <a target="blank" href={`mailto:${adminInfo.email}`}>{adminInfo.email}</a>
+                            <a href={adminInfo.phone_1}>{adminInfo.phone_1}</a>
+                            <a href={adminInfo.phone_2}>{adminInfo.phone_2}</a>
+                            <p>{adminInfo.address}</p>
                             <a target="_blank" rel="noreferrer" href={window.location + 'admin'}>
                                 Admin Login <OpenInNewIcon />
                             </a>

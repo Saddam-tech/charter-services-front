@@ -9,15 +9,33 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import { Fade } from "react-awesome-reveal";
 import QuoteInput from "components/QuoteInput";
 import { socials } from "data";
+import { useEffect, useState } from "react";
+import { ProfileCreds } from 'configs/types';
+import { defaultAdmin } from "configs/constants";
+import { EPS, provider } from "configs/axios";
+
 const socialsConf = { fontSize: 20, color: "#ffffff" };
 const AboutUs = () => {
+    const [adminInfo, setAdminInfo] = useState<ProfileCreds>(defaultAdmin);
+
+    async function loadProfile() {
+        try {
+            const { data: { admin } } = await provider.get(EPS.ADMIN_INFO);
+            setAdminInfo(admin);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    useEffect(() => {
+        loadProfile();
+    }, [])
     return (
-        <Container>
+        <Container profileImg={adminInfo.profileImgUrl}>
             {/* profile-section */}
             <Fade cascade damping={0.1}>
                 <section className="profile-wrap">
                     <div className="backdrop"></div>
-                    <img src={require('assets/aziz-profile-pic.webp')} alt="profile-pic" />
+                    <img src={adminInfo.profileImgUrl} alt="profile-pic" />
                     <div className="text-wrap">
                         <div className="header-wrap">
                             <h1>Founder & CEO</h1>
@@ -26,11 +44,7 @@ const AboutUs = () => {
                             </a>
                         </div>
                         <p>
-                            Welcome to Summit Charter Services, where luxury and reliability converge to redefine transportation experiences. I founded this company out of a passion for providing exceptional limousine and charter bus services that go beyond mere transportation.
-                            My interest in the industry was sparked by a desire to create a service that seamlessly blends sophistication with dependability. Having experienced the challenges of finding premium transportation firsthand, I envisioned Summit Charter Services as the solution—a company dedicated to exceeding expectations and setting new standards in the world of luxury travel.
-                            Our commitment to excellence is rooted in the belief that every journey should be more than just a ride; it should be an experience marked by comfort, style, and a touch of indulgence. Whether it's a special event, corporate travel, or airport transfer, Summit Charter Services is designed to elevate your transportation moments.
-                            We take pride in our meticulously maintained fleet of limousines and charter buses, paired with a team of professional and courteous drivers. At Summit, we don't just provide transportation; we craft unforgettable journeys that leave a lasting impression.
-                            Thank you for choosing Summit Charter Services for your travel needs. We look forward to being a part of your remarkable journeys.
+                            {adminInfo.bio}
 
                             <br />
                             <br />
@@ -40,7 +54,7 @@ const AboutUs = () => {
                             <br />
                             <br />
 
-                            Azizbek Abduganiev
+                            {adminInfo.firstname} {adminInfo.lastname}
 
                             <br />
                             <br />
@@ -122,7 +136,7 @@ const AboutUs = () => {
 
 export default AboutUs
 
-const Container = styled.section`
+const Container = styled.section<{ profileImg: string }>`
 display: flex;
 flex-direction: column;
 background-color: #000000;
@@ -132,7 +146,7 @@ height: 100vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-image: url(${profileBackground});
+    background-image:${({ profileImg }) => `url(${profileImg})`};
     background-size: cover;
     padding: 150px 20px;
     position: relative;
@@ -155,10 +169,12 @@ height: 100vh;
 
     img {
         max-width: 500px;
+        height: 500px;
         width: 100%;
         border-radius: 50%;
         z-index: 2;
-        border: 10px solid #c69536;
+        object-fit: cover;
+        border: 10px solid #fff;
         @media screen and (max-width: 728px) {
             max-width: 300px;
         }

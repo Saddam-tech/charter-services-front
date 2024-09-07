@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import Navigation from "./Navigation";
@@ -11,12 +11,13 @@ interface IProps {
 
 const Admin = ({ token, setToken }: IProps) => {
     const location = useLocation;
+    const [mode, setMode] = useState<boolean>(false);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
     return (
-        <Container>
-            <Header />
+        <Container mode={mode}>
+            <Header mode={mode} setMode={setMode} />
             <InnerWrap>
                 <Navigation />
                 <Outlet />
@@ -27,13 +28,14 @@ const Admin = ({ token, setToken }: IProps) => {
 
 export default Admin
 
-const Container = styled.section`
+const Container = styled.section<{ mode: boolean }>`
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-image: linear-gradient(to right,  #fff6a3, #ffb6e3);
+    background-image: ${({ mode }) => mode ? 'linear-gradient(to right,  #fff6a3, #ffb6e3);' : 'linear-gradient(to right,  #000000, #825772);'};
     height: 100%;
+    color: ${({ mode }) => mode ? '#000' : '#fff'};;
 `
 
 const InnerWrap = styled.section`

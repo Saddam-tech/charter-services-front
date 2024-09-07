@@ -3,8 +3,11 @@ import { navigation } from "../../data/index";
 import SwipeableTemporaryDrawer from "components/SwipeableTemporaryDrawer";
 import { useNavigate } from 'react-router-dom';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ServicesDropdown from "components/ServicesDropdown";
+import { EPS, provider } from "configs/axios";
+import { ProfileCreds } from "configs/types";
+import { defaultAdmin } from "configs/constants";
 interface ContainerProps {
     services: boolean;
     quote: boolean;
@@ -22,6 +25,7 @@ const Navigation = () => {
     const navigate = useNavigate();
     const [active, setActive] = useState<ContainerProps>({ services: false, quote: false })
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [adminInfo, setAdminInfo] = useState<ProfileCreds>(defaultAdmin);
 
     function handleNavigationClick(path: string, index: number | null) {
         navigate(path);
@@ -39,6 +43,17 @@ const Navigation = () => {
                 return;
         }
     }
+    async function loadProfile() {
+        try {
+            const { data: { admin } } = await provider.get(EPS.ADMIN_INFO);
+            setAdminInfo(admin);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    useEffect(() => {
+        loadProfile();
+    }, [])
     return (
         <Container active={active}>
             <div onClick={() => handleNavigationClick("/", null)} className="logo-wrap">
@@ -50,7 +65,7 @@ const Navigation = () => {
             </div>
             <ul>
                 {navigation.map((el, i) => {
-                    return i === 4 ? <a key={i} href={`tel:${el.route}`}><LocalPhoneIcon />{el.route}</a> : <li className={activeIndex === i ? 'active' : ''} onMouseEnter={() => handleNavigationHover(i, true)} onMouseLeave={() => handleNavigationHover(i, false)} onClick={() => handleNavigationClick(el.route, i)} key={i}>{el.page}</li>
+                    return i === 4 ? <a key={i} href={`tel:${adminInfo.phone_1}`}><LocalPhoneIcon />{adminInfo.phone_1}</a> : <li className={activeIndex === i ? 'active' : ''} onMouseEnter={() => handleNavigationHover(i, true)} onMouseLeave={() => handleNavigationHover(i, false)} onClick={() => handleNavigationClick(el.route, i)} key={i}>{el.page}</li>
                 })}
                 {active.services && (
                     <div onMouseEnter={() => handleNavigationHover(0, true)} onMouseLeave={() => handleNavigationHover(0, false)} className="dropdown">

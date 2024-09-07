@@ -6,7 +6,7 @@ import { ProfileCreds } from 'configs/types';
 import { defaultAdmin } from 'configs/constants';
 import { EPS, provider } from 'configs/axios';
 
-const Header = () => {
+const Header = ({ mode, setMode }: { mode: boolean; setMode: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const navigate = useNavigate();
     const [adminInfo, setAdminInfo] = useState<ProfileCreds>(defaultAdmin);
 
@@ -28,7 +28,7 @@ const Header = () => {
                 <p>admin</p>
             </div>
             <div className="logo-wrap">
-                <ContrastIcon sx={{ fontSize: '30px' }} />
+                <ContrastIcon onClick={() => setMode(prev => !prev)} sx={{ cursor: 'pointer', fontSize: '30px', transition: '0.3s ease-in-out', transform: `rotate(${mode ? '-180' : '0'}deg)` }} />
                 <img onClick={() => navigate('/admin/profile')} className="profile" src={adminInfo.profileImgUrl} alt="profile-pic" />
             </div>
         </Container>
