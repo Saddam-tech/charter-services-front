@@ -27,7 +27,7 @@ const Service = ({ head, text, urlToS3, type, uuid }: Data) => {
     const navigate = useNavigate();
     return (
         <ThemeProvider theme={theme}>
-            <Container onClick={() => navigate(`${type}/services/${uuid}`)}>
+            <Container type={type} onClick={() => navigate(`${type}/services/${uuid}`)}>
                 <Image src={urlToS3} alt="serviceImage" />
                 <Header>{head}</Header>
                 <Content>{text?.length > 100 ? text.slice(0, 100) : text} <Link style={{ textDecoration: "none" }} to={`${type}/services/${uuid}`}>...See More</Link></Content>
@@ -38,13 +38,14 @@ const Service = ({ head, text, urlToS3, type, uuid }: Data) => {
 
 export default Service
 
-const Container = styled.section`
+const Container = styled.section<{ type: string }>`
 display: flex;
 align-items: flex-start;
 justify-content: flex-start;
 flex-direction: column;
 padding: 10px;
-background-color: #c6963685;
+background-color: #fff;
+color: #000;
 max-width: 500px;
 height: 400px;
 gap: 10px;

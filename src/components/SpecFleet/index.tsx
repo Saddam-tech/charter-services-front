@@ -29,7 +29,7 @@ const SpecFleet = ({ model_name, brand_name, description, seats, uuid, type, act
     const navigate = useNavigate();
     return (
         <ThemeProvider theme={theme}>
-            <Container onClick={() => navigate(`${type}/fleet/${uuid}`)}>
+            <Container type={type} onClick={() => navigate(`${type}/fleet/${uuid}`)}>
                 <Image src={urlToS3} alt="fleetImage" />
                 <Header>{brand_name} {model_name}</Header>
                 <Content>{description?.length > 100 ? description.slice(0, 100) : description} <Link style={{ textDecoration: "none" }} to={`${type}/fleet/${uuid}`}>...Check details</Link></Content>
@@ -40,13 +40,14 @@ const SpecFleet = ({ model_name, brand_name, description, seats, uuid, type, act
 
 export default SpecFleet
 
-const Container = styled.section`
+const Container = styled.section<{ type: string }>`
 display: flex;
 align-items: flex-start;
 justify-content: flex-start;
 flex-direction: column;
 padding: 10px;
-background-color: #c6963685;
+background-color: #fff;
+color: #000;
 max-width: 500px;
 height: 400px;
 gap: 10px;

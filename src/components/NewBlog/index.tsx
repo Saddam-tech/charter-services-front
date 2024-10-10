@@ -134,6 +134,7 @@ export default NewBlog
 
 const Container = styled.section`
 z-index: 7;
+color: #000; 
 .quote-type-select {
     display: flex;
     align-items: center;
@@ -144,7 +145,6 @@ z-index: 7;
         margin: 0;
         text-align: center;
         width: 85%;
-        color: #ffffff;
         font-weight: 700;
     }
 }

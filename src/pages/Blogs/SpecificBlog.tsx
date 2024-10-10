@@ -85,11 +85,11 @@ const Header = styled.h1`
     font-size: 28px;
     font-weight: 800;
     text-align: center;
-    color: #fff;
+    color: inherit;
 `
 
 const Text = styled.p`
     font-size: 18px;
     text-align: center;
-    color: #fff;
+    color: inherit;
 `

@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import Navigation from "./Navigation";
 import Header from "./Header";
+import SwipeableTemporaryDrawer from "components/SwipeableTemporaryDrawer";
 
 interface IProps {
     token: string | null;
@@ -12,6 +13,11 @@ interface IProps {
 const Admin = ({ token, setToken }: IProps) => {
     const location = useLocation;
     const [mode, setMode] = useState<boolean>(false);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 728px)');
+        setIsMobile(mediaQuery.matches);
+    }, [])
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
@@ -19,7 +25,7 @@ const Admin = ({ token, setToken }: IProps) => {
         <Container mode={mode}>
             <Header mode={mode} setMode={setMode} />
             <InnerWrap>
-                <Navigation />
+                {isMobile ? <SwipeableTemporaryDrawer /> : <Navigation />}
                 <Outlet />
             </InnerWrap>
         </Container>
@@ -33,13 +39,13 @@ const Container = styled.section<{ mode: boolean }>`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-image: ${({ mode }) => mode ? 'linear-gradient(to right,  #fff6a3, #ffb6e3);' : 'linear-gradient(to right,  #000000, #825772);'};
     height: 100%;
-    color: ${({ mode }) => mode ? '#000' : '#fff'};;
+    background-image: ${({ mode }) => mode ? 'linear-gradient(to right,  #fff6a3, #ffb6e3);' : 'linear-gradient(to right,  #000000, #825772);'};
+    color: ${({ mode }) => mode ? '#000' : '#fff'};
 `
 
 const InnerWrap = styled.section`
-    display:flex;
+    display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;

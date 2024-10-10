@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://www.summitchs.com";
+// const baseURL = "https://api.summitchs.com";
+const baseURL = "http://localhost:3001";
 
 const token = localStorage.getItem("authorizationToken");
 axios.defaults.headers.common["Authorization"] = `${token}`;
