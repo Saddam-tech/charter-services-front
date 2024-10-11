@@ -83,7 +83,7 @@ const Banners = () => {
                 <h2>Banner Management</h2>
             </HeaderWrap>
             <ThemeProvider theme={theme}>
-                <Paper sx={{ width: '100%', overflow: 'hidden', margin: '30px 0' }}>
+                <Paper sx={{ width: '100%', overflow: 'hidden', margin: '30px 0', overflowY: 'scroll' }}>
                     <TableContainer>
                         <Table stickyHeader aria-label="sticky table">
                             <TableBody>
