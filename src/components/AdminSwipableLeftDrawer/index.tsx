@@ -1,0 +1,163 @@
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import BookIcon from '@mui/icons-material/Book';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import WorkIcon from '@mui/icons-material/Work';
+import Collapse from '@mui/material/Collapse';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import StarBorder from '@mui/icons-material/StarBorder';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { useNavigate } from 'react-router-dom';
+import Backdrop from 'components/Backdrop';
+import CommonAlertDialog from 'components/CommonAlertDialog';
+import { SwipeableDrawer } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+
+const navigation = [
+    { name: "Home", icon: <AccountCircleIcon />, path: '/admin' },
+    { name: "Orders", icon: <StickyNote2Icon />, path: '/admin/orders' },
+    { name: "Banners", icon: <ViewCarouselIcon />, path: '/admin/banners' },
+    { name: "Blogs", icon: <BookIcon />, path: '/admin/blogs' },
+    { name: "Services", icon: <HomeRepairServiceIcon />, path: '/admin/services' },
+    { name: "Fleet", icon: <DirectionsCarIcon />, path: '/admin/fleet' },
+    // { name: "Careers", icon: <WorkIcon />, path: '/admin/careers' },
+    // { name: "Contact Info", icon: <ContactSupportIcon />, path: '/admin/contact-info' },
+]
+
+const sub_orders = [
+    { name: "Incoming", icon: <MoveToInboxIcon />, path: '/admin/orders/incoming' },
+    { name: "Accepted", icon: <PlaylistAddCheckIcon />, path: '/admin/orders/accepted' },
+    { name: "Rejected", icon: <HighlightOffIcon />, path: '/admin/orders/rejected' },
+]
+type Anchor = 'top' | 'left' | 'bottom' | 'right';
+
+export default function AdminSwipeableLeftDrawer() {
+    const navigate = useNavigate();
+    const [open, setOpen] = React.useState(false);
+    const [alertDialog, setAlertDialog] = React.useState<boolean>(false);
+    const [state, setState] = React.useState({
+        top: false,
+        left: false,
+        bottom: false,
+        right: false,
+    });
+
+    const handleClick = () => {
+        setOpen(!open);
+    };
+    function handleLogout() {
+        localStorage.removeItem('authorizationToken');
+        setAlertDialog(false);
+        window.location.reload();
+    }
+    const toggleDrawer =
+        (anchor: Anchor, open: boolean) =>
+            (event: React.KeyboardEvent | React.MouseEvent) => {
+                if (
+                    event &&
+                    event.type === 'keydown' &&
+                    ((event as React.KeyboardEvent).key === 'Tab' ||
+                        (event as React.KeyboardEvent).key === 'Shift')
+                ) {
+                    return;
+                }
+
+                setState({ ...state, [anchor]: open });
+            };
+    const list = (anchor: Anchor) => (
+        <Box
+            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <nav aria-label="main mailbox folders">
+                <List>
+                    {navigation.map((el, i) => {
+                        return el.name === "Orders" ? (
+                            <ListItem sx={{ display: 'inline' }} key={i} disablePadding>
+                                <ListItemButton onClick={handleClick}>
+                                    <ListItemIcon>
+                                        <InboxIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={el.name} />
+                                    {open ? <ExpandLess /> : <ExpandMore />}
+                                </ListItemButton>
+                                <Collapse in={open} timeout="auto" unmountOnExit>
+                                    <List component="div" disablePadding>
+                                        {sub_orders.map((el, i) => (
+                                            <ListItemButton onClick={() => navigate(el.path)} key={i} sx={{ pl: 4 }}>
+                                                <ListItemIcon>
+                                                    {el.icon}
+                                                </ListItemIcon>
+                                                <ListItemText primary={el.name} />
+                                            </ListItemButton>
+                                        ))}
+                                    </List>
+                                </Collapse>
+                            </ListItem>
+                        ) : (<ListItem onClick={() => navigate(el.path)} key={i} disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    {el.icon}
+                                </ListItemIcon>
+                                <ListItemText primary={el.name} />
+                            </ListItemButton>
+                        </ListItem>
+                        )
+                    })}
+                </List>
+            </nav>
+            <Divider />
+            <nav aria-label="secondary mailbox folders">
+                <List>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => setAlertDialog(true)}>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Logout" />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
+            </nav>
+            {alertDialog && <Backdrop close={() => setAlertDialog(false)}>
+                <CommonAlertDialog header="Are you sure to logout?" actionBtn="Logout" open={alertDialog} setOpen={setAlertDialog} exec={handleLogout} />
+            </Backdrop>}
+        </Box>
+    );
+
+    return (
+        <div>
+            {(['left'] as const).map((anchor) => (
+                <React.Fragment key={anchor}>
+                    <MenuIcon onClick={toggleDrawer(anchor, true)} className="burger-icon" sx={{ fontSize: 35, color: '#ffffff' }} />
+                    <SwipeableDrawer
+                        anchor={anchor}
+                        open={state[anchor]}
+                        onClose={toggleDrawer(anchor, false)}
+                        onOpen={toggleDrawer(anchor, true)}
+                    >
+                        {list(anchor)}
+                    </SwipeableDrawer>
+                </React.Fragment>
+            ))}
+        </div>
+    );
+}

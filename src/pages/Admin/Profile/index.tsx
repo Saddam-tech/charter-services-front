@@ -30,7 +30,8 @@ export default Profile
 
 const Container = styled.section`
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     width: 100%;
+    height: 100vh;
 `

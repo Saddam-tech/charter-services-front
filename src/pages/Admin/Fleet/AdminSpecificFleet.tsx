@@ -180,7 +180,8 @@ const Content = styled.section`
     flex-direction: column;
     gap: 20px;
     max-width: 550px;
-    height: 100%;
+    height: 100vh;
+    padding: 0 20px;
 `
 const Header = styled.h1`
     font-size: 28px;

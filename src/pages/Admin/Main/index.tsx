@@ -32,8 +32,8 @@ const Main = () => {
                     <h2>Incoming orders</h2>
                     <p>View all the incoming orders here</p>
                 </div>
-            </Content>
-            <Content>
+                {/* </Content>
+            <Content> */}
                 <div onClick={() => navigate('/admin/banners')} className="box">
                     <h2>Banners</h2>
                     <p>Upload and modify your banners here</p>
@@ -42,8 +42,8 @@ const Main = () => {
                     <h2>Blogs</h2>
                     <p>Post your blogs here</p>
                 </div>
-            </Content>
-            <Content>
+                {/* </Content>
+            <Content> */}
                 <div onClick={() => navigate('/admin/services')} className="box">
                     <h2>Services</h2>
                     <p>Modify your services here</p>
@@ -53,16 +53,6 @@ const Main = () => {
                     <p>Post new fleet here</p>
                 </div>
             </Content>
-            {/* <Content>
-                <div onClick={() => navigate('/admin/careers')} className="box">
-                    <h2>Careers</h2>
-                    <p>Post new job openings</p>
-                </div>
-                <div onClick={() => navigate('/admin/contact-info')} className="box">
-                    <h2>Contact info</h2>
-                    <p>Modify your contact info</p>
-                </div>
-            </Content> */}
         </Container>
     )
 }
@@ -94,7 +84,10 @@ const InnerWrap = styled.section`
     }
     h1 {
         font-size: 24px;
-
+        text-align: center;
+    }
+    p {
+        text-align: center;
     }
 `
 
@@ -102,6 +95,7 @@ const Content = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     padding: 20px 0;
     width: 100%;
     gap: 20px;
@@ -115,7 +109,7 @@ const Content = styled.section`
         background-color: #ffffff75;
         padding: 15px;
         border-radius: 15px;
-        max-width: 400px;
+        max-width: 820px;
         width: 100%;
         cursor: pointer;
         &:hover {
@@ -124,7 +118,6 @@ const Content = styled.section`
     }
 
     .long {
-        max-width: 820px;
         width: 100%;
     }
 `

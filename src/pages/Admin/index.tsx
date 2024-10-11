@@ -3,7 +3,6 @@ import { Outlet, useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import Navigation from "./Navigation";
 import Header from "./Header";
-import SwipeableTemporaryDrawer from "components/SwipeableTemporaryDrawer";
 
 interface IProps {
     token: string | null;
@@ -25,7 +24,7 @@ const Admin = ({ token, setToken }: IProps) => {
         <Container mode={mode}>
             <Header mode={mode} setMode={setMode} />
             <InnerWrap>
-                {isMobile ? <SwipeableTemporaryDrawer /> : <Navigation />}
+                {!isMobile && <Navigation />}
                 <Outlet />
             </InnerWrap>
         </Container>

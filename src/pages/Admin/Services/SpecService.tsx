@@ -140,9 +140,11 @@ const Container = styled.section`
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
-    gap: 20px;
+    height: 100vh;
     flex-direction: column;
+    @media screen and (max-width: 728px) {
+        padding: 10px;
+    }
 `
 
 const Image = styled.img`
@@ -151,16 +153,14 @@ const Image = styled.img`
     height: 100%;
     border-radius: 5px;
     max-width: 900px;
-    object-fit: fit;
+    object-fit: contain;
     cursor: pointer;
 `
 
 const Content = styled.section`
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
-    gap: 20px;
     max-width: 700px;
     height: 100%;
     max-width: 900px;

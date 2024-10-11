@@ -5,10 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { ProfileCreds } from 'configs/types';
 import { defaultAdmin } from 'configs/constants';
 import { EPS, provider } from 'configs/axios';
+import AdminSwipeableLeftDrawer from 'components/AdminSwipableLeftDrawer';
 
 const Header = ({ mode, setMode }: { mode: boolean; setMode: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const navigate = useNavigate();
     const [adminInfo, setAdminInfo] = useState<ProfileCreds>(defaultAdmin);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 728px)');
+        setIsMobile(mediaQuery.matches);
+    }, [])
 
     async function loadProfile() {
         try {
@@ -23,10 +29,10 @@ const Header = ({ mode, setMode }: { mode: boolean; setMode: React.Dispatch<Reac
     }, [])
     return (
         <Container>
-            <div className="logo-wrap">
+            {isMobile ? <AdminSwipeableLeftDrawer /> : (<div className="logo-wrap">
                 <img src={require('assets/schs-mainlogo.png')} alt="profile-pic" />
                 <p>admin</p>
-            </div>
+            </div>)}
             <div className="logo-wrap">
                 <ContrastIcon onClick={() => setMode(prev => !prev)} sx={{ cursor: 'pointer', fontSize: '30px', transition: '0.3s ease-in-out', transform: `rotate(${mode ? '-180' : '0'}deg)` }} />
                 <img onClick={() => navigate('/admin/profile')} className="profile" src={adminInfo.profileImgUrl} alt="profile-pic" />
@@ -42,7 +48,7 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 width: 100%;
-padding: 0 20px;
+padding: 10px 20px;
 .logo-wrap {
     display: flex;
     align-items: center;

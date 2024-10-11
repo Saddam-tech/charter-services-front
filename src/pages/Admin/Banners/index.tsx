@@ -160,10 +160,11 @@ export default Banners;
 
 const Container = styled.section`
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     flex-direction: column;
     width: 100%;
+    height: 100vh;
     padding: 0 10px;
   `;
 
@@ -177,6 +178,7 @@ const HeaderWrap = styled.div`
 
 const ListItemButton = styled.section`
     display: flex;
+    justify-content: center;
     align-items: center;
     justify-content: space-between;
     width: 100%;

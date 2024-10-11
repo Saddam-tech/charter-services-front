@@ -44,9 +44,10 @@ export default Orders
 
 const Container = styled.section`
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: fle-start;
+    justify-content: flex-start;
     width: 100%;
+    height: 100vh;
     padding: 0 10px;
 `
 
