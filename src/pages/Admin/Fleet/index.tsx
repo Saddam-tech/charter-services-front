@@ -6,6 +6,7 @@ import Backdrop from "components/Backdrop";
 import { EPS, provider } from "configs/axios";
 import NewFleet from "components/NewFleet";
 import SpecFleet from "components/SpecFleet";
+import { useLocation } from 'react-router-dom';
 
 const theme = createTheme({
     palette: {
@@ -32,6 +33,7 @@ interface Data {
 const Fleet = () => {
     const [modal, setModal] = useState<boolean>(false);
     const [fleet, setFleet] = useState<Data[]>();
+    const location = useLocation;
 
     async function loadFleet() {
         try {
@@ -44,6 +46,10 @@ const Fleet = () => {
     useEffect(() => {
         loadFleet();
     }, []);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
     return (
         <ThemeProvider theme={theme}>
             <Container>

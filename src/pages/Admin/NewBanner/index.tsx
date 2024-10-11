@@ -147,6 +147,7 @@ export default NewBanner
 
 const Container = styled.section`
 z-index: 7;
+color: #000; 
 .quote-type-select {
     display: flex;
     align-items: center;

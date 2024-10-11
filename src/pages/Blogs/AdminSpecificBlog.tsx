@@ -129,7 +129,7 @@ const AdminSpecificBlog = () => {
                 </Content>
             </Container>
             {alert && <CommonAlertDialog header='Are you sure to delete the blog?' actionBtn="Delete" open={alert} setOpen={setAlert} exec={handleDelete} />}
-        </ThemeProvider>
+        </ThemeProvider >
     )
 }
 
@@ -162,7 +162,9 @@ const Content = styled.section`
     display: flex;
     align-items: center;
     flex-direction: column;
+    gap: 10px;
     max-width: 700px;
+    width: 100%;
     height: 100vh;
 `
 const Header = styled.h1`
@@ -184,7 +186,7 @@ const Wrap = styled.div`
     padding: 0 20px;
 `
 const Textarea = styled.textarea`
-    width: 900px;
+    width: 100%;
     height: 400px;
     background-color: rgb(255, 255, 255, 0.3);
     border: none;

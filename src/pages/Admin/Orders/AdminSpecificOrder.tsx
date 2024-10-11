@@ -96,7 +96,12 @@ export default AdminSpecificOrder
 
 const Container = styled.section`
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     width: 100%;
+    height: 100vh;
+
+    @media screen and (max-width: 728px) {
+        padding-top: 80px;       
+    }
 `

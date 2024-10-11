@@ -5,6 +5,7 @@ import { socials } from 'data';
 import ServicesBlog from 'components/ServicesBlog';
 import QuoteInput from 'components/QuoteInput';
 import { Fade } from "react-awesome-reveal";
+import { useLocation } from 'react-router-dom';
 import { EPS, provider } from 'configs/axios';
 import FleetCard from 'components/FleetCard';
 const socialsConf = { fontSize: 40, color: "#ffffff" };
@@ -26,7 +27,7 @@ interface Data {
 
 const Fleet = () => {
     const [fleet, setFleet] = useState<Data[]>();
-
+    const location = useLocation;
     async function loadFleet() {
         try {
             const { data: { response } } = await provider.get(EPS.FLEET);
@@ -39,6 +40,10 @@ const Fleet = () => {
     useEffect(() => {
         loadFleet();
     }, []);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
     return (
         <Container>
             <Fade cascade damping={0.1}>

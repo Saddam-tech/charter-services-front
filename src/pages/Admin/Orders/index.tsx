@@ -1,6 +1,6 @@
 import CustomTable from 'components/CustomTable'
 import styled from 'styled-components'
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { EPS, provider } from 'configs/axios';
 import { useEffect, useState } from 'react';
 import { Order, PathKey } from 'configs/types';
@@ -10,6 +10,7 @@ import ReplayIcon from '@mui/icons-material/Replay';
 
 
 const Orders = () => {
+    const location = useLocation;
     const { path } = useParams();
     const [orders, setOrders] = useState<Order[]>([]);
 
@@ -25,6 +26,9 @@ const Orders = () => {
     useEffect(() => {
         loadOrders(mapPathToStatus[path as PathKey]);
     }, [path])
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
     return (
         <Container>
             <HeaderWrap>

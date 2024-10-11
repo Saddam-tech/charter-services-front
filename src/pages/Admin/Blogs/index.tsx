@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import Backdrop from "components/Backdrop";
 import NewBlog from "components/NewBlog";
 import { EPS, provider } from "configs/axios";
+import { useLocation } from 'react-router-dom';
+
 
 const theme = createTheme({
     palette: {
@@ -30,6 +32,7 @@ interface Data {
 const Blogs = () => {
     const [modal, setModal] = useState<boolean>(false);
     const [blogs, setBlogs] = useState<Data[]>();
+    const location = useLocation;
 
     async function loadBlogs() {
         try {
@@ -42,6 +45,9 @@ const Blogs = () => {
     useEffect(() => {
         loadBlogs();
     }, []);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
     return (
         <ThemeProvider theme={theme}>
             <Container>

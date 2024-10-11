@@ -140,8 +140,9 @@ const Container = styled.section`
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    gap: 20px;
     flex-direction: column;
+    height: 100%;
     @media screen and (max-width: 728px) {
         padding: 10px;
     }
@@ -161,9 +162,10 @@ const Content = styled.section`
     display: flex;
     align-items: center;
     flex-direction: column;
+    gap: 10px;
+    width: 100%;
     max-width: 700px;
-    height: 100%;
-    max-width: 900px;
+    height: 100vh;
 `
 const Header = styled.h1`
     font-size: 28px;

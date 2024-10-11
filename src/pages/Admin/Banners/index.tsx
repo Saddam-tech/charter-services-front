@@ -10,7 +10,7 @@ import {
     TextField,
     Button
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -20,6 +20,8 @@ import Backdrop from 'components/Backdrop';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { EPS, provider } from 'configs/axios';
 import AlertDialog from 'components/AlertDialog';
+import { useLocation } from 'react-router-dom';
+
 
 const theme = createTheme({
     palette: {
@@ -43,6 +45,7 @@ interface Data {
 }
 
 const Banners = () => {
+    const location = useLocation;
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
     const [currentSection, setCurrentSection] = useState<number>(0);
@@ -76,6 +79,9 @@ const Banners = () => {
         setModal(true);
         console.log({ bannerIndex: index });
     }
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
 
     return (
         <Container>
